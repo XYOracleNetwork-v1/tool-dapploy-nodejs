@@ -3,10 +3,13 @@
 /**
  * Module dependencies.
  */
-
+const AWS = require('aws-sdk');
 const program = require('commander');
 const ConfigParser = require('configparser');
 const {logProcess, execPromise} = require('./execWrapper')
+const fs = require("fs"); // from node.js
+const path = require("path"); // from node.js
+const { uploadRemote } = require('./uploadFolder')
 
 program
   .version('0.1.0')
@@ -16,6 +19,7 @@ program
   .option('-c, --config [config]', 'Config file', 'deployer.conf')
   .option('-x, --excludes [Contract1,Contract2]', 'Exclude contracts from the web3 interface (files are still copied)')  
   .option('-clean, --clean', 'Clean contracts before migrating')
+  .option('-r, --remoteOnly', 'Only copy contracts remote')
   .parse(process.argv);
 
 let configParsing = (program, config) => {
@@ -27,9 +31,11 @@ let configParsing = (program, config) => {
         if (excludeStr) {
             program.excludes = excludeStr.split(',')
         }
+        program.bucketName = config.get('AWS', 'bucketName')
+        program.s3AccessKey = config.get('AWS', 's3AccessKey')
+        program.secretAccessKey = config.get('AWS', 'secretAccessKey')
     } else {
-        console.error("Bad Config File")
-        return
+        throw "Bad Config File"
     }
 }
 
@@ -38,18 +44,18 @@ try {
     config.read(program.config)
     configParsing(program, config)
 } catch (err) {
-    console.log("No Config File Found")
+    console.log("Configuration error")
     console.log(err)
 }
 
 let copyContractsRemote = (program) => {
     console.log(` $ Copying contracts to remote at ${program.network}`);
-    return execPromise('ls *')
+    return uploadRemote(program)
 }
 
 let copyContractsLocal = (program) => {
     console.log(` $ Copying contracts locally to ${program.output}`);
-    let cp = `cp build/contracts/* ${program.output}`
+    let cp = `cp -p build/contracts/* ${program.output}`
     return execPromise(cp, { cwd: program.truffle })
 }
 
@@ -90,6 +96,11 @@ if (!program.truffle) { console.log('Missing truffle directory -t <truffle proje
 if (!program.output) { console.log('Missing output directory -o <contract copy path>'); return }
 
 console.log(` $ Compiling contracts at ${program.truffle}`);
+
+if (program.remoteOnly) {
+     copyContractsRemote(program)
+     return
+}
 
 cleanIfNeeded(program).then(() => {
     return migrateTruffle(program)
