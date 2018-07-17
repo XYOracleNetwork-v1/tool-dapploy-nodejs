@@ -32,6 +32,10 @@ let uploadFiles = (bucketName, s3, files) => {
       if (fs.lstatSync(filePath).isDirectory()) {
         continue;
       }
+
+
+
+
       promises.push(new Promise( (resolve, reject) => {
           // read file contents
           fs.readFile(filePath, (error, fileContent) => {
@@ -39,14 +43,15 @@ let uploadFiles = (bucketName, s3, files) => {
                   console.log( error );
                   reject(error)
               }  
-              console.log("PUTTING", bucketName)
+              let params = {
+                Bucket: bucketName,
+                ACL: 'bucket-owner-full-control',
+                Key: fileName,
+                Body: fileContent,
+                ContentType: 'json'
+                }
               // upload file to S3
-              s3.putObject({
-                  Bucket: bucketName,
-                  ACL: 'public-read',
-                  Key: fileName,
-                  Body: fileContent
-              }, (error, res) => {
+              s3.putObject(params, (error, res) => {
                   if( error ) {
                       console.log( error );
                       return reject(error)
