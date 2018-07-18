@@ -37,6 +37,15 @@ let configParsing = (program, config) => {
         program.s3AccessKey = config.get('AWS', 's3AccessKey')
         program.secretAccessKey = config.get('AWS', 'secretAccessKey')
         program.web3ModuleOutput = config.get('React', 'web3ModuleOutput')
+
+        if (config.sections().includes("Portis")){
+            program.addPortis = true
+            program.portisApi = config.get('Portis', 'apiKey')
+            program.appName = config.get('Portis', 'appName')
+            program.logoUrl = config.get('Portis', 'logoUrl')
+        }
+
+        program.network = config.get('Web3', 'network')
     } else {
         throw "Bad Config File"
     }
