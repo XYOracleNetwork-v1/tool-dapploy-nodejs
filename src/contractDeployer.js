@@ -10,7 +10,8 @@ const {logProcess, execPromise} = require('./execWrapper')
 const fs = require("fs"); // from node.js
 const path = require("path"); // from node.js
 const { uploadRemote } = require('./uploadFolder')
-
+const { exportConfig } = require('./web3ConfigExport')
+ 
 program
   .version('0.1.0')
   .option('-t, --truffle <dir>', 'Truffle Project Directory')
@@ -20,6 +21,7 @@ program
   .option('-x, --excludes [Contract1,Contract2]', 'Exclude contracts from the web3 interface (files are still copied)')  
   .option('-clean, --clean', 'Clean contracts before migrating')
   .option('-r, --remoteOnly', 'Only copy contracts remote')
+  .option('-s, --skipRemote', 'Skip remote copy')
   .parse(process.argv);
 
 let configParsing = (program, config) => {
@@ -34,6 +36,7 @@ let configParsing = (program, config) => {
         program.bucketName = config.get('AWS', 'bucketName')
         program.s3AccessKey = config.get('AWS', 's3AccessKey')
         program.secretAccessKey = config.get('AWS', 'secretAccessKey')
+        program.web3ModuleOutput = config.get('React', 'web3ModuleOutput')
     } else {
         throw "Bad Config File"
     }
@@ -67,6 +70,13 @@ let cleanIfNeeded = program => {
     } else {
         console.log(` $ Skipping cleaning (use -clean for clean migration)`);
         return Promise.resolve()
+    }
+}
+
+let exportReactModule = (program, contracts) => {
+    if (program.web3ModuleOutput) {
+        console.log(` $ Exporting React module to ${program.web3ModuleOutput}`);
+        exportConfig(program, contracts)
     }
 }
 
@@ -105,9 +115,12 @@ if (program.remoteOnly) {
 cleanIfNeeded(program).then(() => {
     return migrateTruffle(program)
 }).then((contracts) => {
-    // TODO: Make web3 interface with the contracts provided
+    exportReactModule(program, contracts)
     return copyContractsLocal(program)
 }).then(() => {
+    if (program.skipRemote) {
+        return true
+    } 
     return copyContractsRemote(program)
 }).catch(err => {
     console.log("Something went wrong")

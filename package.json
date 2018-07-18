@@ -2,6 +2,7 @@
   "dependencies": {
     "aws-sdk": "^2.275.1",
     "commander": "^2.16.0",
-    "configparser": "^0.2.6"
+    "configparser": "^0.2.6",
+    "shelljs": "^0.8.2"
   }
 }
