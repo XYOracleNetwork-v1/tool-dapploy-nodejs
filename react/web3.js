@@ -7,8 +7,8 @@ export const getWeb3 = () => {
   }
      return new Web3(
         new PortisProvider({
-        apiKey: 'apiKey',
-        network: 'localhost',
+        apiKey: 'API_KEY',
+        network: 'kovan',
         appName: 'LayerOne',
         appLogoUrl: 'http://www.layerone.co/img/logo-white.png',
         }),
@@ -17,26 +17,27 @@ export const getWeb3 = () => {
 
 export let web3
 export let QuadToken
-const addressQuadToken = 0xcf9514a47b6703b38d36f49351faa220953669df
+const addressQuadToken = 0x43daab05c8275c8dd1ca97ad2962c14939855f78
 
 export let LRGToken
-const addressLRGToken = 0x917b5d757348aee2eda69aca4e843c1400daf2e8
+const addressLRGToken = 0xd5ed00682784e4f3a489e3b0910926a83330ffea
 
 export let LandRushCrowdsale
-const addressLandRushCrowdsale = 0x27b9ad84ba5da624ff3dcab301266b6f9349b447
+const addressLandRushCrowdsale = 0x163efbe39a4dbb9e1fcbb4f04363a19fe17d9977
 
 
 
 export function injectWeb3() {
   web3 = getWeb3()
-  	QuadToken = new web3.eth.Contract(
-		require('/Users/kevin/Documents/GitHub/xyo-dapp-deployer/contracts').abi,
+  
+	QuadToken = new web3.eth.Contract(
+		require('/Users/kevin/Documents/GitHub/xyo-dapp-deployer/contracts/QuadToken.json').abi,
 		addressQuadToken)
 	LRGToken = new web3.eth.Contract(
-		require('/Users/kevin/Documents/GitHub/xyo-dapp-deployer/contracts').abi,
+		require('/Users/kevin/Documents/GitHub/xyo-dapp-deployer/contracts/LRGToken.json').abi,
 		addressLRGToken)
 	LandRushCrowdsale = new web3.eth.Contract(
-		require('/Users/kevin/Documents/GitHub/xyo-dapp-deployer/contracts').abi,
+		require('/Users/kevin/Documents/GitHub/xyo-dapp-deployer/contracts/LandRushCrowdsale.json').abi,
 		addressLandRushCrowdsale)
 
 }

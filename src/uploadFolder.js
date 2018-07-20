@@ -12,7 +12,7 @@ let readDir = (dir) => {
         fs.readdir(dir, (err, files) => {
 
             if(!files || files.length === 0) {
-              console.log(`provided folder '${program.output}' is empty or does not exist.`);
+              console.log(`provided folder '${program.contractOutput}' is empty or does not exist.`);
               console.log('Make sure your project was compiled!');
               return reject(err);
             }
@@ -32,9 +32,6 @@ let uploadFiles = (bucketName, s3, files) => {
       if (fs.lstatSync(filePath).isDirectory()) {
         continue;
       }
-
-
-
 
       promises.push(new Promise( (resolve, reject) => {
           // read file contents
@@ -69,13 +66,17 @@ let uploadFiles = (bucketName, s3, files) => {
 }
 
 const uploadRemote = (program) => {
-    return readDir(program.output).then((files) => {
+    return readDir(program.contractOutput).then((files) => {
+
+        let bucketName = `${program.bucketName}/${program.network}`
+        console.log(` $ Copying contracts to remote AWS bucket ${bucketName}`);
+
         const s3 = new AWS.S3({ 
             signatureVersion: 'v4',
             accessKeyId: program.s3AccessKey,
             secretAccessKey:  program.secretAccessKey
             });
-        return uploadFiles(program.bucketName, s3, files)
+        return uploadFiles(bucketName, s3, files)
     })    
 }
 

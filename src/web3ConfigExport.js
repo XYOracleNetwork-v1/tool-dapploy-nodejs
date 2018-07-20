@@ -2,10 +2,10 @@ const shell = require('shelljs');
 
 const templateFile = './web3template.js'
 const tempFile = './temp999'
-const portisConfigString = ({portisApi, network, appName, logoUrl}) => 
+const portisConfigString = ({portisApiKey, network, appName, logoUrl}) => 
 `   return new Web3(
         new PortisProvider({
-        apiKey: '${portisApi}',
+        apiKey: '${portisApiKey}',
         network: '${network}',
         appName: '${appName}',
         appLogoUrl: '${logoUrl}',
@@ -40,7 +40,7 @@ let exportConfig = (program, contracts) => {
 
     }
     shell.sed('-i', 'CONTRACT_DECLARATIONS', contractDeclarationString(contracts), tempFile);
-    shell.sed('-i', 'CONTRACT_INSTANTIATION', contractInstantiationString(program.output, contracts), tempFile);
+    shell.sed('-i', 'CONTRACT_INSTANTIATION', contractInstantiationString(program.contractOutput, contracts), tempFile);
 
     shell.mv(tempFile, program.web3ModuleOutput)
     return Promise.resolve(true)
