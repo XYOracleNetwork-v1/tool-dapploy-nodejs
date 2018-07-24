@@ -22,8 +22,8 @@ let configParsing = (program) => {
             program.skipAWS = true
         }
  
-        parseParams(program, "React", ['web3ModuleOutput'])
-        const excludeStr = config.get('React', 'excludeContracts')
+        parseParams(program, "Web3", ['web3ModuleOutput'])
+        const excludeStr = config.get('Web3', 'excludeContracts')
         if (excludeStr) {
             program.excludeContracts = excludeStr.split(',')
         }

@@ -7,6 +7,7 @@ yarn-error.log*
 
 contracts
 keys
+password 
 
 # Runtime data
 pids

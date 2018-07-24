@@ -1,12 +1,14 @@
 const { execPromise } = require('./execWrapper')
 
+/* Wraps truffle migration based on configuration and returns a contracts dictionary
+    @param projectDir the directory of the truffle project
+    @param network the network (kovan, ropsten, development, ropsten-infura)
+    @param excluedeContracts which contracts to leave out of the react instantiation module (optional)
+*/
+let migrateTruffle = ({projectDir, network, excludeContracts}) => {
+    console.log(` $ Migrating contracts at ${projectDir}`);
 
-let migrateTruffle = (program) => {
-    console.log(` $ Migrating contracts at ${program.projectDir}`);
-
-    let command = `truffle migrate --network ${program.network} --reset`
-
-
+    let command = `truffle migrate --network ${network} --reset`
     console.log(` $ Using truffle command: ${command}`);
 
     let contracts = []
@@ -15,14 +17,14 @@ let migrateTruffle = (program) => {
         // Forces us to use --reset flag which is always preferred (until it's not?!)
         let nameAddress = data.match(/[\s]*(.*): (0x.*)/)
         if (nameAddress) {
-            if (!program.excludeContracts || !program.excludeContracts.includes(nameAddress[1])) {
+            if (!excludeContracts || !excludeContracts.includes(nameAddress[1])) {
                 // console.log("match", nameAddress)
                 contracts.push({name: nameAddress[1], address: nameAddress[2]})
             }
         }
     }           
 
-    return execPromise(command, { cwd: program.projectDir }, parser).then(() => {
+    return execPromise(command, { cwd: projectDir }, parser).then(() => {
         // console.log(contracts)
         return Promise.resolve(contracts)
     })

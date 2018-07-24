@@ -8,7 +8,7 @@ export const getWeb3 = () => {
      return new Web3(
         new PortisProvider({
         apiKey: 'API_KEY',
-        network: 'kovan',
+        network: 'ropsten',
         appName: 'LayerOne',
         appLogoUrl: 'http://www.layerone.co/img/logo-white.png',
         }),
@@ -17,13 +17,13 @@ export const getWeb3 = () => {
 
 export let web3
 export let QuadToken
-const addressQuadToken = 0x43daab05c8275c8dd1ca97ad2962c14939855f78
+const addressQuadToken = 0xe3d0aca35404932e33e071dfd43e58fa33c139aa
 
 export let LRGToken
-const addressLRGToken = 0xd5ed00682784e4f3a489e3b0910926a83330ffea
+const addressLRGToken = 0x642588a4f4248df880bb1d01858fe01b6050d351
 
 export let LandRushCrowdsale
-const addressLandRushCrowdsale = 0x163efbe39a4dbb9e1fcbb4f04363a19fe17d9977
+const addressLandRushCrowdsale = 0x729cb221efc065c3ebe628ba152b19abab2873c4
 
 
 
