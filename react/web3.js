@@ -17,13 +17,13 @@ export const getWeb3 = () => {
 
 export let web3
 export let QuadToken
-const addressQuadToken = 0xe3d0aca35404932e33e071dfd43e58fa33c139aa
+const addressQuadToken = 0x61ba3e92fae96c96a3ea3f907647f049cebec716
 
 export let LRGToken
-const addressLRGToken = 0x642588a4f4248df880bb1d01858fe01b6050d351
+const addressLRGToken = 0x69619346f14d63566880f2fd32124567b429f2ce
 
 export let LandRushCrowdsale
-const addressLandRushCrowdsale = 0x729cb221efc065c3ebe628ba152b19abab2873c4
+const addressLandRushCrowdsale = 0xa4b7feddaf1fb85647b28f308060010dc84bf57d
 
 
 
