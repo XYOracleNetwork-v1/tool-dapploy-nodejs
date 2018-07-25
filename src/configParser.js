@@ -17,7 +17,7 @@ let configParsing = (program) => {
         parseParams(program, "Truffle", ['projectDir', 'contractOutput', 'network'])
 
         if (config.sections().includes("AWS")) {
-            parseParams(program, "AWS", ['bucketName', 's3AccessKey', 'secretAccessKey']) 
+            parseParams(program, "AWS", ['bucketName']) 
         } else {
             program.skipAWS = true
         }

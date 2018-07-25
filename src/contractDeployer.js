@@ -56,9 +56,10 @@ program
   .option('-n, --network <network>', 'Deploy to network')
   .option('-c, --config [config]', 'Config file', '../deployer.conf')
   .option('-x, --excludes [Contract1,Contract2]', 'Exclude contracts from the web3 interface (files are still copied)')  
-  .option('-clean, --clean', 'Clean contracts before migrating')
+  .option('-n, --clean', 'Clean contracts before migrating')
   .option('-r, --remoteOnly', 'Only copy contracts remote')
   .option('-s, --skipAWS', 'Skip remote copy to aws config')
+  .option('-y, --copyOnly', 'Only do folder copy and S3 copy')
   .option('-p, --networkPrivateKey', 'Private Key for migrating to network')
   .parse(process.argv);
 
@@ -76,9 +77,15 @@ if (program.remoteOnly) {
 }
 
 cleanIfNeeded(program).then(() => {
+    if (program.copyOnly) {
+        console.log(" # Skipping Migration")
+        return Promise.resolve(undefined)
+    } 
     return migrateTruffle(program)
 }).then((contracts) => {
-    createWeb3Module(program, contracts)
+    if (contracts) {
+        createWeb3Module(program, contracts)
+    }
     return copyContractsLocal(program)
 }).then(() => {
     if (program.skipAWS) {

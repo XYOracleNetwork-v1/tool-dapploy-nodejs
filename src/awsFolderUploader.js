@@ -73,8 +73,6 @@ const uploadRemote = (program) => {
 
         const s3 = new AWS.S3({ 
             signatureVersion: 'v4',
-            accessKeyId: program.s3AccessKey,
-            secretAccessKey:  program.secretAccessKey
             });
         return uploadFiles(bucketName, s3, files)
     })    
