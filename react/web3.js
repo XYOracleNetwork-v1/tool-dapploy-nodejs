@@ -17,13 +17,15 @@ export const getWeb3 = () => {
 
 export let web3
 export let LRGToken
-const addressLRGToken = 0xd45e0a427e9e3a969877af0d4de4555c0a351b82
+const addressLRGToken = 0x9d851f973636036ebdad1b1ae2a1260437ca3580
+
+
 
 export function injectWeb3() {
   web3 = getWeb3()
   
 	LRGToken = new web3.eth.Contract(
-		require('~/Documents/GitHub/xyo-dapp-deployer/react/ABI/LRGToken.json').abi,
+		require('/Users/kevin/Documents/GitHub/xyo-dapp-deployer/react/ABI/LRGToken.json').abi,
 		addressLRGToken)
 
 }

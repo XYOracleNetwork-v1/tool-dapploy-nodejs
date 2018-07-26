@@ -1,13 +1,9 @@
 {
   "dependencies": {
     "aws-sdk": "^2.275.1",
-    "babel-polyfill": "^6.26.0",
-    "babel-register": "^6.26.0",
     "commander": "^2.16.0",
     "configparser": "^0.2.6",
-    "openzeppelin-solidity": "^1.11.0",
     "shelljs": "^0.8.2",
-    "truffle-hdwallet-provider": "^0.0.5",
     "untildify": "^3.0.3"
   }
 }

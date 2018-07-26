@@ -8,7 +8,7 @@ yarn-error.log*
 keys
 password
 react
-build 
+ExampleTruffleProject/build 
 
 # Runtime data
 pids
