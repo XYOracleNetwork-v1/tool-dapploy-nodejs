@@ -1,7 +1,7 @@
 const shell = require('shelljs');
 
-const templateFile = './web3template.js'
-const tempFile = './temp999'
+const templateFile = './src/web3template.js'
+const tempFile = './src/temp999'
 const portisConfigString = ({portisApiKey, network, appName, logoUrl}) => 
 `   return new Web3(
         new PortisProvider({

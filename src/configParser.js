@@ -1,11 +1,12 @@
 
 const ConfigParser = require('configparser');
 const config = new ConfigParser();
+const untildify = require('untildify');
 
 let parseParams = (program, section, params) => {
     for (const param of params) {
         if (!program[param]) {
-            program[param] = config.get(section, param)
+            program[param] = untildify(config.get(section, param))
         }
     }
 }

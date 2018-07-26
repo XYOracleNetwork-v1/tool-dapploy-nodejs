@@ -3,19 +3,21 @@
 /**
  * Module dependencies.
  */
-const { execPromise } = require('./execWrapper')
-const { uploadRemote } = require('./awsFolderUploader')
-const { exportConfig } = require('./web3ConfigExporter')
-const { parseConfig } = require('./configParser')
-const { migrateTruffle } = require('./truffleMigrator')
+const { execPromise } = require('./src/execWrapper')
+const { uploadRemote } = require('./src/awsFolderUploader')
+const { exportConfig } = require('./src/web3ConfigExporter')
+const { parseConfig } = require('./src/configParser')
+const { migrateTruffle } = require('./src/truffleMigrator')
+const path = require("path"); // from node.js
 
 /* Copies the contracts in the specified project to a local project (react client, etc)
 
 */
 let copyContractsLocal = (program) => {
     console.log(` $ Copying contracts locally to ${program.contractOutput}`);
-    let cp = `cp -p build/contracts/* ${program.contractOutput}`
-    return execPromise(cp, { cwd: program.projectDir })
+    let fromPath = path.join(program.projectDir, "build/contracts/*")
+    let cp = `cp -p ${fromPath} ${program.contractOutput}`
+    return execPromise(cp)
 }
 
 let cleanIfNeeded = program => {
@@ -54,7 +56,7 @@ program
   .option('-t, --truffle <dir>', 'Truffle Project Directory')
   .option('-o, --output <dir>', 'Contract Output Directory')
   .option('-n, --network <network>', 'Deploy to network')
-  .option('-c, --config [config]', 'Config file', '../deployer.conf')
+  .option('-c, --config [config]', 'Config file', 'deployer.conf')
   .option('-x, --excludes [Contract1,Contract2]', 'Exclude contracts from the web3 interface (files are still copied)')  
   .option('-n, --clean', 'Clean contracts before migrating')
   .option('-r, --remoteOnly', 'Only copy contracts remote')
