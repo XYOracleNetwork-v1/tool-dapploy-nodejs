@@ -41,12 +41,7 @@ let createWeb3Module = (program, contracts) => {
 /* ** Main Program **
 
     @description - This program may be configured using parameter options below
-    Makes it simple to deploy your contracts to whatever network
-
-    Ex: Deploy to ropsten
-
-    1) Configure your 
-
+    Makes it simple to deploy your contracts to your network of choice
 
 */
 const program = require('commander');
@@ -91,7 +86,7 @@ cleanIfNeeded(program).then(() => {
     return copyContractsLocal(program)
 }).then(() => {
     if (program.skipAWS) {
-        return true
+        return Promise.resolve(undefined)
     } 
     return uploadRemote(program)
 }).catch(err => {
