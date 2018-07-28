@@ -3,7 +3,7 @@ const { execPromise } = require('./execWrapper')
 /* Wraps truffle migration based on configuration and returns a contracts dictionary
     @param projectDir the directory of the truffle project
     @param network the network (kovan, ropsten, development, ropsten-infura)
-    @param excluedeContracts which contracts to leave out of the react instantiation module (optional)
+    @param excludeContracts which contracts to leave out of the web3 instantiation module (optional)
 */
 let migrateTruffle = ({projectDir, network, excludeContracts}) => {
     console.log(` $ Migrating contracts at ${projectDir}`);

@@ -16,17 +16,17 @@ export const getWeb3 = () => {
 }
 
 export let web3
-export let LRGToken
-const addressLRGToken = 0x9d851f973636036ebdad1b1ae2a1260437ca3580
+export let IPFSVault
+export const addressIPFSVault = '0x5ec8b78f7ab0e69edbec3dbb2e1a3167813159d5'
 
 
 
 export function injectWeb3() {
   web3 = getWeb3()
   
-	LRGToken = new web3.eth.Contract(
-		require('/Users/kevin/Documents/GitHub/xyo-dapp-deployer/react/ABI/LRGToken.json').abi,
-		addressLRGToken)
+	IPFSVault = new web3.eth.Contract(
+		require('/Users/kevin/Documents/GitHub/xyo-dapp-deployer/examples/react-client/src/ABI/IPFSVault.json').abi,
+		addressIPFSVault)
 
 }
 

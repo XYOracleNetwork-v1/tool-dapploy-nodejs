@@ -22,6 +22,15 @@
   font-size: large;
 }
 
+.table {
+  max-width: 90%;
+  margin: 10px;
+ }
+ 
+ .table th {
+  text-align: center;
+ }
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

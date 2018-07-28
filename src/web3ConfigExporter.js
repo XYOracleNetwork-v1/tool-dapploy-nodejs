@@ -15,7 +15,7 @@ const contractDeclarationString = (contracts) => {
     let returnString = ''
     for (const contract of contracts) {
         returnString += `export let ${contract.name}\n`
-        returnString += `const address${contract.name} = ${contract.address}\n\n`
+        returnString += `const address${contract.name} = '${contract.address}'\n\n`
     }
     return returnString
 }

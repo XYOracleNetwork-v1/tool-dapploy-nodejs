@@ -8,6 +8,7 @@
 
 # production
 /build
+/src/ABI
 
 # misc
 .DS_Store
