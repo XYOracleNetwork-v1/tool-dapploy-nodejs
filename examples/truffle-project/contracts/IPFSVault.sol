@@ -16,9 +16,13 @@ contract IPFSVault is ERC721Token {
     {
     }
 
-    event IPFSStored(string indexed vault, address indexed owner);
+    event IPFSStored(string vault, uint indexed vaultId, address indexed owner);
 
-    function stringToUint(string s) constant returns (uint) {
+    function stringToUint(string s) 
+        internal 
+        pure 
+        returns (uint) 
+    {
         bytes memory b = bytes(s);
         uint result = 0;
         for (uint i = 0; i < b.length; i++) { 
@@ -33,19 +37,33 @@ contract IPFSVault is ERC721Token {
         Mints a token with the ipfs hash and assigns ownership
     */
     function storeInVault(
-      address _beneficiary,
       string _vault,
       string _ipfsHash
     )
         public
     {
-        require(bytes(_vault).length < 32);
+        require(bytes(_vault).length < 32, "Vault name must be less than 32 bytes");
         uint vaultId = stringToUint(_vault);
         if (!exists(vaultId)) {
-            _mint(_beneficiary, vaultId);
+            _mint(msg.sender, vaultId);
         }
-        require (ownerOf(vaultId) == msg.sender);
+        require (ownerOf(vaultId) == msg.sender, "Sender must own Vault");
         _setTokenURI(vaultId, _ipfsHash);
-        emit IPFSStored(_vault, _beneficiary);
+        emit IPFSStored(_vault, vaultId, msg.sender);
+    }
+
+    /* 
+        Returns vault given the string
+    */
+    function getVault(
+        string _vault
+    )
+        public
+        view
+        returns (string)
+    {
+        require(bytes(_vault).length < 32, "Vault name must be less than 32 bytes");
+        uint vaultId = stringToUint(_vault);
+        return tokenURIs[vaultId];
     }
 }
