@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "glamor": "^2.20.40",
+    "glamorous": "^4.13.1",
     "ipfs-api": "^22.2.4",
     "portis": "^1.2.5",
     "react": "^16.4.1",

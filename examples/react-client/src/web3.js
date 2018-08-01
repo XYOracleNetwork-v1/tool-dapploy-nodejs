@@ -17,7 +17,7 @@ export const getWeb3 = () => {
 
 export let web3
 export let IPFSVault
-export const addressIPFSVault = '0x5ec8b78f7ab0e69edbec3dbb2e1a3167813159d5'
+const addressIPFSVault = '0xb68d9684c3637b560ef23f7a3fe4a085cc8e6a97'
 
 
 
