@@ -1,20 +1,37 @@
-## XYO Dapp Deployer
+## Dapp Deployer
 
-Automate deployment of Dapps to your Web3 Dapp locally and/or to your remote Caching server via AWS S3.  [See Ether Cache for server portion] (https://github.com/XYOracleNetwork/ether-cache)
+Automate deployment of Dapps!  We've gone through the hoops of Dapp Deployment and automated out a bunch of the pain points.
 
 # Prerequisits:  
 
-You will need an ethereum node fully synced, or use infura nodes by following below instructions. You'll also need an ethereum account that has enough ETH to cover cost of gas for deploying contracts.
+We use [Truffle](https://truffleframework.com) to deploy smart contracts on the Ethereum blockchain.  Make sure that's installed globally:
+`npm install -g truffle`
+
+Remember to 'YARN ALL THE THINGS' from the main project dir
+`yarn && cd examples/react-client/ && yarn && cd ../truffle-project && yarn && cd ../..`
+
+When you run the Dapp Deployer, your truffle project will need to be configured seperately.  A good example you can use is in the example  Truffle project  `examples/truffle-project` and open `truffle.js` config file.
 
 # Create ethereum account to deploy contracts:
 
-Use metamask, mycrypto.io or your preferred wallet provider.  This account is responsible for deploying the contracts and must have enough ETH to pay for the gas.
+You will need an ethereum account (a wallet) with some eth to deploy contracts to your Ethereum network.  You can use metamask, mycrypto.io, Ganache, Geth, Parity, etc, depending on your target ethereum network to create/view your wallet contents.
 
-For the purposes of setup here, place your private key into a keyfile "ropsten", "kovan"
+# Local Setup (Ganache + Metamask)
 
-# Ropsten Setup
+* [Download](https://github.com/trufflesuite/ganache/releases) latest appropriate Ganache client
 
-# Use geth to sync a local  node:
+* [Download](https://metamask.io/) metamask chrome extension
+
+* Start Ganache, check `Preferences...` menu that port is set to 8545. Sign into Metamask and change Network on Metamask to localhost 8545 
+
+* Copy a private key from one account in your Ganache UI. (Tap on the key symbol `Show Keys` by an account to see the private key)
+
+* Configure dapp deployer per instructions below with network `development`
+
+* Run dapp deployer, skipping aws:
+`./contractDeployer.js -s`
+
+# Ropsten Setup (Geth)
 
 * Install geth with 
 `brew install geth`
@@ -34,9 +51,8 @@ It will ask you for a password to protect the imported keyfile.  You only have t
 
 `geth --rpc --rpcapi="personal,eth,network,net,web3" --datadir ~/Library/Ethereum/testnet --unlock 0x3d70f5f9b66311bbbd497471d9a69f476ea1d70b --testnet`
 
-# Kovan setup
+# Kovan setup (Parity)
 
-# Use parity to sync a node
 Kovan chain only works with parity.  
 
 * Add parity tap: 
@@ -67,13 +83,13 @@ Once you have your network of choice synced, and an account unlocked on the chai
 * Set the `network` in `deployer.conf` to one of the following:
 ropsten, kovan, development, ropsten-infura, main
 
-* Add the truffle project root path for `projectDir`
-
-* If you are building a javascript compatable web3 client (React, etc), add the local path to copy your ABI in `contractOutput`.
+* Once you are comfortable compiling and deploying the example projects, set the `projectDir` and `contractOutput` to your own new or existing project
 
 * Optionally include the destination to export the web3 provider module: `web3ModuleOutput`
 
-* Want to copy your ABI to Amazon S3?  Include your AWS S3 `bucketName`, add your access key and add your AWS credentials with approved access to S3 by creating credentials file:
+* Want your dApp to support multiple browsers?  Configure Portis in Dapp deployer setup, by first adding your Dapp on [portis.io](https://portis.io) and adding your key/app name to the configuration file.
+
+* Have a centralized storage server? Copy your ABI to Amazon S3 for your backend to dynamically link in like we do with [Ether Cache](https://github.com/XYOracleNetwork/ether-cache).  Include your AWS S3 `bucketName`, add your access key and add your AWS credentials with approved access to S3 by creating credentials file:
 `~/.aws/credentials` with format:
 
 ```
@@ -84,7 +100,7 @@ aws_secret_access_key = FAKEasdfas=aqewrasdfa/sdfasdfasdfasdfFAKE
 
  [Detailed AWS credential instructions here](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.html)
 
-* Run ./contractDeployer.js
+
 
 
 

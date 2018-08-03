@@ -7,9 +7,9 @@ export const getWeb3 = () => {
   }
      return new Web3(
         new PortisProvider({
-        apiKey: 'API_KEY',
+        apiKey: '79206f2b809ca849dfd73e487f2b948c',
         network: 'development',
-        appName: 'LayerOne',
+        appName: 'Data Vault',
         appLogoUrl: 'http://www.layerone.co/img/logo-white.png',
         }),
     )
@@ -17,7 +17,7 @@ export const getWeb3 = () => {
 
 export let web3
 export let DataVault
-export const addressDataVault = '0xabce363b2e8498b4bffd65416c43b1a5451f1e0c'
+export const addressDataVault = '0xa72d6228c047f3b8d3d9cc0935706589f921cb46'
 
 
 
