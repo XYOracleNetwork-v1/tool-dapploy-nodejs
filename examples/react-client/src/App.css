@@ -25,12 +25,15 @@
 .table {
   max-width: 90%;
   margin: 10px;
+  margin-left: 30px;
  }
- 
  .table th {
-  text-align: center;
+  text-align: left;
+  padding-bottom: 10px;
  }
-
+ .table td {
+  text-align: left;
+ }
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

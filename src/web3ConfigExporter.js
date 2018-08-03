@@ -1,5 +1,4 @@
 const shell = require('shelljs');
-
 const templateFile = './src/web3template.js'
 const tempFile = './src/temp999'
 const portisConfigString = ({portisApiKey, network, appName, logoUrl}) => 
@@ -15,7 +14,7 @@ const contractDeclarationString = (contracts) => {
     let returnString = ''
     for (const contract of contracts) {
         returnString += `export let ${contract.name}\n`
-        returnString += `const address${contract.name} = '${contract.address}'\n\n`
+        returnString += `export const address${contract.name} = '${contract.address}'\n\n`
     }
     return returnString
 }
