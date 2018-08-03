@@ -8,6 +8,7 @@ We use [Truffle](https://truffleframework.com) to deploy smart contracts on the 
 `npm install -g truffle`
 
 Remember to 'YARN ALL THE THINGS' from the main project dir
+
 `yarn && cd examples/react-client/ && yarn && cd ../truffle-project && yarn && cd ../..`
 
 When you run the Dapp Deployer, your truffle project will need to be configured seperately.  A good example you can use is in the example  Truffle project  `examples/truffle-project` and open `truffle.js` config file.
@@ -18,18 +19,25 @@ You will need an ethereum account (a wallet) with some eth to deploy contracts t
 
 # Local Setup (Ganache + Metamask)
 
-* [Download](https://github.com/trufflesuite/ganache/releases) latest appropriate Ganache client
+* [Download](https://github.com/trufflesuite/ganache/releases) and install latest appropriate Ganache client
 
-* [Download](https://metamask.io/) metamask chrome extension
+* [Download](https://metamask.io/) and install metamask chrome extension
 
 * Start Ganache, check `Preferences...` menu that port is set to 8545. Sign into Metamask and change Network on Metamask to localhost 8545 
 
 * Copy a private key from one account in your Ganache UI. (Tap on the key symbol `Show Keys` by an account to see the private key)
 
-* Configure dapp deployer per instructions below with network `development`
+* Configure dapp deployer per instructions below with local (development) network: 
+
+`network=development`
 
 * Run dapp deployer, skipping aws:
+
 `./contractDeployer.js -s`
+
+* Run the react client project to play with your deployed Dapp!
+
+`cd examples/react-client && yarn start`
 
 # Ropsten Setup (Geth)
 
