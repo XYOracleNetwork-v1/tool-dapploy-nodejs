@@ -1,47 +1,103 @@
-## Dapp Deployer
+<h1 align="center">
+  Bangarang
+</h1>
 
-Automate deployment of Dapps!  We've gone through the hoops of Dapp Deployment and automated out a bunch of the pain points.
+<p align="center">
+  <a href="https://xyo.network">
+    <img alt="Yarn" src="https://www.disneyclips.com/imagesnewb/images/clippeterpan21.gif?raw=true" width="246">
+  </a>
+</p>
 
-# Prerequisits:  
+<h3 align="center">
+  Deploy dApps without trying.
+</h3>
 
-We use [Truffle](https://truffleframework.com) to deploy smart contracts on the Ethereum blockchain.  Make sure that's installed globally:
-`npm install -g truffle`
+<p align="center">
+  <a href="https://circleci.com/gh/yarnpkg/yarn">
+    <img alt="Circle Status" src="https://circleci.com/gh/yarnpkg/yarn.svg?style=shield&circle-token=5f0a78473b0f440afb218bf2b82323cc6b3cb43f">
+  </a>
+  <a href="https://ci.appveyor.com/project/kittens/yarn/branch/master">
+    <img alt="Appveyor Status" src="https://ci.appveyor.com/api/projects/status/0xdv8chwe2kmk463?svg=true">
+  </a>
+  <a href="https://discord.gg/yarnpkg">
+    <img alt="Discord Chat" src="https://img.shields.io/discord/226791405589233664.svg">
+  </a>
+  <a href="http://commitizen.github.io/cz-cli/">
+    <img alt="Commitizen friendly" src="https://img.shields.io/badge/commitizen-friendly-brightgreen.svg">
+    </a>
+</p>
 
-Remember to 'YARN ALL THE THINGS' from the main project dir
+<p align="center">
+  Made with  ❄️ by [XYO Network (Winterfell)](https://xyo.network)
+</p>
 
-`yarn && cd examples/react-client/ && yarn && cd ../truffle-project && yarn && cd ../..`
+---
 
-When you run the Dapp Deployer, your truffle project will need to be configured seperately.  A good example you can use is in the example  Truffle project  `examples/truffle-project` and open `truffle.js` config file.
+Finally, you can deploy dApps in less than 5 seconds flat WITHOUT even lifting a finger... Guaranteed!
 
-# Create ethereum account to deploy contracts:
+OK, you may have to lift a finger.
 
-You will need an ethereum account (a wallet) with some eth to deploy contracts to your Ethereum network.  You can use metamask, mycrypto.io, Ganache, Geth, Parity, etc, depending on your target ethereum network to create/view your wallet contents.
+But here's the deal.
 
-# Local Setup (Ganache + Metamask)
+We've gone through the hoops of deploying dApps on the Ethereum Network and have nuked out all of the annoying parts.
 
-* [Download](https://github.com/trufflesuite/ganache/releases) and install latest appropriate Ganache client
+> "Take it from me, after you use Bangarang, you'll never go back to deploying dApps while wearing women's underwear ever again." - Graham McBain
 
-* [Download](https://metamask.io/) and install metamask chrome extension
 
-* Start Ganache, check `Preferences...` menu that port is set to 8545. Sign into Metamask and change Network on Metamask to localhost 8545 
+# Pt I. Let's Get Crack-a-Lackin'  
 
-* Copy a private key from one account in your Ganache UI. (Tap on the key symbol `Show Keys` by an account to see the private key)
+1. We use [Truffle](https://truffleframework.com) to deploy smart contracts on the Ethereum blockchain. Install it globally via entering this in your terminal:
 
-* Configure dapp deployer per instructions below with local (development) network: 
+```
+npm install -g truffle
+```
 
-`network=development`
+2. Remember to 'YARN ALL THE THINGS' from the main project dir. Run this command:
 
-* Run dapp deployer, skipping aws:
+```
+yarn && cd examples/react-client/ && yarn && cd ../truffle-project && yarn && cd ../..
+```
 
-`./contractDeployer.js -s`
+**NOTE:** When you run the Dapp Deployer, your truffle project will need to be configured seperately.  A good example you can use is in the example  Truffle project  `examples/truffle-project` and open `truffle.js` config file.
 
+# Pt II. This Time, It's Personal
+
+### Now, it's time to create an Ethereum Account (AKA "wallet") to deploy smart contracts!
+
+You will need an Ethereum Account with some ETH to deploy contracts to the Ethereum Network.
+
+You can use metamask, mycrypto.io, Ganache, Geth, Parity, etc.
+
+Let's go through a few of these now!
+
+Just make sure your weapon of choice ain't a hook. ARGH!
+
+### Setup Option #1: Local Setup (Ganache + Metamask)
+---
+
+1. [Download and install Ganache from their site](https://truffleframework.com/ganache)
+
+* [Install MetaMask from their site](https://metamask.io/)
+
+* K, back to Ganache. Open it up.
+* Click the Gear Icon thingy ( ⚙️ ) to open `Preferences...`.
+v Make sure that port is set to 8545.
+* Click "Save and Restart" in the top-right of Ganache
+* Click the MetaMask fox icon in your chrome browser and complete all the first-timer steps if you're a MetaMask virgin (like Arie's mom).
+* Sign into Metamask and change Network on Metamask to localhost 8545
+* Now back to Ganache!
+* In your Ganache UI, you'll see a list of ~10 addresses. Click the key icon (🔑) next to one of 'em. And then COPY the "Private Key"
+* Head over to the `deployer.conf` file and open it up.
+* Make sure that the `network` is set to the following: `network=development`.
+* Run dapp deployer, skipping aws: `./contractDeployer.js -s`
 * Run the react client project to play with your deployed Dapp!
 
 `cd examples/react-client && yarn start`
 
-# Ropsten Setup (Geth)
+### Setup Option #2: Ropsten Setup (Geth)
+---
 
-* Install geth with 
+* Install geth with
 `brew install geth`
 
 * Sync with Ropsten testnet using:
@@ -59,14 +115,15 @@ It will ask you for a password to protect the imported keyfile.  You only have t
 
 `geth --rpc --rpcapi="personal,eth,network,net,web3" --datadir ~/Library/Ethereum/testnet --unlock 0x3d70f5f9b66311bbbd497471d9a69f476ea1d70b --testnet`
 
-# Kovan setup (Parity)
+### Setup Option #3: Kovan setup (Parity)
+---
 
 Kovan chain only works with parity.  
 
-* Add parity tap: 
+* Add parity tap:
 `brew tap paritytech/paritytech`
 
-* Install parity with 
+* Install parity with
 `brew install parity`
 
 * Sync with kovan chain
@@ -84,7 +141,8 @@ It will look like:
 `parity --chain kovan --fast-unlock --unlock "0x3d70f5f9b66311bbbd497471d9a69f476ea1d70b" --password ../password.txt`
 
 
-# Configure Dapp Deployer
+# Pt III. Bangarang!
+
 
 Once you have your network of choice synced, and an account unlocked on the chain, configure and run the Dapp Deployer.
 
@@ -108,8 +166,6 @@ aws_secret_access_key = FAKEasdfas=aqewrasdfa/sdfasdfasdfasdfFAKE
 
  [Detailed AWS credential instructions here](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.html)
 
+## Street Cred
 
-
-
-
-
+Made with ❄️  by [XYO Network (Winterfell)](https://xyo.network)
