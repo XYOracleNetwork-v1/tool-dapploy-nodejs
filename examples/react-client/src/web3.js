@@ -17,7 +17,7 @@ export const getWeb3 = () => {
 
 export let web3
 export let DataVault
-export const addressDataVault = '0xa72d6228c047f3b8d3d9cc0935706589f921cb46'
+export const addressDataVault = '0x917666e8b967cb555a5b1bf594018b9348b4381b'
 
 
 

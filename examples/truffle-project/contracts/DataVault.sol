@@ -20,6 +20,7 @@ contract DataVault is ERC721Token {
 
     /* 
         Takes a string and converts to binary uint
+        This is to be used as the NFT key
         @param _s - string to convert to a uint256 integer
     */
     function encodeShortString(string _s) 

@@ -56,6 +56,7 @@ class App extends Component {
   }
 
   refreshIPFS = async () => {
+    console.log("DV", DataVault)
     try {
       const accounts = await web3.eth.getAccounts();
       const owner = accounts[0]
