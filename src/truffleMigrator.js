@@ -8,7 +8,7 @@ const { execPromise } = require('./execWrapper')
 let migrateTruffle = ({projectDir, network, excludeContracts}) => {
     console.log(` $ Migrating contracts at ${projectDir}`);
 
-    let command = `${projectDir}/node_modules/.bin/truffle migrate --network ${network} --reset`
+    let command = `${__dirname}/../node_modules/.bin/truffle migrate --network ${network} --reset`
     console.log(` $ Using truffle command: ${command}`);
 
     let contracts = []

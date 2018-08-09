@@ -12,7 +12,6 @@ let parseParams = (program, section, params) => {
 }
 
 let configParsing = (program) => {
-    console.log(config.sections())
     
     if (config.sections().length > 0) {
         parseParams(program, "Truffle", ['projectDir', 'contractOutput', 'network'])
