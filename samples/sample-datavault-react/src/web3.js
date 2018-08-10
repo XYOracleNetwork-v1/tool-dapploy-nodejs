@@ -10,7 +10,7 @@ export const getWeb3 = () => {
 
 export let web3
 export let DataVault
-export const addressDataVault = '0x821da2fe0f3307512a58098c64082ace1312ee3f'
+export const addressDataVault = '0x8f9a56608cda083f063c1c7de2cdf3d2e8789885'
 
 
 
@@ -18,7 +18,7 @@ export function injectWeb3() {
   web3 = getWeb3()
   
 	DataVault = new web3.eth.Contract(
-		require('/Users/kevin/Documents/GitHub/example-datavault-react/src/ABI/DataVault.json').abi,
+		require('/Users/kevin/Documents/GitHub/tool-dappdeployer-node/samples/sample-datavault-react/src/ABI/DataVault.json').abi,
 		addressDataVault)
 
 }
