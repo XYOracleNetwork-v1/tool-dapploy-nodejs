@@ -8,6 +8,7 @@ export const getWeb3 = () => {
   PORTIS_PROVIDER
 }
 
+export let SmartContracts = []
 export let web3
 CONTRACT_DECLARATIONS
 

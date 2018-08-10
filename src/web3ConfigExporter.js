@@ -3,7 +3,6 @@ const templateFile = './src/web3template.js'
 const tempFile = './src/temp999'
 const portisConfigString = ({portisApiKey, network, appName, logoUrl}) => 
 {
-    console.log(portisApiKey, network, appName, logoUrl)
     if (!portisApiKey || !appName) {
         // default to localhost if no portis included
         return `return new Web3('http://localhost:8545')`
@@ -35,6 +34,8 @@ const contractInstantiationString = (contractPath, contracts) => {
         returnString += `\t${contract.name} = new web3.eth.Contract(\n`
         returnString += `\t\trequire('${contractPath}/${contract.name}.json').abi,\n`
         returnString += `\t\taddress${contract.name})\n`
+        returnString += `\t\tSmartContracts.push({name: '${contract.name}', contract: ${contract.name}})\n`
+
     }
     return returnString
 }
