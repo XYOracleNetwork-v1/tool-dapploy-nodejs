@@ -15,6 +15,7 @@ export const contractNamed = (name) => {
   return undefined
 }
 
+export let SmartContracts = []
 export let web3
 CONTRACT_DECLARATIONS
 

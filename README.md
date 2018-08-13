@@ -46,19 +46,16 @@ We've gone through the hoops of deploying dApps on the Ethereum Network and have
 
 # Pt I. Let's Get Crack-a-Lackin'  
 
-1. We use [Truffle](https://truffleframework.com) to deploy smart contracts on the Ethereum blockchain. Install it globally via entering this in your terminal:
+1. We use [Truffle](https://truffleframework.com) to deploy our smart contracts to any Ethereum blockchain. 
 
-```
-npm install -g truffle
-```
+**NOTE:** When you run the Dapp Deployer, your truffle project will need to be configured seperately.  A good example you can use is in the provided sample Truffle project  `samples/sample-datavault-solidity` and open `truffle.js` config file.
 
 2. Remember to 'YARN ALL THE THINGS' from the main project dir. Run this command:
 
 ```
-yarn && cd examples/react-client/ && yarn && cd ../truffle-project && yarn && cd ../..
+yarn && cd samples/sample-datavault-react/ && yarn && cd ../sample-datavault-solidity && yarn && cd ../..
 ```
 
-**NOTE:** When you run the Dapp Deployer, your truffle project will need to be configured seperately.  A good example you can use is in the example  Truffle project  `examples/truffle-project` and open `truffle.js` config file.
 
 # Pt II. This Time, It's Personal
 
@@ -92,7 +89,7 @@ v Make sure that port is set to 8545.
 * Run dapp deployer, skipping aws: `./contractDeployer.js -s`
 * Run the react client project to play with your deployed Dapp!
 
-`cd examples/react-client && yarn start`
+`cd samples/sample-datavault-react && yarn start`
 
 ### Setup Option #2: Ropsten Setup (Geth)
 ---
