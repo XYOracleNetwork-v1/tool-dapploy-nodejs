@@ -1,4 +1,7 @@
-#Data Vault Dapp
+###Data Vault Dapp
+
+This sample Dapp allows developers to store files on IPFS, or some other file storage, and associates a NFT (Non Fungible Token) to that file.
+
 
 * When in doubt, `yarn` it out:
 
