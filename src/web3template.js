@@ -7,6 +7,13 @@ export const getWeb3 = () => {
   }
   PORTIS_PROVIDER
 }
+export const contractNamed = (name) => {
+  let contractObj = SmartContracts.find(contract => contract.name === name)
+  if (contractObj) {
+    return contractObj.contract
+  }
+  return undefined
+}
 
 export let web3
 CONTRACT_DECLARATIONS
