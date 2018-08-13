@@ -2,7 +2,6 @@ const AWS = require("aws-sdk"); // from AWS SDK
 const fs = require("fs"); // from node.js
 const path = require("path"); // from node.js
 
-
 // resolve full folder path
 // const distFolderPath = path.join(__dirname, config.folderPath);
 

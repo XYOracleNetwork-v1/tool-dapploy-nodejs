@@ -53,7 +53,6 @@ let parseConfig = (program) => {
     config.read(program.config)
     configParsing(program)
     validateProgramRequirements(program)
-
 }
 
 module.exports = { parseConfig }

@@ -1,22 +1,20 @@
 const shell = require('shelljs');
 const templateFile = './src/web3template.js'
-const tempFile = './src/temp999'
+const tempFile = './src/temp999' // Copy the template to working file for us to modify
+
 const portisConfigString = ({portisApiKey, network, appName, logoUrl}) => 
 {
     if (!portisApiKey || !appName) {
         // default to localhost if no portis included
         return `return new Web3('http://localhost:8545')`
     } else {
-        return `   return new Web3(
-            new PortisProvider({
+        return `return new Web3(new PortisProvider({
             apiKey: '${portisApiKey}',
             network: '${network}',
             appName: '${appName}',
             appLogoUrl: '${logoUrl}',
-            }),
-        )`
+        }))`
     }
-    
 }
 
 const contractDeclarationString = (contracts) => {
