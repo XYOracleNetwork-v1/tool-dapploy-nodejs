@@ -22,7 +22,7 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
-      - run: sudo npm install -g util.promisify
+      - run: yarn add util.promisify
 
       - run: yarn && cd samples/sample-datavault-react/ && yarn && cd ../sample-datavault-solidity && yarn && cd ../..
 
@@ -32,7 +32,7 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
         
       # run tests! TODO
-      - run: ./strap -h
+      - run: strap -h
 
       - store_test_results:
           path: reports
