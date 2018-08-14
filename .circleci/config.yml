@@ -9,10 +9,17 @@ jobs:
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
       # - image: circleci/mongo:3.4.4
+      - image: node:8.0
 
     working_directory: ~/repo
 
     steps:
+      - run:
+          name: "Checking Versions"
+          command: |
+            node --version
+            npm --version
+
       - checkout
 
       # Download and cache dependencies
