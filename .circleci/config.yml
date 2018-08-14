@@ -22,9 +22,10 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
-      - run: yarn add util.promisify
-
+      - run: node --version
+      - run: npm --version
       - run: yarn
+      - run: ./strap -V
 
       - save_cache:
           paths:
