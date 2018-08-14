@@ -5,6 +5,7 @@
     "configparser": "^0.2.6",
     "shelljs": "^0.8.2",
     "truffle": "^4.1.13",
-    "untildify": "^3.0.3"
+    "untildify": "^3.0.3",
+    "util.promisify": "^1.0.0"
   }
 }
