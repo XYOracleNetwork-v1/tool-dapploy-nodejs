@@ -1,21 +1,19 @@
-<h1 align="center">
-  Bangarang
-</h1>
+
 
 <p align="center">
   <a href="https://xyo.network">
-    <img alt="Yarn" src="https://www.disneyclips.com/imagesnewb/images/clippeterpan21.gif?raw=true" width="246">
+    <img alt="DAPPSTRAP" src="https://img.etsystatic.com/isla/507961/19840890/isla_fullxfull.19840890_5jqqv1un.jpg?version=0" width="246">
   </a>
 </p>
 
+<h1 align="center">
+  DAPPSTRAP
+</h1>
 <h3 align="center">
-  Deploy dApps without trying.
+  "It's sorta like <del>a jockstrap</del> bootstrap for Deploying DApps".
 </h3>
 
 <p align="center">
-  <a href="https://circleci.com/gh/yarnpkg/yarn">
-    <img alt="Circle Status" src="https://circleci.com/gh/yarnpkg/yarn.svg?style=shield&circle-token=5f0a78473b0f440afb218bf2b82323cc6b3cb43f">
-  </a>
   <a href="https://ci.appveyor.com/project/kittens/yarn/branch/master">
     <img alt="Appveyor Status" src="https://ci.appveyor.com/api/projects/status/0xdv8chwe2kmk463?svg=true">
   </a>
@@ -28,7 +26,8 @@
 </p>
 
 <p align="center">
-  Made with  ❄️ by [XYO Network (Winterfell)](https://xyo.network)
+  Made with ❄️
+  <br/>by [XYO](https://xyo.network)
 </p>
 
 ---
@@ -41,12 +40,12 @@ But here's the deal.
 
 We've gone through the hoops of deploying dApps on the Ethereum Network and have nuked out all of the annoying parts.
 
-> "Take it from me, after you use Bangarang, you'll never go back to deploying dApps while wearing women's underwear ever again." - Graham McBain
+> "Take it from me, after you use Dappstrap, you'll never go back to deploying dApps while wearing women's underwear ever again." - Graham McBain
 
 
 # Pt I. Let's Get Crack-a-Lackin'  
 
-1. We use [Truffle](https://truffleframework.com) to deploy our smart contracts to any Ethereum blockchain. 
+1. We use [Truffle](https://truffleframework.com) to deploy our smart contracts to any Ethereum blockchain.
 
 **NOTE:** When you run the Dapp Deployer, your truffle project will need to be configured seperately.  A good example you can use is in the provided sample Truffle project  `samples/sample-datavault-solidity` and open `truffle.js` config file.
 
@@ -138,7 +137,7 @@ It will look like:
 `parity --chain kovan --fast-unlock --unlock "0x3d70f5f9b66311bbbd497471d9a69f476ea1d70b" --password ../password.txt`
 
 
-# Pt III. Bangarang!
+# Pt III. Dappstrap!
 
 
 Once you have your network of choice synced, and an account unlocked on the chain, configure and run the Dapp Deployer.
@@ -165,4 +164,5 @@ aws_secret_access_key = FAKEasdfas=aqewrasdfa/sdfasdfasdfasdfFAKE
 
 ## Street Cred
 
-Made with ❄️  by [XYO Network (Winterfell)](https://xyo.network)
+Made with ❄️  
+by [XYO](https://xyo.network)
