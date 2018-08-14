@@ -24,15 +24,20 @@ jobs:
 
       - run: yarn add util.promisify
 
-      - run: yarn && cd samples/sample-datavault-react/ && yarn && cd ../sample-datavault-solidity && yarn && cd ../..
+      - run: yarn
 
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
         
-      # run tests! TODO
-      - run: strap -h
+      - run: ./strap -V
+      
+      - run: cd samples/sample-datavault-react/
+
+      - run: yarn 
+
+      # TODO add solidity
 
       - store_test_results:
           path: reports
