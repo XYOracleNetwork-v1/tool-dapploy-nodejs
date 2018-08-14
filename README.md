@@ -7,21 +7,21 @@
 </p>
 
 <h1 align="center">
-  DAPPSTRAP
+  Dapploy
 </h1>
 <h3 align="center">
-  "It's sorta like <del>a jockstrap</del> bootstrap for Deploying DApps".
+  "Simplify Dapp Deployment".
 </h3>
 
 <p align="center">
-  <a href="https://ci.appveyor.com/project/kittens/yarn/branch/master">
-    <img alt="Appveyor Status" src="https://ci.appveyor.com/api/projects/status/0xdv8chwe2kmk463?svg=true">
+  <a href="https://circleci.com/gh/XYOracleNetwork/tool-dappdeployer-nodejs">
+    <img alt="Circle Status" src="https://circleci.com/gh/XYOracleNetwork/tool-dappdeployer-nodejs.svg?style=shield&circle-token=17875bb2726cc569f5426d27748d6386f2401f5b">
   </a>
-  <a href="https://discord.gg/yarnpkg">
-    <img alt="Discord Chat" src="https://img.shields.io/discord/226791405589233664.svg">
+  <a href="https://gitter.im/XYOracleNetwork/Dev">
+    <img alt="Gitter Chat" src="https://img.shields.io/gitter/room/XYOracleNetwork/Stardust.svg">
   </a>
   <a href="http://commitizen.github.io/cz-cli/">
-    <img alt="Commitizen friendly" src="https://img.shields.io/badge/commitizen-friendly-brightgreen.svg">
+    <img alt="Commitizen friendly" src="https://img.shields.io/badge/web3-friendly-brightgreen.svg">
     </a>
 </p>
 
@@ -137,7 +137,7 @@ It will look like:
 `parity --chain kovan --fast-unlock --unlock "0x3d70f5f9b66311bbbd497471d9a69f476ea1d70b" --password ../password.txt`
 
 
-# Pt III. Dappstrap!
+# Pt III. Dapploy!
 
 
 Once you have your network of choice synced, and an account unlocked on the chain, configure and run the Dapp Deployer.
