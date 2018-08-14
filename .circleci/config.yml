@@ -1,8 +1,8 @@
 version: 2
-machine:
-  node:
-    version:
-      10.6.0
+dependencies:
+  pre:
+    - npm install -g util.promisify
+    
 jobs:
   build:
     docker:
