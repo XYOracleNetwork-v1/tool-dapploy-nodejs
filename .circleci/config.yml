@@ -1,8 +1,4 @@
 version: 2
-dependencies:
-  pre:
-    - npm install -g util.promisify
-    
 jobs:
   build:
     docker:
@@ -25,6 +21,8 @@ jobs:
           - v1-dependencies-{{ checksum "package.json" }}
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
+            
+      - run: npm install -g util.promisify
 
       - run: yarn && cd samples/sample-datavault-react/ && yarn && cd ../sample-datavault-solidity && yarn && cd ../..
 
