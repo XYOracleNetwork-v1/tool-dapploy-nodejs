@@ -15,7 +15,7 @@
 
 <p align="center">
   <a href="https://circleci.com/gh/XYOracleNetwork/tool-dappdeployer-nodejs">
-    <img alt="Circle Status" src="https://circleci.com/gh/XYOracleNetwork/tool-dappdeployer-nodejs.svg?style=shield&circle-token=17875bb2726cc569f5426d27748d6386f2401f5b">
+    <img alt="Circle Status" src="https://circleci.com/gh/XYOracleNetwork/tool-dapploy-nodejs.svg?style=shield&circle-token=17875bb2726cc569f5426d27748d6386f2401f5b">
   </a>
   <a href="https://gitter.im/XYOracleNetwork/Dev">
     <img alt="Gitter Chat" src="https://img.shields.io/gitter/room/XYOracleNetwork/Stardust.svg">
