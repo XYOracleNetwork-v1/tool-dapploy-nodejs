@@ -1,4 +1,5 @@
 const shell = require('shelljs');
+const path = require('path')
 const templateFile = './src/web3template.js'
 const tempFile = './src/temp999' // Copy the template to working file for us to modify
 
@@ -26,11 +27,12 @@ const contractDeclarationString = (contracts) => {
     return returnString
 }
 
-const contractInstantiationString = (contractPath, contracts) => {
+const contractInstantiationString = ({contractOutput, web3ModuleOutput}, contracts) => {
+    let relativePath = path.relative(path.dirname(web3ModuleOutput), contractOutput);
     let returnString = '\n'
     for (const contract of contracts) {
         returnString += `\t${contract.name} = new web3.eth.Contract(\n`
-        returnString += `\t\trequire('${contractPath}/${contract.name}.json').abi,\n`
+        returnString += `\t\trequire('./${relativePath}/${contract.name}.json').abi,\n`
         returnString += `\t\taddress${contract.name})\n`
         returnString += `\t\tSmartContracts.push({name: '${contract.name}', contract: ${contract.name}})\n`
 
@@ -48,7 +50,7 @@ let exportConfig = (program, contracts) => {
     }
     shell.sed('-i', 'PORTIS_PROVIDER', portisConfigString(program), tempFile);
     shell.sed('-i', 'CONTRACT_DECLARATIONS', contractDeclarationString(contracts), tempFile);
-    shell.sed('-i', 'CONTRACT_INSTANTIATION', contractInstantiationString(program.contractOutput, contracts), tempFile);
+    shell.sed('-i', 'CONTRACT_INSTANTIATION', contractInstantiationString(program, contracts), tempFile);
 
     shell.mv(tempFile, program.web3ModuleOutput)
     return Promise.resolve(true)

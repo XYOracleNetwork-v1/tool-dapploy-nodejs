@@ -1,4 +1,5 @@
 src/ABI/*.json
+src/web3.js
 
 # Logs
 logs

@@ -1,3 +1,8 @@
+/* 
+  This is an auto-generated web3 interface to the smart contracts deployed via Dapploy
+  Do not make changes to this file, they get overwritten each Dapploy :)
+*/
+
 import Web3 from 'web3'
 PORTIS_DECLARATION
 

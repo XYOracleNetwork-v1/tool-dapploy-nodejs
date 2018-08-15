@@ -41,7 +41,6 @@ let configParsing = (program) => {
 let validateProgramRequirements = (program) => {
     let requiredParams = ['network', 'projectDir', 'contractOutput']
     for (const param of requiredParams) {
-        console.log("Param:", program[param])
         if (!program[param]) {
             throw new Error(`Missing param: ${param}, add to configuration file or pass in param`)
         }
