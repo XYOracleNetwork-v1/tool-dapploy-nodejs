@@ -1,10 +1,5 @@
 
 
-<p align="center">
-  <a href="https://xyo.network">
-    <img alt="DAPPSTRAP" src="https://img.etsystatic.com/isla/507961/19840890/isla_fullxfull.19840890_5jqqv1un.jpg?version=0" width="246">
-  </a>
-</p>
 
 <h1 align="center">
   Dapploy
