@@ -3,6 +3,7 @@
     "aws-sdk": "^2.275.1",
     "commander": "^2.16.0",
     "configparser": "^0.2.6",
+    "ganache-cli": "^6.1.7",
     "shelljs": "^0.8.2",
     "truffle": "^4.1.13",
     "untildify": "^3.0.3"

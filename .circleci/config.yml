@@ -4,7 +4,7 @@ jobs:
     docker:
       - image: circleci/node:8
 
-    working_directory: ~/repo
+    working_directory: ~/dapploy
 
     steps:
       - checkout
@@ -26,18 +26,22 @@ jobs:
           name: "Yarn project and samples"
           command: |
             yarn
-            cd samples/sample-datavault-react/
+            cd samples/sample-datavault-solidity
             yarn
-            cd ../sample-datavault-solidity
+            cd ../sample-datavault-react/
             yarn
             cd ../..
 
       - run: 
-          name: "Make sure you can print help and version"
-          command: |
-            ./dapploy -h
-            ./dapploy -V
-
+          name: "Run ganache-cli, test truffle, test dapploy"
+          command: | 
+            cd samples/sample-datavault-solidity
+            node_modules/.bin/ganache-cli > /dev/null &
+            sleep 5
+            node_modules/.bin/truffle test
+            cd ../..
+            ./dapploy -sc .circleci/circle_dapploy.conf
+  
       - save_cache:
           paths:
             - node_modules

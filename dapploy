@@ -51,7 +51,7 @@ program
   .option('-t, --truffle <dir>', 'Truffle Project Directory')
   .option('-o, --output <dir>', 'Contract Output Directory')
   .option('-n, --network <network>', 'Deploy to network')
-  .option('-c, --config [config]', 'Config file', 'strap.conf')
+  .option('-c, --config [config]', 'Config file', 'dapploy.conf')
   .option('-x, --excludes [Contract1,Contract2]', 'Exclude contracts from the web3 interface (files are still copied)')  
   .option('-l, --clean', 'Clean contracts before migrating')
   .option('-r, --remoteOnly', 'Only copy contracts remote')
@@ -65,8 +65,7 @@ try {
     parseConfig(program)
 } catch (err) {
     console.log("Configuration error, possibly corrupt configuration file present")
-    console.log(err)
-    return
+    process.exit(1);
 }
 
 if (program.remoteOnly) {
@@ -92,5 +91,6 @@ cleanIfNeeded(program).then(() => {
 }).catch(err => {
     console.log("Something went wrong")
     console.log(err)
+    process.exit(1);
 })
 
