@@ -49,6 +49,6 @@ jobs:
 
       # TODO run some more tests
       - store_test_results:
-          path: reports
+          path: ~/dapploy/.circle/reports
 
 
