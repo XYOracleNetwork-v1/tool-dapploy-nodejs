@@ -64,7 +64,7 @@ program
 try {
     parseConfig(program)
 } catch (err) {
-    console.log("Configuration error, possibly corrupt configuration file present")
+    console.log("Configuration error", err)
     process.exit(1);
 }
 

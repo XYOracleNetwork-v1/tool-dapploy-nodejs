@@ -1,7 +1,8 @@
 
-const ConfigParser = require('configparser');
-const config = new ConfigParser();
-const untildify = require('untildify');
+const ConfigParser = require('configparser')
+const config = new ConfigParser()
+const untildify = require('untildify')
+const fs = require("fs")
 
 let parseParams = (program, section, params) => {
     for (const param of params) {
@@ -44,6 +45,12 @@ let validateProgramRequirements = (program) => {
         if (!program[param]) {
             throw new Error(`Missing param: ${param}, add to configuration file or pass in param`)
         }
+    }
+    if (!fs.existsSync(program['projectDir'])) {
+        throw new Error(`The truffle project not found at path: ${program['projectDir']}`)
+    }
+    if (!fs.existsSync(program['contractOutput'])) {
+        throw new Error(`The contract ABI destination path does not exist: ${program['contractOutput']}`)
     }
 }
 

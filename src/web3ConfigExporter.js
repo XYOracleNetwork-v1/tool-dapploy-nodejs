@@ -2,6 +2,7 @@ const shell = require('shelljs');
 const path = require('path')
 const templateFile = './src/web3template.js'
 const tempFile = './src/temp999' // Copy the template to working file for us to modify
+const fs = require("fs")
 
 const portisConfigString = ({portisApiKey, network, appName, logoUrl}) => 
 {
@@ -51,7 +52,12 @@ let exportConfig = (program, contracts) => {
     shell.sed('-i', 'PORTIS_PROVIDER', portisConfigString(program), tempFile);
     shell.sed('-i', 'CONTRACT_DECLARATIONS', contractDeclarationString(contracts), tempFile);
     shell.sed('-i', 'CONTRACT_INSTANTIATION', contractInstantiationString(program, contracts), tempFile);
-
+    console.log("Moving", tempFile, "to", program.web3ModuleOutput)
+    const outPath = path.dirname(program.web3ModuleOutput)
+    shell.mkdir('-p', outPath)
+    if (!fs.existsSync(outPath)) {
+        return Promise.reject(`Cannot create web3.js file at ${outPath}`)
+    }
     shell.mv(tempFile, program.web3ModuleOutput)
     return Promise.resolve(true)
 }
