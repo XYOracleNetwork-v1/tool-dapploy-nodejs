@@ -32,12 +32,27 @@ export const validContract = async (name) => {
   })
 } 
 
+const refreshCurrentUser = async () => {
+  const accounts = await web3.eth.getAccounts()
+  if (accounts.length > 0) {
+    return accounts[0]
+  }
+  return undefined
+}
+
 export let SmartContracts = []
 export let web3
+export let currentUser
+
 CONTRACT_DECLARATIONS
 
 export function injectWeb3() {
   web3 = getWeb3()
+  
+  let refreshUser = () => refreshCurrentUser().then(account => currentUser=account)
+  // Will refresh local store when new user is chosen:
+  web3.currentProvider.publicConfigStore.on('update', refreshUser);
+
   CONTRACT_INSTANTIATION
 }
 
