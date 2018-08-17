@@ -12,13 +12,25 @@ export const getWeb3 = () => {
   }
   PORTIS_PROVIDER
 }
+
+const contractObject = (name) => SmartContracts.find(contract => contract.name === name)
+
 export const contractNamed = (name) => {
-  let contractObj = SmartContracts.find(contract => contract.name === name)
-  if (contractObj) {
-    return contractObj.contract
-  }
-  return undefined
+  const contractObj = contractObject(name)
+  return contractObj ? contractObj.contract : undefined
 }
+
+export const contractAddress = (name) => {
+  const contractObj = contractObject(name)
+  return contractObj ? contractObj.address : undefined
+}
+
+export const validContract = async (name) => {
+  const address = contractAddress(name)
+  return web3.eth.getCode(address).then(code => {
+    return code === "0x" ? Promise.resolve(false) : Promise.resolve(true)
+  })
+} 
 
 export let SmartContracts = []
 export let web3

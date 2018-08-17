@@ -1,7 +1,8 @@
 const shell = require('shelljs');
 const path = require('path')
-const templateFile = './src/web3template.js'
-const tempFile = './src/temp999' // Copy the template to working file for us to modify
+const templateFile = `${__dirname}/web3template.js`
+
+const tempFile = '/tmp/temp999' // Copy the template to working file for us to modify
 const fs = require("fs")
 
 const portisConfigString = ({portisApiKey, network, appName, logoUrl}) => 
@@ -31,17 +32,19 @@ const contractDeclarationString = (contracts) => {
 const contractInstantiationString = ({contractOutput, web3ModuleOutput}, contracts) => {
     let relativePath = path.relative(path.dirname(web3ModuleOutput), contractOutput);
     let returnString = '\n'
+    
     for (const contract of contracts) {
+        let address = `address${contract.name}`
         returnString += `\t${contract.name} = new web3.eth.Contract(\n`
         returnString += `\t\trequire('./${relativePath}/${contract.name}.json').abi,\n`
-        returnString += `\t\taddress${contract.name})\n`
-        returnString += `\t\tSmartContracts.push({name: '${contract.name}', contract: ${contract.name}})\n`
-
+        returnString += `\t\t${address})\n`
+        returnString += `\t\tSmartContracts.push({name: '${contract.name}', contract: ${contract.name}, address: ${address}})\n`
     }
     return returnString
 }
 
 let exportConfig = (program, contracts) => {
+    console.log("Copying", templateFile, "to", tempFile)
     shell.cp(templateFile, tempFile)
 
     if (program.addPortis){

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import {web3, DataVault, injectWeb3, addressDataVault} from './web3';
+import {web3, DataVault, injectWeb3, addressDataVault, validContract } from './web3';
 import ipfs from './ipfs';
 import { Button, Grid, Form } from 'react-bootstrap';
 import  { Div, Input } from 'glamorous'
@@ -8,15 +8,24 @@ import {Seperator} from './atoms/Seperator'
 import {VaultView} from './molecules/VaultView'
 import {TransactionReceipt} from './molecules/TransactionReceipt'
 
+const ChangeNetworkDiv = ({validNetwork}) => {
+  if (validNetwork) {
+    return null
+  }
+  return <Div css={{backgroundColor: "red"}}>Invalid Network, Change To Network with contracts deployed</Div>
+}
+
 class App extends Component {
 
   componentWillMount() {
     injectWeb3()
+    validContract("DataVault").then(validNetwork => this.setState({validNetwork}))
     this.refreshIPFS()
     console.log("Mounted")
   }
 
   state = {
+    validNetwork: true,
     ipfsHash: null,
     buffer: '',
     ethAddress: '',
@@ -144,6 +153,8 @@ class App extends Component {
         <hr />
         <Grid>
           <h3> Upload File </h3>
+          <ChangeNetworkDiv validNetwork={this.state.validNetwork} />
+
           <Form onSubmit={this.onSubmit}>
             <input
               type="file"
