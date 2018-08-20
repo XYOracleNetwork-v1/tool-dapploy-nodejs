@@ -74,7 +74,7 @@ Just make sure your weapon of choice ain't a hook. ARGH!
 * Click the Gear Icon thingy ( ⚙️ ) to open `Preferences...`.
 v Make sure that port is set to 8545.
 * Click "Save and Restart" in the top-right of Ganache
-* Click the MetaMask fox icon in your chrome browser and complete all the first-timer steps if you're a MetaMask virgin (like Arie's mom).
+* Click the MetaMask fox icon in your chrome browser and complete all the first-timer steps if you're a MetaMask virgin (like Kevin's mom).
 * Sign into Metamask and change Network on Metamask to localhost 8545
 * Now back to Ganache!
 * In your Ganache UI, you'll see a list of ~10 addresses. Click the key icon (🔑) next to one of 'em. And then COPY the "Private Key"

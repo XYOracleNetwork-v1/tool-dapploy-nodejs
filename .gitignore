@@ -64,3 +64,5 @@ typings/
 
 # next.js build output
 .next
+samples/.DS_Store
+.DS_Store
