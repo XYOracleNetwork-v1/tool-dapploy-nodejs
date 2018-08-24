@@ -5,6 +5,7 @@
     "configparser": "^0.2.6",
     "ganache-cli": "^6.1.7",
     "shelljs": "^0.8.2",
+    "tool-dapper-react": "^0.1.0",
     "truffle": "^4.1.13",
     "untildify": "^3.0.3"
   }

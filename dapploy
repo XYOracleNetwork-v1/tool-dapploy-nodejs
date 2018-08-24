@@ -1,96 +1,66 @@
 #!/usr/bin/env node
 
-/**
- * Module dependencies.
- */
-const { execPromise } = require('./src/execWrapper')
-const { uploadRemote } = require('./src/awsFolderUploader')
-const { exportConfig } = require('./src/web3ConfigExporter')
-const { parseConfig } = require('./src/configParser')
-const { migrateTruffle } = require('./src/truffleMigrator')
-const path = require("path"); // from node.js
-
-/* Copies the contracts in the specified project to a local project (react client, etc)
-
-*/
-let copyContractsLocal = (program) => {
-    console.log(` $ Copying contracts locally to ${program.contractOutput}`);
-    let fromPath = path.join(program.projectDir, "build/contracts/*")
-    let cp = `cp -p ${fromPath} ${program.contractOutput}`
-    return execPromise(cp)
-}
-
-let cleanIfNeeded = program => {
-    if (program.clean) {
-        let clean = 'rm -rf build'
-        console.log(` $ Cleaning build folder at ${program.projectDir}`);
-        return execPromise(clean, { cwd: program.projectDir })
-    } else {
-        console.log(` $ Skipping cleaning (use -clean for clean migration)`);
-        return Promise.resolve()
-    }
-}
-
-let createWeb3Module = (program, contracts) => {
-    if (program.web3ModuleOutput) {
-        console.log(` $ Exporting Web3 module to ${program.web3ModuleOutput}`);
-        exportConfig(program, contracts)
-    }
-}
+const { dapploy } = require('./src/deployDapp')
+const { runDapper } = require('./src/runDapper')
 
 /* ** Main Program **
 
     @description - This program may be configured using parameter options below
     Makes it simple to deploy your contracts to your network of choice
-
+    run with --help
 */
 const program = require('commander');
-
+const defaultConfig = 'dapploy.conf'
 program
   .version('0.1.0')
   .option('-t, --truffle <dir>', 'Truffle Project Directory')
   .option('-o, --output <dir>', 'Contract Output Directory')
   .option('-n, --network <network>', 'Deploy to network')
-  .option('-c, --config [config]', 'Config file', 'dapploy.conf')
+  .option('-c, --config [config]', 'Config file', defaultConfig)
   .option('-x, --excludes [Contract1,Contract2]', 'Exclude contracts from the web3 interface (files are still copied)')  
   .option('-l, --clean', 'Clean contracts before migrating')
   .option('-r, --remoteOnly', 'Only copy contracts remote')
   .option('-s, --skipAWS', 'Skip remote copy to aws config')
   .option('-y, --copyOnly', 'Only do folder copy and S3 copy')
-  .option('-p, --networkPrivateKey', 'Private Key for migrating to network')
-  .parse(process.argv);
 
-
-try {
-    parseConfig(program)
-} catch (err) {
-    console.log("Configuration error", err)
-    process.exit(1);
-}
-
-if (program.remoteOnly) {
-    return uploadRemote(program)
-}
-
-cleanIfNeeded(program).then(() => {
-    if (program.copyOnly) {
-        console.log(" # Skipping Migration")
-        return Promise.resolve(undefined)
-    } 
-    return migrateTruffle(program)
-}).then((contracts) => {
-    if (contracts) {
-        createWeb3Module(program, contracts)
+let dapperRun = false
+let execute = [(program) => {
+    return dapploy(program)
+}]
+program
+  .command('dapper')
+  .description('View your smart contracts using dapper')
+  .option("-d, --dapploy", "Run fresh dapploy before starting")
+  .action(function(option){
+    //   console.log("HOTOIN",option)
+    if (option.dapploy) {
+        if (!option.config || option.config == defaultConfig) {
+            // force using dapper config to set up paths for dapper dependency
+            option.config = 'dapploy_dapper.conf'
+        }
+        execute.push(() => {
+            return runDapper(program)
+        })
+    } else {
+        execute = [(program) => {
+            return runDapper(program)
+        }]
     }
-    return copyContractsLocal(program)
-}).then(() => {
-    if (program.skipAWS) {
-        return Promise.resolve(undefined)
-    } 
-    return uploadRemote(program)
-}).catch(err => {
-    console.log("Something went wrong")
-    console.log(err)
-    process.exit(1);
-})
+  });
+
+program.parse(process.argv);
+
+(async () => {
+    for (const exe of execute) {
+        try {
+            await exe(program)
+        } catch (err) {
+            console.log(err)
+            process.exit(1);
+            break
+        }
+    }
+})()
+
+
 
