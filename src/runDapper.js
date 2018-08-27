@@ -9,7 +9,6 @@ const runDapper = (program) => {
     let command = `yarn start`
     console.log(` $ Starting dapper with command: ${command}`);
 
-            
     let cwd = `${__dirname}/../node_modules/tool-dapper-react/`
     return execPromise(command, { cwd })
 }

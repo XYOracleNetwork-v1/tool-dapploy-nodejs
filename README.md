@@ -1,8 +1,7 @@
 
 
-
 <h1 align="center">
-  Dapploy
+  <img alt="Dapploy" src="http://xyo.network.s3.amazonaws.com/img/dapploy-logo.jpg" width="300">
 </h1>
 <h3 align="center">
   "Simplify Dapp Deployment".
@@ -21,7 +20,7 @@
 </p>
 
 <p align="center">
-  Made with ❄️
+  Made with ❤️
   <br/>by [XYO](https://xyo.network)
 </p>
 
@@ -80,10 +79,18 @@ v Make sure that port is set to 8545.
 * In your Ganache UI, you'll see a list of ~10 addresses. Click the key icon (🔑) next to one of 'em. And then COPY the "Private Key"
 * Head over to the `deployer.conf` file and open it up.
 * Make sure that the `network` is set to the following: `network=development`.
-* Run dapp deployer, skipping aws: `./contractDeployer.js -s`
+* Run dapp deployer, skipping aws: 
+```
+  ./dapploy -s
+```
 * Run the react client project to play with your deployed Dapp!
-
-`cd samples/sample-datavault-react && yarn start`
+```
+cd samples/sample-datavault-react && yarn start
+```
+* Run dapper tool to visualize and play with your smart contracts with a web viewer:
+```
+./dapploy dapper -ds
+```
 
 ### Setup Option #2: Ropsten Setup (Geth)
 ---
@@ -132,17 +139,14 @@ It will look like:
 `parity --chain kovan --fast-unlock --unlock "0x3d70f5f9b66311bbbd497471d9a69f476ea1d70b" --password ../password.txt`
 
 
-# Pt III. Dapploy!
+# Dapploy Tips/Features
 
+* One great feature of Dapploy is `dapper` is built in!  Simply run `dapploy dapper -d` to deploy your contracts and start the dapper smart contract viewer.
 
-Once you have your network of choice synced, and an account unlocked on the chain, configure and run the Dapp Deployer.
-
-* Set the `network` in `deployer.conf` to one of the following:
+* You can configure the `network` in `deployer.conf` to any of the following:
 ropsten, kovan, development, ropsten-infura, main
 
-* Once you are comfortable compiling and deploying the example projects, set the `projectDir` and `contractOutput` to your own new or existing project
-
-* Optionally include the destination to export the web3 provider module: `web3ModuleOutput`
+* Make sure you can compile and deploy the sample projects, then set the `projectDir`, `contractOutput`, and `web3ModuleOutput` to your projects
 
 * Want your dApp to support multiple browsers?  Configure Portis in Dapp deployer setup, by first adding your Dapp on [portis.io](https://portis.io) and adding your key/app name to the configuration file.
 
@@ -157,7 +161,9 @@ aws_secret_access_key = FAKEasdfas=aqewrasdfa/sdfasdfasdfasdfFAKE
 
  [Detailed AWS credential instructions here](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.html)
 
+
+
 ## Street Cred
 
-Made with ❄️  
+Made with ❤️
 by [XYO](https://xyo.network)

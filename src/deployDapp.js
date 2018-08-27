@@ -10,8 +10,15 @@ const path = require("path"); // from node.js
 
 */
 let copyContractsLocal = (program) => {
-    console.log(` $ Copying contracts locally to ${program.contractOutput}`);
     let fromPath = path.join(program.projectDir, "build/contracts/*")
+    console.log(` $ Copying contracts locally to ${program.contractOutput}`);    
+    if (program.dapper) {
+        let dapperPath = 'node_modules/tool-dapper-react/src/ABI/'
+        console.log(` $ Copying dapper contracts locally to ${dapperPath}`);
+        execPromise(`cp -R ${fromPath} ${dapperPath}`).catch(err => {
+            console.log("CAUGHT ERR:", err)
+        })
+    }
     let cp = `cp -p ${fromPath} ${program.contractOutput}`
     return execPromise(cp)
 }

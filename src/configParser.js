@@ -55,7 +55,8 @@ let validateProgramRequirements = (program) => {
 }
 
 let parseConfig = (program) => {
-    // program.config default is deployer.conf
+
+    console.log(" $ Parsing config", program.config)
     config.read(program.config)
     configParsing(program)
     validateProgramRequirements(program)

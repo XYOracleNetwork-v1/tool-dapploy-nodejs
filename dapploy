@@ -32,12 +32,8 @@ program
   .description('View your smart contracts using dapper')
   .option("-d, --dapploy", "Run fresh dapploy before starting")
   .action(function(option){
-    //   console.log("HOTOIN",option)
+    program.dapper = true
     if (option.dapploy) {
-        if (!option.config || option.config == defaultConfig) {
-            // force using dapper config to set up paths for dapper dependency
-            option.config = 'dapploy_dapper.conf'
-        }
         execute.push(() => {
             return runDapper(program)
         })

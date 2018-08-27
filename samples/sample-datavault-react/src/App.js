@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import {web3, DataVault, injectWeb3, addressDataVault, validContract } from './web3';
+import {web3, DataVault, injectWeb3, validContract } from './web3';
 import ipfs from './ipfs';
 import { Button, Grid, Form } from 'react-bootstrap';
 import  { Div, Input } from 'glamorous'
@@ -18,9 +18,11 @@ const ChangeNetworkDiv = ({validNetwork}) => {
 class App extends Component {
 
   componentWillMount() {
-    injectWeb3()
-    validContract("DataVault").then(validNetwork => this.setState({validNetwork}))
-    this.refreshIPFS()
+    injectWeb3().then(() => {
+      this.refreshIPFS()
+      return validContract("DataVault").then(validNetwork => this.setState({validNetwork}))
+    })
+    
     console.log("Mounted")
   }
 
@@ -129,7 +131,7 @@ class App extends Component {
             txReceipt: receipt,
             blockNumber: blockNumber,
             gasUsed: gasUsed,
-            ethAddress: addressDataVault
+            ethAddress: receipt.ethAddress
            });
         }).catch(err => {
           console.log("ERROR when saving: ", err)
