@@ -1,8 +1,5 @@
 #!/usr/bin/env node
 
-const { dapploy } = require('./src/deployDapp')
-const { runDapper } = require('./src/runDapper')
-
 /* ** Main Program **
 
     @description - This program may be configured using parameter options below
@@ -10,53 +7,47 @@ const { runDapper } = require('./src/runDapper')
     run with --help
 */
 const program = require('commander');
-const defaultConfig = 'dapploy.conf'
+const { dapploy } = require('./src/deployDapp');
+const { runDapper } = require('./src/runDapper');
+
+const defaultConfig = 'dapploy.conf';
 program
   .version('0.1.0')
   .option('-t, --truffle <dir>', 'Truffle Project Directory')
   .option('-o, --output <dir>', 'Contract Output Directory')
   .option('-n, --network <network>', 'Deploy to network')
   .option('-c, --config [config]', 'Config file', defaultConfig)
-  .option('-x, --excludes [Contract1,Contract2]', 'Exclude contracts from the web3 interface (files are still copied)')  
+  .option('-x, --excludes [Contract1,Contract2]', 'Exclude contracts from the web3 interface (files are still copied)')
   .option('-l, --clean', 'Clean contracts before migrating')
   .option('-r, --remoteOnly', 'Only copy contracts remote')
   .option('-s, --skipAWS', 'Skip remote copy to aws config')
-  .option('-y, --copyOnly', 'Only do folder copy and S3 copy')
+  .option('-y, --copyOnly', 'Only do folder copy and S3 copy');
 
-let dapperRun = false
-let execute = [(program) => {
-    return dapploy(program)
-}]
+let execute = [p => dapploy(p)];
+
 program
   .command('dapper')
   .description('View your smart contracts using dapper')
-  .option("-d, --dapploy", "Run fresh dapploy before starting")
-  .action(function(option){
-    program.dapper = true
+  .option('-d, --dapploy', 'Run fresh dapploy before starting')
+  .action((option) => {
+    program.dapper = true;
     if (option.dapploy) {
-        execute.push(() => {
-            return runDapper(program)
-        })
+      execute.push(p => runDapper(p));
     } else {
-        execute = [(program) => {
-            return runDapper(program)
-        }]
+      execute = [p => runDapper(p)];
     }
   });
 
 program.parse(process.argv);
 
 (async () => {
-    for (const exe of execute) {
-        try {
-            await exe(program)
-        } catch (err) {
-            console.log(err)
-            process.exit(1);
-            break
-        }
+  execute.forEach(async (exe) => {
+    try {
+      await exe(program);
+    } catch (err) {
+      console.log(err);
+      process.exit(1);
+      throw err;
     }
-})()
-
-
-
+  });
+})();

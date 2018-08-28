@@ -7,6 +7,14 @@
     "shelljs": "^0.8.2",
     "tool-dapper-react": "^0.1.0",
     "truffle": "^4.1.13",
-    "untildify": "^3.0.3"
+    "untildify": "^3.0.3",
+    "web3": "^1.0.0-beta.35"
+  },
+  "devDependencies": {
+    "eslint": "^5.4.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.11.1"
   }
 }
