@@ -1,5 +1,22 @@
 {
   "parser": "babel-eslint",
-  "extends": "airbnb",
-  "plugins": ["react"]
+  "extends": ["standard", "standard-react"],
+  "env": {
+    "browser": true,
+    "node": true,
+    "mocha": true,
+    "es6": true
+  },
+  "plugins": ["react"],
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "rules": {
+    "jsx-quotes": ["error", "prefer-double"],
+    "arrow-parens": "off"
+  }
 }
