@@ -6,26 +6,47 @@ const { execPromise } = require('./execWrapper')
     @param network the network (kovan, ropsten, development, ropsten-infura)
     @param excludeContracts which contracts to leave out of the web3 instantiation module (optional)
 */
-const migrateTruffle = ({ projectDir, network, excludeContracts }) => {
+const migrateTruffle = ({
+  projectDir,
+  network,
+  excludeContracts,
+  includeContracts,
+}) => {
   console.log(` $ Migrating contracts at ${projectDir}`)
 
   const command = `${__dirname}/../node_modules/.bin/truffle migrate --network ${network} --reset`
   console.log(` $ Using truffle command: ${command}`)
 
   const contracts = []
-  const parser = (data) => {
-    // May be a little better to parse actual ABI for the address rather than migration output
-    // Forces us to use --reset flag which is always preferred (until it's not?!)
+  const parser = data => {
     const nameAddress = data.match(/[\s]*(.*): (0x.*)/)
     if (nameAddress) {
       if (!excludeContracts || !excludeContracts.includes(nameAddress[1])) {
-        // console.log("match", nameAddress)
-        contracts.push({ name: nameAddress[1], address: nameAddress[2] })
+        // if nothing excluded or is not in the excludes, add contract
+        if (includeContracts) {
+          if (includeContracts.includes(nameAddress[1])) {
+            // included contracts exists, so add if in includeContracts
+            contracts.push({ name: nameAddress[1], address: nameAddress[2] })
+          }
+        } else {
+          // include contracts not specified, so add by default
+          contracts.push({ name: nameAddress[1], address: nameAddress[2] })
+        }
+      } else if (
+        includeContracts &&
+        includeContracts.includes(nameAddress[1])
+      ) {
+        // include overrides exclude
+        Promise.reject(
+          new Error('Cannot include and exclude the same contract!'),
+        )
       }
     }
   }
 
-  return execPromise(command, { cwd: projectDir }, parser).then(() => Promise.resolve(contracts))
+  return execPromise(command, { cwd: projectDir }, parser).then(() =>
+    Promise.resolve(contracts),
+  )
 }
 
 module.exports = { migrateTruffle }

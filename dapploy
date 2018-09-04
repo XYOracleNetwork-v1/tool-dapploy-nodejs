@@ -18,6 +18,7 @@ program
   .option('-n, --network <network>', 'Deploy to network')
   .option('-c, --config [config]', 'Config file', defaultConfig)
   .option('-x, --excludes [Contract1,Contract2]', 'Exclude contracts from the web3 interface (files are still copied)')
+  .option('-i, --includes [Contract1,Contract2]', 'Include contracts from the web3 interface (files are still copied)')
   .option('-l, --clean', 'Clean contracts before migrating')
   .option('-r, --remoteOnly', 'Only copy contracts remote')
   .option('-s, --skipAWS', 'Skip remote copy to aws config')

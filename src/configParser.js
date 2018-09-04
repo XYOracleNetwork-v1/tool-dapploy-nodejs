@@ -6,14 +6,14 @@ const fs = require('fs')
 
 /* eslint no-param-reassign: "error" */
 const parseParams = (program, section, params) => {
-  params.forEach((param) => {
+  params.forEach(param => {
     if (!program[param]) {
       program[param] = untildify(config.get(section, param))
     }
   })
 }
 
-const configParsing = (program) => {
+const configParsing = program => {
   if (config.sections().length > 0) {
     parseParams(program, 'Truffle', ['projectDir', 'contractOutput', 'network'])
 
@@ -29,6 +29,11 @@ const configParsing = (program) => {
       program.excludeContracts = excludeStr.split(',')
     }
 
+    const includeStr = config.get('Web3', 'includeContracts')
+    if (includeStr) {
+      program.includeContracts = includeStr.split(',')
+    }
+
     if (config.sections().includes('Portis')) {
       program.addPortis = true
       parseParams(program, 'Portis', ['portisApiKey', 'appName', 'logoUrl'])
@@ -38,30 +43,30 @@ const configParsing = (program) => {
   }
 }
 
-const validateProgramRequirements = (program) => {
+const validateProgramRequirements = program => {
   const requiredParams = ['network', 'projectDir', 'contractOutput']
-  requiredParams.forEach((param) => {
+  requiredParams.forEach(param => {
     if (!program[param]) {
       throw new Error(
-        `Missing param: ${param}, add to configuration file or pass in param`
+        `Missing param: ${param}, add to configuration file or pass in param`,
       )
     }
   })
   if (!fs.existsSync(program.projectDir)) {
     throw new Error(
-      `The truffle project not found at path: ${program.projectDir}`
+      `The truffle project not found at path: ${program.projectDir}`,
     )
   }
   if (!fs.existsSync(program.contractOutput)) {
     throw new Error(
       `The contract ABI destination path does not exist: ${
         program.contractOutput
-      }`
+      }`,
     )
   }
 }
 
-const parseConfig = (program) => {
+const parseConfig = program => {
   console.log(' $ Parsing config', program.config)
   config.read(program.config)
   configParsing(program)
