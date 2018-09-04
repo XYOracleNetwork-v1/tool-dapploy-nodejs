@@ -1,4 +1,4 @@
-const { execPromise } = require('./execWrapper')
+const { execPromise } = require(`./execWrapper`)
 
 /*
     Wraps truffle migration based on configuration and returns a contracts dictionary
