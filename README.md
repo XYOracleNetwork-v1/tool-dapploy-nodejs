@@ -17,6 +17,8 @@
   <a href="http://commitizen.github.io/cz-cli/">
     <img alt="Commitizen friendly" src="https://img.shields.io/badge/web3-friendly-brightgreen.svg">
     </a>
+    <a href="https://david-dm.org/xyoraclenetwork/tool-dapploy-nodejs" title="dependencies status"><img src="https://david-dm.org/xyoraclenetwork/tool-dapploy-nodejs/status.svg"/></a>
+  <a href="https://david-dm.org/xyoraclenetwork/tool-dapploy-nodejs?type=dev" title="devDependencies status"><img src="https://david-dm.org/xyoraclenetwork/tool-dapploy-nodejs/dev-status.svg"/></a>
 </p>
 
 <p align="center">
@@ -79,7 +81,7 @@ v Make sure that port is set to 8545.
 * In your Ganache UI, you'll see a list of ~10 addresses. Click the key icon (🔑) next to one of 'em. And then COPY the "Private Key"
 * Head over to the `deployer.conf` file and open it up.
 * Make sure that the `network` is set to the following: `network=development`.
-* Run dapp deployer, skipping aws: 
+* Run dapp deployer, skipping aws:
 ```
   ./dapploy -s
 ```
