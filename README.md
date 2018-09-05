@@ -17,9 +17,8 @@
   <a href="http://commitizen.github.io/cz-cli/">
     <img alt="Commitizen friendly" src="https://img.shields.io/badge/web3-friendly-brightgreen.svg">
     </a>
-  <a href="https://david-dm.org/xyoraclenetwork/tool-dapploy-nodejs">
-    <img alt="Dependencies" src="https://david-dm.org/xyoraclenetwork/tool-dapploy-nodejs.svg">
-    </a>
+    <a href="https://david-dm.org/xyoraclenetwork/tool-dapploy-nodejs" title="dependencies status"><img src="https://david-dm.org/xyoraclenetwork/tool-dapploy-nodejs/status.svg"/></a>
+  <a href="https://david-dm.org/xyoraclenetwork/tool-dapploy-nodejs?type=dev" title="devDependencies status"><img src="https://david-dm.org/xyoraclenetwork/tool-dapploy-nodejs/dev-status.svg"/></a>
 </p>
 
 <p align="center">
