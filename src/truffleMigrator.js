@@ -10,7 +10,7 @@ const migrateTruffle = ({
   projectDir,
   network,
   excludeContracts,
-  includeContracts,
+  includeContracts
 }) => {
   console.log(` $ Migrating contracts at ${projectDir}`)
 
@@ -18,7 +18,7 @@ const migrateTruffle = ({
   console.log(` $ Using truffle command: ${command}`)
 
   const contracts = []
-  const parser = data => {
+  const parser = (data) => {
     const nameAddress = data.match(/[\s]*(.*): (0x.*)/)
     if (nameAddress) {
       if (!excludeContracts || !excludeContracts.includes(nameAddress[1])) {
@@ -38,15 +38,13 @@ const migrateTruffle = ({
       ) {
         // include overrides exclude
         Promise.reject(
-          new Error('Cannot include and exclude the same contract!'),
+          new Error(`Cannot include and exclude the same contract!`)
         )
       }
     }
   }
 
-  return execPromise(command, { cwd: projectDir }, parser).then(() =>
-    Promise.resolve(contracts),
-  )
+  return execPromise(command, { cwd: projectDir }, parser).then(() => Promise.resolve(contracts))
 }
 
 module.exports = { migrateTruffle }

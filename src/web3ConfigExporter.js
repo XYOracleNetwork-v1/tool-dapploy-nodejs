@@ -1,15 +1,17 @@
-const shell = require('shelljs')
-const path = require('path')
+const shell = require(`shelljs`)
+const path = require(`path`)
 
 const templateFile = `${__dirname}/web3template.js`
 
-const tempFile = '/tmp/temp999' // Copy the template to working file for us to modify
-const fs = require('fs')
+const tempFile = `/tmp/temp999` // Copy the template to working file for us to modify
+const fs = require(`fs`)
 
-const portisConfigString = ({ portisApiKey, network, appName, logoUrl }) => {
+const portisConfigString = ({
+  portisApiKey, network, appName, logoUrl
+}) => {
   if (!portisApiKey || !appName) {
     // default to localhost if no portis included
-    return "return new Web3('http://localhost:8545')"
+    return `return new Web3('http://localhost:8545')`
   }
   return `return new Web3(new PortisProvider({
             apiKey: '${portisApiKey}',
@@ -19,9 +21,9 @@ const portisConfigString = ({ portisApiKey, network, appName, logoUrl }) => {
         }))`
 }
 
-const contractDeclarationString = contracts => {
-  let returnString = ''
-  contracts.forEach(contract => {
+const contractDeclarationString = (contracts) => {
+  let returnString = ``
+  contracts.forEach((contract) => {
     returnString += `export let ${contract.name}\n`
   })
 
@@ -36,9 +38,9 @@ const contractInstantiationString = (
     path.dirname(web3ModuleOutput),
     contractOutput
   )
-  let returnString = '\n'
+  let returnString = `\n`
 
-  contracts.forEach(contract => {
+  contracts.forEach((contract) => {
     const address = `address${contract.name}`
     const json = `json${contract.name}`
     returnString += `\t\tconst ${json} = require('./${relativePath}/${
@@ -52,49 +54,49 @@ const contractInstantiationString = (
     returnString += `\t\t\tSmartContracts.push({name: '${
       contract.name
     }', contract: ${contract.name}, address: ${address}})\n`
-    returnString += '\t\t}\n'
+    returnString += `\t\t}\n`
   })
   return returnString
 }
 
 const exportConfig = (program, contracts) => {
-  console.log('Copying', templateFile, 'to', tempFile)
+  console.log(`Copying`, templateFile, `to`, tempFile)
   shell.cp(templateFile, tempFile)
 
   if (program.addPortis) {
     shell.sed(
-      '-i',
-      'PORTIS_DECLARATION',
-      "import { PortisProvider } from 'portis'",
+      `-i`,
+      `PORTIS_DECLARATION`,
+      `import { PortisProvider } from 'portis'`,
       tempFile
     )
   } else {
-    shell.sed('-i', 'PORTIS_DECLARATION', '', tempFile)
+    shell.sed(`-i`, `PORTIS_DECLARATION`, ``, tempFile)
   }
-  shell.sed('-i', 'PORTIS_PROVIDER', portisConfigString(program), tempFile)
+  shell.sed(`-i`, `PORTIS_PROVIDER`, portisConfigString(program), tempFile)
   shell.sed(
-    '-i',
-    'CONTRACT_DECLARATIONS',
+    `-i`,
+    `CONTRACT_DECLARATIONS`,
     contractDeclarationString(contracts),
     tempFile
   )
   shell.sed(
-    '-i',
-    'CONTRACT_INSTANTIATION',
+    `-i`,
+    `CONTRACT_INSTANTIATION`,
     contractInstantiationString(program, contracts),
     tempFile
   )
   const outPath = path.dirname(program.web3ModuleOutput)
-  shell.mkdir('-p', outPath)
+  shell.mkdir(`-p`, outPath)
   if (!fs.existsSync(outPath)) {
     return Promise.reject(new Error(`Cannot create web3.js file at ${outPath}`))
   }
   if (program.dapper) {
     const dapperDest = `${__dirname}/../node_modules/tool-dapper-react/src/web3.js`
-    console.log(' $ Copying dapper interface from ', tempFile, 'to', dapperDest)
+    console.log(` $ Copying dapper interface from `, tempFile, `to`, dapperDest)
     shell.cp(tempFile, dapperDest)
   }
-  console.log(' $ Moving', tempFile, 'to', program.web3ModuleOutput)
+  console.log(` $ Moving`, tempFile, `to`, program.web3ModuleOutput)
   shell.mv(tempFile, program.web3ModuleOutput)
   return Promise.resolve(true)
 }

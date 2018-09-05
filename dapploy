@@ -9,6 +9,7 @@
 const program = require(`commander`)
 const { dapploy } = require(`./src/deployDapp`)
 const { runDapper } = require(`./src/runDapper`)
+const { parseConfig } = require('./src/configParser')
 
 const defaultConfig = `dapploy.conf`
 program
@@ -30,10 +31,11 @@ let execute = [p => dapploy(p)]
 program
   .command(`dapper`)
   .description(`View your smart contracts using dapper`)
-  .option(`-d, --dapploy`, `Run fresh dapploy before starting`)
+  .option(`-b, --build`, `Build and Migrate ABI before starting`)
+  .option(`-d, --distribute`, `Create dapper distribution in ./dist`)
   .action((option) => {
     program.dapper = true
-    if (option.dapploy) {
+    if (option.build) {
       execute.push(p => runDapper(p))
     } else {
       execute = [p => runDapper(p)]
@@ -42,8 +44,22 @@ program
 
 program.parse(process.argv);
 
+ 
+async function asyncForEach(array, callback) {
+  for (let index = 0; index < array.length; index++) {
+    await callback(array[index], index, array)
+  }
+}
+
+try {
+    parseConfig(program)
+  } catch (err) {
+  console.log(err)
+    process.exit(1)
+  }
 (async () => {
-  execute.forEach(async (exe) => {
+  asyncForEach(execute, async (exe) => {
+    console.log("Iterating", exe)
     try {
       await exe(program)
     } catch (err) {
