@@ -91,11 +91,6 @@ const exportConfig = (program, contracts) => {
   if (!fs.existsSync(outPath)) {
     return Promise.reject(new Error(`Cannot create web3.js file at ${outPath}`))
   }
-  if (program.dapper) {
-    const dapperDest = `${__dirname}/../node_modules/tool-dapper-react/src/web3.js`
-    console.log(` $ Copying dapper interface from `, tempFile, `to`, dapperDest)
-    shell.cp(tempFile, dapperDest)
-  }
   console.log(` $ Moving`, tempFile, `to`, program.web3ModuleOutput)
   shell.mv(tempFile, program.web3ModuleOutput)
   return Promise.resolve(true)

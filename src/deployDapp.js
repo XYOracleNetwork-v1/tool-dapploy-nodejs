@@ -12,6 +12,7 @@ const copyContractsLocal = (program) => {
   console.log(` $ Copying contracts locally to ${program.contractOutput}`)
 
   if (fromPath === program.contractOutput) {
+    console.log(` $ From path is equal to path, ignoring copy`)
     // if contract output is equal to fromPath, just let it
     return Promise.resolve()
   }
