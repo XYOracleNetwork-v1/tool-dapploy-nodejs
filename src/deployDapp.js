@@ -8,6 +8,12 @@ const { exportConfig } = require(`./web3ConfigExporter`)
 
 */
 const copyContractsLocal = (program) => {
+  if (!program.contractOutput) {
+    console.log(
+      ` $ Skipping local copy add contractOutput param if you want to copy the ABI locally`
+    )
+    return Promise.resolve()
+  }
   const fromPath = path.join(program.projectDir, `build/contracts/*`)
   console.log(` $ Copying contracts locally to ${program.contractOutput}`)
 
@@ -26,12 +32,9 @@ const cleanIfNeeded = (program) => {
     console.log(` $ Cleaning build folder at ${program.projectDir}`)
     return execPromise(clean, { cwd: program.projectDir })
   }
-  return new Promise((resolve, reject) => {
-    console.log(` $ Skipping cleaning (use -clean for clean migration)`)
-    resolve()
-  })
+  console.log(` $ Skipping cleaning (use -clean for clean migration)`)
 
-  // return Promise.resolve()
+  return Promise.resolve()
 }
 
 const createWeb3Module = (program, contracts) => {

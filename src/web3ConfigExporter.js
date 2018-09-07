@@ -30,10 +30,12 @@ const contractDeclarationString = (contracts) => {
   return returnString
 }
 
-const contractInstantiationString = (
-  { contractOutput, web3ModuleOutput },
-  contracts
-) => {
+const contractInstantiationString = (params, contracts) => {
+  let { contractOutput } = params
+  const { web3ModuleOutput } = params
+  if (!contractOutput) {
+    contractOutput = `/add/abi/path/to/config`
+  }
   const relativePath = path.relative(
     path.dirname(web3ModuleOutput),
     contractOutput

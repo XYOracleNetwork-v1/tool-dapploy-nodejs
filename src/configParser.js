@@ -15,7 +15,11 @@ const parseParams = (program, section, params) => {
 
 const configParsing = (program) => {
   if (config.sections().length > 0) {
-    parseParams(program, `Truffle`, [`projectDir`, `contractOutput`, `network`])
+    const abiDir = config.get(`Truffle`, `contractOutput`)
+    if (abiDir) {
+      program.contractOutput = abiDir
+    }
+    parseParams(program, `Truffle`, [`projectDir`, `network`])
 
     if (config.sections().includes(`AWS`)) {
       parseParams(program, `AWS`, [`bucketName`])
@@ -39,12 +43,14 @@ const configParsing = (program) => {
       parseParams(program, `Portis`, [`portisApiKey`, `appName`, `logoUrl`])
     }
   } else {
-    throw new Error(`Bad Config File`)
+    throw new Error(
+      `Empty config file, please provide a projectDir (your truffle project root)`
+    )
   }
 }
 
 const validateProgramRequirements = (program) => {
-  const requiredParams = [`network`, `projectDir`, `contractOutput`]
+  const requiredParams = [`network`, `projectDir`]
   requiredParams.forEach((param) => {
     if (!program[param]) {
       throw new Error(
@@ -57,7 +63,7 @@ const validateProgramRequirements = (program) => {
       `The truffle project not found at path: ${program.projectDir}`
     )
   }
-  if (!fs.existsSync(program.contractOutput)) {
+  if (program.contractOutput && !fs.existsSync(program.contractOutput)) {
     throw new Error(
       `The contract ABI destination path does not exist: ${
         program.contractOutput
@@ -68,7 +74,12 @@ const validateProgramRequirements = (program) => {
 
 const parseConfig = (program) => {
   console.log(` $ Parsing config`, program.config)
-  config.read(program.config)
+  try {
+    config.read(program.config)
+  } catch (err) {
+    console.log(`Your config file is invalid`)
+    throw err
+  }
   configParsing(program)
   validateProgramRequirements(program)
 }

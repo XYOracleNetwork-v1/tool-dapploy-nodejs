@@ -43,14 +43,18 @@ const uploadFiles = (bucketName, s3, files) => {
   return Promise.all(promises)
 }
 
-const uploadRemote = program => readDir(program.contractOutput).then((files) => {
-  const bucketName = `${program.bucketName}/${program.network}`
-  console.log(` $ Copying contracts to remote AWS bucket ${bucketName}`)
+const uploadRemote = (program) => {
+  const abiPath = path.join(program.projectDir, `build/contracts`)
 
-  const s3 = new AWS.S3({
-    signatureVersion: `v4`
+  return readDir(abiPath).then((files) => {
+    const bucketName = `${program.bucketName}/${program.network}`
+    console.log(` $ Copying contracts to remote AWS bucket ${bucketName}`)
+
+    const s3 = new AWS.S3({
+      signatureVersion: `v4`
+    })
+    return uploadFiles(bucketName, s3, files)
   })
-  return uploadFiles(bucketName, s3, files)
-})
+}
 
 module.exports = { uploadRemote }

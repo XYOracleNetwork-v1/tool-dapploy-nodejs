@@ -5,10 +5,9 @@ const path = require(`path`)
     Runs the included dapper npm so that you can view the deployed smart contracts
 */
 const runDapper = (program) => {
-  //
   const cwd = `${__dirname}/../node_modules/tool-dapper-react/`
-
-  const relativeAbiPath = path.relative(cwd, program.contractOutput)
+  const abiPath = path.join(program.projectDir, `build/contracts`)
+  const relativeAbiPath = path.relative(cwd, abiPath)
   const command = `yarn start ${relativeAbiPath}`
   console.log(` $ Running dapper with command: ${command}`)
 
