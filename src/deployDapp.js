@@ -68,10 +68,11 @@ const dapploy = (program) => {
       return copyContractsLocal(program)
     })
     .then(() => {
-      if (program.skipAWS) {
-        return Promise.resolve(undefined)
+      if (program.bucketName) {
+        return uploadRemote(program)
       }
-      return uploadRemote(program)
+      console.log(` # Skipping AWS bucket upload`)
+      return Promise.resolve(undefined)
     })
 }
 

@@ -7,8 +7,9 @@ const fs = require(`fs`)
 /* eslint no-param-reassign: "error" */
 const parseParams = (program, section, params) => {
   params.forEach((param) => {
-    if (!program[param]) {
-      program[param] = untildify(config.get(section, param))
+    const parsedParam = config.get(section, param)
+    if (parsedParam) {
+      program[param] = untildify(parsedParam)
     }
   })
 }
@@ -23,14 +24,14 @@ const configParsing = (program) => {
 
     if (config.sections().includes(`AWS`)) {
       parseParams(program, `AWS`, [`bucketName`])
-    } else {
-      program.skipAWS = true
     }
 
-    parseParams(program, `Web3`, [`web3ModuleOutput`])
-    const excludeStr = config.get(`Web3`, `excludeContracts`)
-    if (excludeStr) {
-      program.excludeContracts = excludeStr.split(`,`)
+    if (config.sections().includes(`Web3`)) {
+      parseParams(program, `Web3`, [`web3ModuleOutput`])
+      const excludeStr = config.get(`Web3`, `excludeContracts`)
+      if (excludeStr) {
+        program.excludeContracts = excludeStr.split(`,`)
+      }
     }
 
     const includeStr = config.get(`Web3`, `includeContracts`)
@@ -43,9 +44,7 @@ const configParsing = (program) => {
       parseParams(program, `Portis`, [`portisApiKey`, `appName`, `logoUrl`])
     }
   } else {
-    throw new Error(
-      `Empty config file, please provide a projectDir (your truffle project root)`
-    )
+    console.log(`Empty config file, using defaults`)
   }
 }
 
@@ -60,12 +59,12 @@ const validateProgramRequirements = (program) => {
   })
   if (!fs.existsSync(program.projectDir)) {
     throw new Error(
-      `The truffle project not found at path: ${program.projectDir}`
+      `A truffle project was not found at path: ${program.projectDir}`
     )
   }
   if (program.contractOutput && !fs.existsSync(program.contractOutput)) {
     throw new Error(
-      `The contract ABI destination path does not exist: ${
+      `A contract ABI copy destination path does not exist: ${
         program.contractOutput
       }`
     )
@@ -77,8 +76,8 @@ const parseConfig = (program) => {
   try {
     config.read(program.config)
   } catch (err) {
-    console.log(`Your config file is invalid`)
-    throw err
+    console.log(`Invalid or missing config, using defaults`)
+    return
   }
   configParsing(program)
   validateProgramRequirements(program)

@@ -11,18 +11,20 @@ const { dapploy } = require(`./src/deployDapp`)
 const { runDapper } = require(`./src/runDapper`)
 const { parseConfig } = require(`./src/configParser`)
 
+const defaultProject = `./samples/sample-datavault-solidity`
 const defaultConfig = `dapploy.conf`
+const defaultNetwork = `development`
 program
   .version(`0.1.0`)
-  .option(`-t, --truffle <dir>`, `Truffle Project Directory`)
-  .option(`-o, --output <dir>`, `Contract Output Directory`)
-  .option(`-n, --network <network>`, `Deploy to network`)
-  .option(`-c, --config [config]`, `Config file`, defaultConfig)
-  .option(`-x, --excludes [Contract1,Contract2]`, `Exclude contracts from the web3 interface (files are still copied)`)
-  .option(`-i, --includes [Contract1,Contract2]`, `Include contracts from the web3 interface (files are still copied)`)
+  .option(`-t, --projectDir [dir]`, `Truffle Project Directory`, defaultProject)
+  .option(`-n, --network [network]`, `Deploy to network`, defaultNetwork)
+  .option(`-c, --config <config>`, `Config file`, defaultConfig)
+  .option(`-o, --contractOutput <dir>`, `Contract Output Directory`)
+  .option(`-x, --excludeContracts [Contract1,Contract2]`, `Exclude contracts from the web3 interface (files are still copied)`)
+  .option(`-i, --includeContracts [Contract1,Contract2]`, `Include contracts from the web3 interface (files are still copied)`)
   .option(`-l, --clean`, `Clean contracts before migrating`)
   .option(`-r, --remoteOnly`, `Only copy contracts remote`)
-  .option(`-s, --skipAWS`, `Skip remote copy to aws config`)
+  .option(`-k, --bucketName`, `Do remote copy of ABI to aws bucket (make sure to setup ~/.aws)`)
   .option(`-y, --copyOnly`, `Only do folder copy and S3 copy`)
 
 let execute = [p => dapploy(p)]
@@ -49,6 +51,7 @@ async function asyncForEach (array, callback) {
     await callback(array[index], index, array)
   }
 }
+
 
 try {
   parseConfig(program)
