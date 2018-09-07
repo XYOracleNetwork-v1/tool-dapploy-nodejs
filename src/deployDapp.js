@@ -4,6 +4,7 @@ const { migrateTruffle } = require(`./truffleMigrator`)
 const { execPromise } = require(`./execWrapper`)
 const { exportConfig } = require(`./web3ConfigExporter`)
 
+const tempContractsOutput = `/tmp/tempContractsOutputFolder`
 /* Copies the contracts in the specified project to a local project (react client, etc)
 
 */
@@ -22,7 +23,13 @@ const copyContractsLocal = (program) => {
     // if contract output is equal to fromPath, just let it
     return Promise.resolve()
   }
-  const cp = `cp -p ${fromPath} ${program.contractOutput}`
+  // Copy to temp folder before moving to destination in case src and dest are the same
+  // Is there a cleaner way? 
+  // cp -rfpiU... all just throw errors when src == dest, and paths strings
+  const cp = `mkdir -p ${tempContractsOutput} && \
+  cp -p ${fromPath} ${tempContractsOutput} && \
+  mv ${tempContractsOutput}/* ${program.contractOutput} && \
+  rm -rf ${tempContractsOutput}`
   return execPromise(cp)
 }
 
