@@ -1,8 +1,8 @@
- # Where to find your truffle project, the network and where you want to copy locally
+# Where to find your truffle project, the network and where you want to copy locally
 [Truffle]
-projectDir=./samples/sample-datavault-solidity
+projectDir=./
 network=development
-contractOutput=./samples/sample-datavault-react/src/ABI
+contractOutput=./src/ABI
 
 # Include if you want to remote copy your contract ABIs to AWS backend
 # Setup your aws_access_key_id and aws_secret_access_key in ~/.aws/credentials
@@ -12,11 +12,11 @@ contractOutput=./samples/sample-datavault-react/src/ABI
 # Where to place generated web3 interface adaptor on web3 client, 
 # add any exclusions to keep from config
 [Web3]
-web3ModuleOutput=./.circle/reports/web3Adaptor.js
-excludeContracts=Migrations,QuadkeyLib,DutchAuctionLib
+web3ModuleOutput=./src/web3Adaptor.js
+excludeContracts=Migrations
 
 # Include Portis section if you want Portis support in your web3 client
-[Portis]
-portisApiKey=<API_KEY>
-appName=<APP_NAME>
-logoUrl=<URL_TO_APP>
+# [Portis]
+# portisApiKey=<API_KEY>
+# appName=<APP_NAME>
+# logoUrl=<URL_TO_APP>

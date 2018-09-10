@@ -12,7 +12,7 @@ contractOutput=./samples/sample-datavault-react/src/ABI
 # Where to place generated web3 interface adaptor on web3 client, 
 # add any exclusions to keep from config
 [Web3]
-web3ModuleOutput=./samples/sample-datavault-react/src/web3.js
+web3ModuleOutput=./samples/sample-datavault-react/src/web3Adaptor.js
 excludeContracts=Migrations,QuadkeyLib,DutchAuctionLib
 
 # Include Portis section if you want Portis support in your web3 client

@@ -62,13 +62,6 @@ const validateProgramRequirements = (program) => {
       `A truffle project was not found at path: ${program.projectDir}`
     )
   }
-  if (program.contractOutput && !fs.existsSync(program.contractOutput)) {
-    throw new Error(
-      `A contract ABI copy destination path does not exist: ${
-        program.contractOutput
-      }`
-    )
-  }
 }
 
 const parseConfig = (program) => {
@@ -83,4 +76,29 @@ const parseConfig = (program) => {
   validateProgramRequirements(program)
 }
 
-module.exports = { parseConfig }
+const initConfig = () => {
+  const configFile = `./.dapploy`
+  if (fs.existsSync(configFile)) {
+    throw new Error(
+      `A config file was found at: ${configFile}. Stopping to prevent overwriting data.`
+    )
+  }
+  console.log(` $ Creating config file at ./.dapploy`)
+  // Adding sections and adding keys
+  config.addSection(`Truffle`)
+  config.set(`Truffle`, `projectDir`, `./`)
+  config.set(`Truffle`, `network`, `development`)
+  config.set(`Truffle`, `contractOutput`, `./src/ABI`)
+
+  // With String Interpolation, %(key_name)s
+  config.addSection(`Web3`)
+  config.set(`Web3`, `web3ModuleOutput`, `/src`)
+  config.set(`Web3`, `excludeContracts`, `Migrations`)
+
+  config.write(`.dapploy`)
+
+  console.log(`$ Make sure you configure a "development" network in truffle.js`)
+  return Promise.resolve(true)
+}
+
+module.exports = { parseConfig, initConfig }

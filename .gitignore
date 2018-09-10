@@ -9,6 +9,7 @@ keys
 password
 react
 sample/truffle-project/build 
+dist
 
 # Runtime data
 pids

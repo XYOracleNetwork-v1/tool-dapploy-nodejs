@@ -24,9 +24,10 @@ const copyContractsLocal = (program) => {
     return Promise.resolve()
   }
   // Copy to temp folder before moving to destination in case src and dest are the same
-  // Is there a cleaner way? 
+  // Is there a cleaner way?
   // cp -rfpiU... all just throw errors when src == dest, and paths strings
-  const cp = `mkdir -p ${tempContractsOutput} && \
+  const cp = `mkdir -p ${tempContractsOutput} && 
+  mkdir -p ${program.contractOutput} && \
   cp -p ${fromPath} ${tempContractsOutput} && \
   mv ${tempContractsOutput}/* ${program.contractOutput} && \
   rm -rf ${tempContractsOutput}`

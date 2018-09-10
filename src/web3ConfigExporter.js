@@ -91,7 +91,7 @@ const exportConfig = (program, contracts) => {
   const outPath = path.dirname(program.web3ModuleOutput)
   shell.mkdir(`-p`, outPath)
   if (!fs.existsSync(outPath)) {
-    return Promise.reject(new Error(`Cannot create web3.js file at ${outPath}`))
+    return Promise.reject(new Error(`Cannot create web3 adaptor at ${outPath}`))
   }
   console.log(` $ Moving`, tempFile, `to`, program.web3ModuleOutput)
   shell.mv(tempFile, program.web3ModuleOutput)
