@@ -83,7 +83,7 @@ const initConfig = () => {
       `A config file was found at: ${configFile}. Stopping to prevent overwriting data.`
     )
   }
-  console.log(` $ Creating config file at ./.dapploy`)
+  console.log(` $ Creating config file at ${configFile}`)
   // Adding sections and adding keys
   config.addSection(`Truffle`)
   config.set(`Truffle`, `projectDir`, `./`)
@@ -92,10 +92,10 @@ const initConfig = () => {
 
   // With String Interpolation, %(key_name)s
   config.addSection(`Web3`)
-  config.set(`Web3`, `web3ModuleOutput`, `/src`)
+  config.set(`Web3`, `web3ModuleOutput`, `./src`)
   config.set(`Web3`, `excludeContracts`, `Migrations`)
 
-  config.write(`.dapploy`)
+  config.write(configFile)
 
   console.log(`$ Make sure you configure a "development" network in truffle.js`)
   return Promise.resolve(true)
