@@ -38,9 +38,9 @@ jobs:
             cd samples/sample-datavault-solidity
             node_modules/.bin/ganache-cli > /dev/null &
             sleep 5
-            node_modules/.bin/truffle test
+            node_modules/.bin/truffle test > reports/truffle.report
             cd ../..
-            ./dapploy -c .circleci/circle_dapploy.conf
+            ./dapploy -c .circleci/circle_dapploy.conf > reports/dapploy.report
 
       - save_cache:
           paths:
@@ -49,4 +49,4 @@ jobs:
 
       # TODO run some more tests
       - store_test_results:
-          path: dapploy/reports
+          path: reports

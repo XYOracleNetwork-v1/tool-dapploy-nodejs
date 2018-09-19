@@ -6,8 +6,9 @@ contractOutput=../sample-datavault-react/src/ABI
 
 # Include if you want to remote copy your contract ABIs to AWS backend
 # Setup your aws_access_key_id and aws_secret_access_key in ~/.aws/credentials
-# [AWS]
-# bucketName=layerone.smart-contracts/ABI
+[AWS]
+bucketName=layerone.smart-contracts
+remotePath=ABI
 
 # Where to place generated web3 interface adaptor on web3 client, 
 # add any exclusions to keep from config

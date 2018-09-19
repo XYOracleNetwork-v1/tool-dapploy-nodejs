@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "aws-sdk": "^2.275.1",
+    "aws-sdk": "^2.316.0",
     "commander": "^2.16.0",
     "configparser": "^0.2.6",
     "ganache-cli": "^6.1.7",

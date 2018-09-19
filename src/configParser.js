@@ -23,7 +23,7 @@ const configParsing = (program) => {
     parseParams(program, `Truffle`, [`projectDir`, `network`])
 
     if (config.sections().includes(`AWS`)) {
-      parseParams(program, `AWS`, [`bucketName`])
+      parseParams(program, `AWS`, [`bucketName`, `remotePath`])
     }
 
     if (config.sections().includes(`Web3`)) {

@@ -1,18 +1,19 @@
-const AWS = require(`aws-sdk`) // from AWS SDK
+const AWS = require(`aws-sdk`)
+
 const readDir = require(`./fileReader`).readDir
 const path = require(`path`)
 const fs = require(`fs`)
 
-const uploadFiles = (bucketName, s3, files) => {
+const uploadFiles = (bucketName, remotePath, awsS3Client, files) => {
   const promises = []
   // for each file in the directory
   files.forEach((filePath) => {
-    const fileName = path.basename(filePath)
+    const rPath = remotePath ? `${remotePath}/` : ``
+    const fileName = `${rPath}${path.basename(filePath)}`
     // ignore if directory
     if (fs.lstatSync(filePath).isDirectory()) {
       return
     }
-
     promises.push(
       new Promise((resolve, reject) => {
         // read file contents
@@ -20,6 +21,7 @@ const uploadFiles = (bucketName, s3, files) => {
           if (error) {
             reject(error)
           }
+          console.log(`Saving`, bucketName, fileName)
           const params = {
             Bucket: bucketName,
             ACL: `bucket-owner-full-control`,
@@ -27,12 +29,12 @@ const uploadFiles = (bucketName, s3, files) => {
             Body: fileContent,
             ContentType: `json`
           }
-          // upload file to S3
-          s3.putObject(params, (err, res) => {
+          // upload file to awsS3Client
+          awsS3Client.putObject(params, (err, res) => {
             if (err) {
               return reject(err)
             }
-            console.log(`Successfully uploaded '${fileName}'!`)
+            console.log(`Successfully uploaded '${fileName}'`)
 
             return resolve(res)
           })
@@ -43,17 +45,40 @@ const uploadFiles = (bucketName, s3, files) => {
   return Promise.all(promises)
 }
 
-const uploadRemote = (program) => {
-  const abiPath = path.join(program.projectDir, `build/contracts`)
+const clearBucket = async (bucketName, remotePath, awsS3Client) => {
+  const params = {
+    Bucket: bucketName,
+    Prefix: `${remotePath}`
+  }
+  const listedObjects = await awsS3Client.listObjectsV2(params).promise()
+  const deleteParams = {
+    Bucket: bucketName,
+    Delete: { Objects: [] }
+  }
+  listedObjects.Contents.forEach(({ Key }) => {
+    deleteParams.Delete.Objects.push({ Key })
+  })
+  await awsS3Client.deleteObjects(deleteParams).promise()
 
-  return readDir(abiPath).then((files) => {
-    const bucketName = `${program.bucketName}/${program.network}`
+  if (listedObjects.Contents.IsTruncated) await clearBucket(bucketName, remotePath)
+}
+
+const uploadRemote = async (program) => {
+  const abiPath = path.join(program.projectDir, `build/contracts`)
+  const bucketName = program.bucketName
+  return readDir(abiPath).then(async (files) => {
+    const rPath = program.remotePath ? `${program.remotePath}/` : ``
+
+    const remotePath = `${rPath}${program.network}`
     console.log(` $ Copying contracts to remote AWS bucket ${bucketName}`)
 
-    const s3 = new AWS.S3({
+    const awsS3Client = new AWS.S3({
       signatureVersion: `v4`
     })
-    return uploadFiles(bucketName, s3, files)
+
+    // const client = s3.createClient()
+    await clearBucket(bucketName, remotePath, awsS3Client)
+    return uploadFiles(bucketName, remotePath, awsS3Client, files)
   })
 }
 
