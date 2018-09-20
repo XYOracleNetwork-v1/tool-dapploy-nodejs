@@ -6,19 +6,34 @@ const templateFile = `${__dirname}/web3template.js`
 const tempFile = `/tmp/temp999` // Copy the template to working file for us to modify
 const fs = require(`fs`)
 
-const portisConfigString = ({
-  portisApiKey, network, appName, logoUrl
-}) => {
-  if (!portisApiKey || !appName) {
-    // default to localhost if no portis included
-    return `return new Web3('http://localhost:8545')`
-  }
-  return `return new Web3(new PortisProvider({
+const portisConfigString = ({ portisApiKey, network, infuraApiKey }) => {
+  if (portisApiKey) {
+    const allowedNetworks = [
+      `mainnet`,
+      `ropsten`,
+      `kovan`,
+      `rinkeby`,
+      `sokol`,
+      `core`
+    ]
+    if (allowedNetworks.includes(network)) {
+      return `return new Web3(new PortisProvider({
             apiKey: '${portisApiKey}',
             network: '${network}',
-            appName: '${appName}',
-            appLogoUrl: '${logoUrl}',
         }))`
+    }
+    if (infuraApiKey) {
+      return `return new Web3(new PortisProvider({
+            apiKey: '${portisApiKey}',
+            infuraApiKey: '${infuraApiKey}',
+            network: '${network}',
+        }))`
+    }
+  }
+  // default to localhost if no metamask, use portis
+  return `return new Web3(new PortisProvider({
+        providerNodeUrl: 'http://localhost:8545',
+    }))`
 }
 
 const contractDeclarationString = (contracts) => {

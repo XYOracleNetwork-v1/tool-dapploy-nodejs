@@ -41,7 +41,7 @@ const configParsing = (program) => {
 
     if (config.sections().includes(`Portis`)) {
       program.addPortis = true
-      parseParams(program, `Portis`, [`portisApiKey`, `appName`, `logoUrl`])
+      parseParams(program, `Portis`, [`portisApiKey`, `infuraApiKey`])
     }
   } else {
     console.log(`Empty config file, using defaults`)

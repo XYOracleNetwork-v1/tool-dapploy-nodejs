@@ -3,7 +3,7 @@ require(`babel-register`)({
 })
 require(`babel-polyfill`)
 const HDWalletProvider = require(`truffle-hdwallet-provider`)
-
+const mnemonic = `This is your secure 12 word phrase you can export from metamask`
 module.exports = {
   migrations_directory: `./migrations`,
   networks: {
@@ -14,20 +14,13 @@ module.exports = {
     },
     kovan: {
       network_id: 42,
-      host: `localhost`,
-      port: 8545,
+      provider: () => new HDWalletProvider(mnemonic, `https://kovan.infura.io/<infura-key>`),
       gas: 6986331
     },
     ropsten: {
       network_id: 3,
-      host: `localhost`,
-      port: 8545,
-      gas: 4700000
-    },
-    "ropsten-infura": {
-      network_id: 3,
       provider: () => new HDWalletProvider(
-        `<mnemonic>`,
+        mnemonic,
         `https://ropsten.infura.io/<infura-key>`
       ),
       gas: 4700000
@@ -35,11 +28,10 @@ module.exports = {
     mainnet: {
       network_id: `1`,
       provider: () => new HDWalletProvider(
-        `<mnemonic>`,
+        mnemonic,
         `https://mainnet.infura.io/<infura-key>`
       ),
-      gas: 4500000,
-      gasPrice: 2000000000
+      gas: 4500000
     }
   },
   solc: {

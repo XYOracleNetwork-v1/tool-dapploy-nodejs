@@ -19,5 +19,4 @@ excludeContracts=Migrations,QuadkeyLib,DutchAuctionLib
 # Include Portis section if you want Portis support in your web3 client
 # [Portis]
 # portisApiKey=<API_KEY>
-# appName=<APP_NAME>
-# logoUrl=<URL_TO_APP>
+# infuraApiKey=<INFURA_API_KEY>

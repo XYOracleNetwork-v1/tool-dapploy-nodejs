@@ -3,7 +3,7 @@ require(`babel-register`)({
 })
 require(`babel-polyfill`)
 const HDWalletProvider = require(`truffle-hdwallet-provider`)
-
+const mnemonic = `This is a series of 12 words that reflect your private key`
 module.exports = {
   migrations_directory: `./migrations`,
   networks: {
@@ -14,23 +14,16 @@ module.exports = {
     },
     kovan: {
       network_id: 42,
-      host: `localhost`,
-      port: 8545,
+      provider: () => new HDWalletProvider(mnemonic, `https://kovan.infura.io/<infura-key>`),
       gas: 6986331
     },
     ropsten: {
       network_id: 3,
-      host: `localhost`,
-      port: 8545,
-      gas: 4700000
-    },
-    "ropsten-infura": {
-      network_id: 3,
       provider: () => new HDWalletProvider(
-        `<mnemonic>`,
+        mnemonic,
         `https://ropsten.infura.io/<infura-key>`
       ),
-      gas: 4700000
+      gas: 6986331
     },
     mainnet: {
       network_id: `1`,
