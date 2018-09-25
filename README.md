@@ -17,6 +17,7 @@
     </a>
     <a href="https://david-dm.org/xyoraclenetwork/tool-dapploy-nodejs" title="dependencies status"><img src="https://david-dm.org/xyoraclenetwork/tool-dapploy-nodejs/status.svg"/></a>
   <a href="https://david-dm.org/xyoraclenetwork/tool-dapploy-nodejs?type=dev" title="devDependencies status"><img src="https://david-dm.org/xyoraclenetwork/tool-dapploy-nodejs/dev-status.svg"/></a>
+  <a href="https://bettercodehub.com/results/XYOracleNetwork/tool-dapploy-nodejs" title="Better Code"><img src="https://bettercodehub.com/edge/badge/XYOracleNetwork/tool-dapploy-nodejs?branch=master"/></a>
 </p>
 
 <p align="center">
