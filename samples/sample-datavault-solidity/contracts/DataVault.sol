@@ -12,7 +12,7 @@ contract DataVault is ERC721Token {
     */
     constructor() 
         public 
-        ERC721Token("Data Token", "DT")
+        ERC721Token("Data Vault Local", "DV")
     {
     }
 

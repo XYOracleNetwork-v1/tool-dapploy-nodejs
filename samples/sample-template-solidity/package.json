@@ -1,0 +1,11 @@
+{
+  "name": "sample-template-solidity",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "openzeppelin-solidity": "^1.12.0",
+    "truffle-hdwallet-provider": "^0.0.6"
+  }
+}

@@ -1,22 +1,23 @@
 # Where to find your truffle project, the network and where you want to copy locally
 [Truffle]
-projectDir=~/Documents/GitHub/tool-dappdeployer-node/samples/sample-datavault-solidity
+projectDir=./
 network=development
-contractOutput=~/Documents/GitHub/tool-dappdeployer-node/samples/sample-datavault-react/src/ABI
+contractOutput=../sample-datavault-react/src/ABI
 
 # Include if you want to remote copy your contract ABIs to AWS backend
 # Setup your aws_access_key_id and aws_secret_access_key in ~/.aws/credentials
 [AWS]
-bucketName=layerone.smart-contracts/ABI
+bucketName=layerone.smart-contracts
+remotePath=ABI
 
 # Where to place generated web3 interface adaptor on web3 client, 
 # add any exclusions to keep from config
 [Web3]
-web3ModuleOutput=~/Documents/GitHub/tool-dappdeployer-node/samples/sample-datavault-react/src/web3.js
+web3ModuleOutput=../sample-datavault-react/src/web3Adaptor.js
 excludeContracts=Migrations,QuadkeyLib,DutchAuctionLib
 
 # Include Portis section if you want Portis support in your web3 client
-#[Portis]
-#portisApiKey=79206f2b809ca849dfd73e487f2b948c
-#appName=Data Vault
-#logoUrl=http://some.logo.url.path.com
+[Portis]
+portisApiKey=<API_KEY>
+infuraApiKey=<INFURA_API_KEY>
+

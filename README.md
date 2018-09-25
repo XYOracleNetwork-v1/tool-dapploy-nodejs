@@ -1,34 +1,28 @@
 <h1 align="center">
-  Bangarang
+  <img alt="Dapploy" src="http://xyo.network.s3.amazonaws.com/img/dapploy-logo.jpg" width="300">
 </h1>
-
-<p align="center">
-  <a href="https://xyo.network">
-    <img alt="Yarn" src="https://www.disneyclips.com/imagesnewb/images/clippeterpan21.gif?raw=true" width="246">
-  </a>
-</p>
-
 <h3 align="center">
-  Deploy dApps without trying.
+  "Simplify Dapp Deployment"
 </h3>
 
 <p align="center">
-  <a href="https://circleci.com/gh/yarnpkg/yarn">
-    <img alt="Circle Status" src="https://circleci.com/gh/yarnpkg/yarn.svg?style=shield&circle-token=5f0a78473b0f440afb218bf2b82323cc6b3cb43f">
+  <a href="https://circleci.com/gh/XYOracleNetwork/tool-dappdeployer-nodejs">
+    <img alt="Circle Status" src="https://circleci.com/gh/XYOracleNetwork/tool-dapploy-nodejs.svg?style=shield&circle-token=17875bb2726cc569f5426d27748d6386f2401f5b">
   </a>
-  <a href="https://ci.appveyor.com/project/kittens/yarn/branch/master">
-    <img alt="Appveyor Status" src="https://ci.appveyor.com/api/projects/status/0xdv8chwe2kmk463?svg=true">
-  </a>
-  <a href="https://discord.gg/yarnpkg">
-    <img alt="Discord Chat" src="https://img.shields.io/discord/226791405589233664.svg">
+  <a href="https://gitter.im/XYOracleNetwork/Dev">
+    <img alt="Gitter Chat" src="https://img.shields.io/gitter/room/XYOracleNetwork/Stardust.svg">
   </a>
   <a href="http://commitizen.github.io/cz-cli/">
-    <img alt="Commitizen friendly" src="https://img.shields.io/badge/commitizen-friendly-brightgreen.svg">
+    <img alt="Commitizen friendly" src="https://img.shields.io/badge/web3-friendly-brightgreen.svg">
     </a>
+    <a href="https://david-dm.org/xyoraclenetwork/tool-dapploy-nodejs" title="dependencies status"><img src="https://david-dm.org/xyoraclenetwork/tool-dapploy-nodejs/status.svg"/></a>
+  <a href="https://david-dm.org/xyoraclenetwork/tool-dapploy-nodejs?type=dev" title="devDependencies status"><img src="https://david-dm.org/xyoraclenetwork/tool-dapploy-nodejs/dev-status.svg"/></a>
+  <a href="https://bettercodehub.com/results/XYOracleNetwork/tool-dapploy-nodejs" title="Better Code"><img src="https://bettercodehub.com/edge/badge/XYOracleNetwork/tool-dapploy-nodejs?branch=master"/></a>
 </p>
 
 <p align="center">
-  Made with  ❄️ by [XYO Network (Winterfell)](https://xyo.network)
+  Made with ❤️
+  <br/>by [XYO](https://xyo.network)
 </p>
 
 ---
@@ -39,23 +33,19 @@ OK, you may have to lift a finger.
 
 But here's the deal.
 
-We've gone through the hoops of deploying dApps on the Ethereum Network and have nuked out all of the annoying parts.
+We've gone through the hoops of deploying dApps on the Ethereum Network and have nuked out all of the annoying parts to make dapployment a breeze.
 
-> "Take it from me, after you use Bangarang, you'll never go back to deploying dApps while wearing women's underwear ever again." - Graham McBain
+# Pt. I. Let's Get Crack-a-Lackin'
 
+1. We use [Truffle](https://truffleframework.com) to deploy our smart contracts to any Ethereum blockchain.
 
-# Pt I. Let's Get Crack-a-Lackin'  
-
-1. We use [Truffle](https://truffleframework.com) to deploy our smart contracts to any Ethereum blockchain. 
-
-**NOTE:** When you run the Dapp Deployer, your truffle project will need to be configured seperately.  A good example you can use is in the provided sample Truffle project  `samples/sample-datavault-solidity` and open `truffle.js` config file.
+**NOTE:** When you run the Dapp Deployer, your truffle project will need to be configured seperately. A good example you can use is in the provided sample Truffle project `samples/sample-datavault-solidity` and open `truffle.js` config file.
 
 2. Remember to 'YARN ALL THE THINGS' from the main project dir. Run this command:
 
 ```
 yarn && cd samples/sample-datavault-react/ && yarn && cd ../sample-datavault-solidity && yarn && cd ../..
 ```
-
 
 # Pt II. This Time, It's Personal
 
@@ -67,93 +57,54 @@ You can use metamask, mycrypto.io, Ganache, Geth, Parity, etc.
 
 Let's go through a few of these now!
 
-Just make sure your weapon of choice ain't a hook. ARGH!
-
 ### Setup Option #1: Local Setup (Ganache + Metamask)
+
 ---
 
 1. [Download and install Ganache from their site](https://truffleframework.com/ganache)
 
-* [Install MetaMask from their site](https://metamask.io/)
+- [Install MetaMask from their site](https://metamask.io/)
 
-* K, back to Ganache. Open it up.
-* Click the Gear Icon thingy ( ⚙️ ) to open `Preferences...`.
-v Make sure that port is set to 8545.
-* Click "Save and Restart" in the top-right of Ganache
-* Click the MetaMask fox icon in your chrome browser and complete all the first-timer steps if you're a MetaMask virgin (like Arie's mom).
-* Sign into Metamask and change Network on Metamask to localhost 8545
-* Now back to Ganache!
-* In your Ganache UI, you'll see a list of ~10 addresses. Click the key icon (🔑) next to one of 'em. And then COPY the "Private Key"
-* Head over to the `deployer.conf` file and open it up.
-* Make sure that the `network` is set to the following: `network=development`.
-* Run dapp deployer, skipping aws: `./contractDeployer.js -s`
-* Run the react client project to play with your deployed Dapp!
+- K, back to Ganache. Open it up.
+- Click the Gear Icon thingy ( ⚙️ ) to open `Preferences...`.
+  v Make sure that port is set to 8545.
+- Click "Save and Restart" in the top-right of Ganache
+- Click the MetaMask fox icon in your chrome browser and complete all the first-timer steps if you're a MetaMask virgin.
+- Sign into Metamask and change Network on Metamask to localhost 8545
+- Now back to Ganache!
+- In your Ganache UI, you'll see a list of ~10 addresses. Click the key icon (🔑) next to one of 'em. And then COPY the "Private Key"
+- Head over to the `deployer.conf` file and open it up.
+- Make sure that the `network` is set to the following: `network=development`.
+- Run dapp deployer, skipping aws:
 
-`cd samples/sample-datavault-react && yarn start`
+```
+  ./dapploy
+```
 
-### Setup Option #2: Ropsten Setup (Geth)
----
+- Run the react client project to play with your deployed Dapp!
 
-* Install geth with
-`brew install geth`
+```
+cd samples/sample-datavault-react && yarn start
+```
 
-* Sync with Ropsten testnet using:
-`geth --rpc --rpcapi="personal,eth,network,net,web3" --testnet`
+### [Setup Option #2: Ropsten Setup (Geth)](https://github.com/XYOracleNetwork/tool-dapploy-nodejs/wiki/Local-Ropsten-Config)
 
-This will take over 2 hours to fully sync. Wait until you no longer see `Imported new state entries` in geth output.  You have to sync the node from where you left off each time you want to deploy for each network.
+### [Setup Option #3: Kovan setup (Parity)](<https://github.com/XYOracleNetwork/tool-dapploy-nodejs/wiki/Kovan-setup-(Parity)>)
 
-* Import your Ropsten account
+# Some Dapploy Features
 
-`geth --datadir ~/Library/Ethereum/testnet account import ./keys/ropsten`
+- Create a smart contract project from a built in template. The template will install a new dapp into your current working directory configured with a brand new ERC20 Token ready to go!
+  Simply run : `./dapploy init`
 
-It will ask you for a password to protect the imported keyfile.  You only have to do this once.
+- You can configure the `network` in `deployer.conf` to any of the following:
+  ropsten, kovan, development, mainnet
 
-* Restart ropsten with option to unlock account. Your password is required.
+- Make sure you can compile and deploy the sample projects, then set the `projectDir`, `contractOutput`, and `web3ModuleOutput` to your projects
 
-`geth --rpc --rpcapi="personal,eth,network,net,web3" --datadir ~/Library/Ethereum/testnet --unlock 0x3d70f5f9b66311bbbd497471d9a69f476ea1d70b --testnet`
+- Want your dApp to support multiple browsers? Configure Portis in Dapp deployer setup, by first adding your Dapp on [portis.io](https://portis.io) and adding an infura key if needed.
 
-### Setup Option #3: Kovan setup (Parity)
----
-
-Kovan chain only works with parity.  
-
-* Add parity tap:
-`brew tap paritytech/paritytech`
-
-* Install parity with
-`brew install parity`
-
-* Sync with kovan chain
-`parity --chain=kovan`
-
-* You will need to move the geth keystore file, or export the metamask keystore file and move to:
-
-`~/Library/Application Support/io.parity.ethereum/keys/kovan`
-
-It will look like:
-`UTC--2018-07-19T22-21-46.544691752Z--3d70f5f9b66311bbbd497471d9a69f476ea1d70b`
-
-*  Then restart syncing on kovan, and unlock the account
-
-`parity --chain kovan --fast-unlock --unlock "0x3d70f5f9b66311bbbd497471d9a69f476ea1d70b" --password ../password.txt`
-
-
-# Pt III. Bangarang!
-
-
-Once you have your network of choice synced, and an account unlocked on the chain, configure and run the Dapp Deployer.
-
-* Set the `network` in `deployer.conf` to one of the following:
-ropsten, kovan, development, ropsten-infura, main
-
-* Once you are comfortable compiling and deploying the example projects, set the `projectDir` and `contractOutput` to your own new or existing project
-
-* Optionally include the destination to export the web3 provider module: `web3ModuleOutput`
-
-* Want your dApp to support multiple browsers?  Configure Portis in Dapp deployer setup, by first adding your Dapp on [portis.io](https://portis.io) and adding your key/app name to the configuration file.
-
-* Have a centralized storage server? Copy your ABI to Amazon S3 for your backend to dynamically link in like we do with [Ether Cache](https://github.com/XYOracleNetwork/ether-cache).  Include your AWS S3 `bucketName`, add your access key and add your AWS credentials with approved access to S3 by creating credentials file:
-`~/.aws/credentials` with format:
+- Have a centralized storage server? Copy your ABI to Amazon S3 for your backend to dynamically link in like we do with [Ether Cache](https://github.com/XYOracleNetwork/ether-cache). Include your AWS S3 `bucketName`, add your access key and add your AWS credentials with approved access to S3 by creating credentials file:
+  `~/.aws/credentials` with format:
 
 ```
 [default]
@@ -161,8 +112,9 @@ aws_access_key_id = AKIAIFYQ4UEUUJ6GDH6A
 aws_secret_access_key = FAKEasdfas=aqewrasdfa/sdfasdfasdfasdfFAKE
 ```
 
- [Detailed AWS credential instructions here](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.html)
+[Detailed AWS credential instructions here](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.html)
 
 ## Street Cred
 
-Made with ❄️  by [XYO Network (Winterfell)](https://xyo.network)
+Made with ❤️
+by [XYO](https://xyo.network)

@@ -8,7 +8,8 @@ yarn-error.log*
 keys
 password
 react
-examples/truffle-project/build 
+sample/truffle-project/build 
+dist
 
 # Runtime data
 pids
@@ -64,4 +65,6 @@ typings/
 
 # next.js build output
 .next
+
+samples/.DS_Store
 .DS_Store

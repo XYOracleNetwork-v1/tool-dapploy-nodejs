@@ -1,0 +1,83 @@
+#!/usr/bin/env node
+
+/* ** Main Program **
+
+    @description - This program may be configured using parameter options below
+    Makes it simple to deploy your contracts to your network of choice
+    run with --help
+*/
+const program = require(`commander`)
+const { dapploy } = require(`./src/deployDapp`)
+const { runDapper } = require(`./src/runDapper`)
+const { parseConfig, initConfig } = require(`./src/configParser`)
+const { buildAndDeployTemplate } = require(`./src/deployTemplate`)
+const defaultProject = `./samples/sample-datavault-solidity`
+const defaultConfig = `.dapploy`
+const defaultNetwork = `development`
+program
+  .version(`0.1.0`)
+  .option(`-t, --projectDir [dir]`, `Truffle Project Directory`, defaultProject)
+  .option(`-n, --network [network]`, `Deploy to network`, defaultNetwork)
+  .option(`-c, --config <config>`, `Config file`, defaultConfig)
+  .option(`-o, --contractOutput <dir>`, `Contract Output Directory`)
+  .option(`-x, --excludeContracts [Contract1,Contract2]`, `Exclude contracts from the web3 interface (files are still copied)`)
+  .option(`-a, --includeContracts [Contract1,Contract2]`, `Include contracts from the web3 interface (files are still copied)`)
+  .option(`-l, --clean`, `Clean contracts before migrating`)
+  .option(`-r, --remoteOnly`, `Only copy contracts remote`)
+  .option(`-k, --bucketName`, `Do remote copy of ABI to aws bucket (make sure to setup ~/.aws)`)
+  .option(`-y, --copyOnly`, `Only do folder copy and S3 copy`)
+  .option(`-i, --init`, `Add default config file to current directory`)
+
+let execute = [p => dapploy(p)]
+program.command(`init [dir]`)
+  .description(`Configure a new truffle project from scratch`)
+  .option(`-g, --configOnly`, `Create dapploy config file in current directory`)
+  .action((dir, cmd) => {
+    program.initPath = dir || `./`
+    if (cmd.configOnly) {
+      execute = [p => initConfig(p)]
+    } else {
+      execute = [p => buildAndDeployTemplate(p)]
+    }
+  })
+
+program
+  .command(`dapper`)
+  .description(`View your smart contracts using dapper`)
+  .option(`-b, --build`, `Build and Migrate ABI before starting`)
+  .option(`-d, --distribute`, `Create dapper distribution in ./dist`)
+  .action((option) => {
+    program.dapper = true
+    if (option.build) {
+      execute.push(p => runDapper(p))
+    } else {
+      execute = [p => runDapper(p)]
+    }
+  })
+
+program.parse(process.argv)
+
+async function asyncForEach (array, callback) {
+  for (let index = 0; index < array.length; index++) {
+    await callback(array[index], index, array)
+  }
+}
+
+try {
+  parseConfig(program)
+} catch (err) {
+  console.log(err)
+  process.exit(1)
+}
+(async () => {
+  asyncForEach(execute, async (exe) => {
+    console.log(`Running command`, exe)
+    try {
+      await exe(program)
+    } catch (err) {
+      console.log(err)
+      process.exit(1)
+      throw err
+    }
+  })
+})()

@@ -1,6 +1,4 @@
-src/ABI/*.json
-src/web3Adaptor.js
-
+build
 # Logs
 logs
 *.log
