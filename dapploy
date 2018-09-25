@@ -29,14 +29,15 @@ program
   .option(`-i, --init`, `Add default config file to current directory`)
 
 let execute = [p => dapploy(p)]
-program.command(`init`)
+program.command(`init [dir]`)
   .description(`Configure a new truffle project from scratch`)
   .option(`-g, --configOnly`, `Create dapploy config file in current directory`)
-  .action((option) => {
-    if (option.configOnly) {
+  .action((dir, cmd) => {
+    program.initPath = dir || `./`
+    if (cmd.configOnly) {
       execute = [p => initConfig(p)]
     } else {
-      execute = [_ => buildAndDeployTemplate()]
+      execute = [p => buildAndDeployTemplate(p)]
     }
   })
 

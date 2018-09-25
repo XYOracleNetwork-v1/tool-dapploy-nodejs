@@ -1,7 +1,6 @@
 const { execPromise } = require(`./execWrapper`)
 
-const distPath = `./dapp`
-const deployTemplate = (program) => {
+const deployTemplate = (distPath) => {
   const templatePath = `${__dirname}/../samples/sample-template-solidity/`
   console.log(` $ Creating truffle project in ${distPath} from ${templatePath}`)
 
@@ -14,9 +13,12 @@ const deployTemplate = (program) => {
   return execPromise(cp)
 }
 
-const buildAndDeployTemplate = program => deployTemplate().then(() => {
-  console.log(`$ Building template`)
-  return execPromise(`cd ${distPath} && yarn`)
-})
+const buildAndDeployTemplate = (program) => {
+  const distPath = program.initPath || `./`
 
+  return deployTemplate(distPath).then(() => {
+    console.log(`$ Building template`)
+    return execPromise(`cd ${distPath} && yarn`)
+  })
+}
 module.exports = { deployTemplate, buildAndDeployTemplate }

@@ -1,6 +1,10 @@
 const fs = require(`fs`) // from node.js
 const path = require(`path`) // from node.js
 
+const abiPath = program => path.join(program.projectDir, `build/contracts`)
+
+const abiToJSON = program => readDir(abiPath)
+
 // get of list of files from 'dir' directory
 const readDir = dir => new Promise((resolve, reject) => {
   const resolvePath = dir
@@ -18,4 +22,4 @@ const readDir = dir => new Promise((resolve, reject) => {
   })
 })
 
-module.exports = { readDir }
+module.exports = { readDir, abiPath, abiToJSON }

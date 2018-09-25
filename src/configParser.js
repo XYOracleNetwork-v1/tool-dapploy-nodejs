@@ -76,8 +76,12 @@ const parseConfig = (program) => {
   validateProgramRequirements(program)
 }
 
-const initConfig = () => {
-  const configFile = `./.dapploy`
+const initConfig = (program) => {
+  let projectDir = program.initPath || `./`
+  if (projectDir.charAt(projectDir.length - 1) !== `/`) {
+    projectDir += `/`
+  }
+  const configFile = `${projectDir}.dapploy`
   if (fs.existsSync(configFile)) {
     throw new Error(
       `A config file was found at: ${configFile}. Stopping to prevent overwriting data.`
