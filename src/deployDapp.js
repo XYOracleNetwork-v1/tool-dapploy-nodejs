@@ -3,7 +3,7 @@ const { uploadRemote } = require(`./awsFolderUploader`)
 const { migrateTruffle } = require(`./truffleMigrator`)
 const { execPromise } = require(`./execWrapper`)
 const { exportConfig } = require(`./web3ConfigExporter`)
-
+const { uploadIPFS } = require(`./ipfsUploader`)
 const tempContractsOutput = `/tmp/tempContractsOutputFolder`
 /* Copies the contracts in the specified project to a local project (react client, etc)
 
@@ -57,6 +57,9 @@ const dapploy = (program) => {
 
   if (program.remoteOnly) {
     return uploadRemote(program)
+  }
+  if (program.pinToIpfs) {
+    return uploadIPFS(program)
   }
 
   return cleanIfNeeded(program)

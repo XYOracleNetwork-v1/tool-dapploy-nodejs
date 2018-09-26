@@ -1,4 +1,4 @@
-const abiToJSON = require(`./fileReader`).abiToJSON
+const abiFilePaths = require(`./fileReader`).abiFilePaths
 
 const AWS = require(`aws-sdk`)
 const path = require(`path`)
@@ -65,7 +65,7 @@ const clearBucket = async (bucketName, remotePath, awsS3Client) => {
 
 const uploadRemote = async (program) => {
   const bucketName = program.bucketName
-  return abiToJSON(program).then(async (files) => {
+  return abiFilePaths(program).then(async (files) => {
     const rPath = program.remotePath ? `${program.remotePath}/` : ``
 
     const remotePath = `${rPath}${program.network}`

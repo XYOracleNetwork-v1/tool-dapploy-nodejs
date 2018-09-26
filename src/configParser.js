@@ -8,7 +8,7 @@ const fs = require(`fs`)
 const parseParams = (program, section, params) => {
   params.forEach((param) => {
     const parsedParam = config.get(section, param)
-    if (parsedParam) {
+    if (parsedParam && !program[param]) {
       program[param] = untildify(parsedParam)
     }
   })
@@ -48,22 +48,6 @@ const configParsing = (program) => {
   }
 }
 
-const validateProgramRequirements = (program) => {
-  const requiredParams = [`network`, `projectDir`]
-  requiredParams.forEach((param) => {
-    if (!program[param]) {
-      throw new Error(
-        `Missing param: ${param}, add to configuration file or pass in param`
-      )
-    }
-  })
-  if (!fs.existsSync(program.projectDir)) {
-    throw new Error(
-      `A truffle project was not found at path: ${program.projectDir}`
-    )
-  }
-}
-
 const parseConfig = (program) => {
   console.log(` $ Parsing config`, program.config)
   try {
@@ -73,7 +57,6 @@ const parseConfig = (program) => {
     return
   }
   configParsing(program)
-  validateProgramRequirements(program)
 }
 
 const initConfig = (program) => {
