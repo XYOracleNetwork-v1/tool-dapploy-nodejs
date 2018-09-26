@@ -11,6 +11,36 @@ const ipfs = new IPFS({
 
 const folder = `contracts`
 
+const pinToIPFS = hash => new Promise((resolve, reject) => {
+  ipfs.pin.add(hash, (err, res) => {
+    if (err) {
+      reject(err)
+    } else {
+      console.log(` $ Contracts pinned on IPFS`)
+      resolve(res)
+    }
+  })
+})
+
+const addToIPFS = data => new Promise((resolve, reject) => ipfs.add(data, { recursive: true }, (err, res) => {
+  if (err) {
+    console.log(`Got IPFS error:`, err)
+    reject(err)
+  } else {
+    res.forEach((fileObj) => {
+      if (fileObj.path === folder) {
+        console.log(` $ Contracts stored to IPFS`, fileObj.hash)
+        resolve(fileObj.hash)
+      }
+    })
+    reject(
+      new Error(
+        `No folder returned saving the IPFS file, this shouldn't happen`
+      )
+    )
+  }
+}))
+
 const uploadIPFS = program => abiFilePaths(program)
   .then((files) => {
     const data = []
@@ -21,25 +51,10 @@ const uploadIPFS = program => abiFilePaths(program)
     })
     return data
   })
-  .then(
-    data => new Promise((resolve, reject) => ipfs.add(data, { recursive: true }, (err, res) => {
-      if (err) {
-        console.log(`Got IPFS error:`, err)
-        reject(err)
-      } else {
-        res.forEach((fileObj) => {
-          if (fileObj.path === folder) {
-            console.log(` $ Contracts stored to IPFS`, fileObj.hash)
-            resolve(fileObj)
-          }
-        })
-        reject(
-          new Error(
-            `No folder returned saving the IPFS file, this shouldn't happen`
-          )
-        )
-      }
-    }))
-  )
+  .then(addToIPFS)
+  .then(pinToIPFS)
+  .catch((err) => {
+    console.log(err)
+  })
 
 module.exports = { uploadIPFS }
