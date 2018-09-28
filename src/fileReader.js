@@ -3,7 +3,7 @@ const path = require(`path`) // from node.js
 
 const abiPath = program => path.join(program.projectDir, `build/contracts`)
 
-const abiToJSON = program => readDir(abiPath)
+const abiFilePaths = program => readDir(abiPath(program))
 
 // get of list of files from 'dir' directory
 const readDir = dir => new Promise((resolve, reject) => {
@@ -22,4 +22,4 @@ const readDir = dir => new Promise((resolve, reject) => {
   })
 })
 
-module.exports = { readDir, abiPath, abiToJSON }
+module.exports = { readDir, abiPath, abiFilePaths }

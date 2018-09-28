@@ -14,6 +14,11 @@ const migrateTruffle = ({
 }) => {
   console.log(` $ Migrating contracts at ${projectDir}`)
 
+  if (!projectDir || !network) {
+    throw new Error(
+      `Missing projectDir or network, add to configuration file or pass in param`
+    )
+  }
   const command = `${__dirname}/../node_modules/.bin/truffle migrate --network ${network} --reset`
   console.log(` $ Using truffle command: ${command}`)
 
