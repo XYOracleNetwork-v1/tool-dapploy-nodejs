@@ -47,6 +47,35 @@ We've gone through the hoops of deploying dApps on the Ethereum Network and have
 yarn && cd samples/sample-datavault-react/ && yarn && cd ../sample-datavault-solidity && yarn && cd ../..
 ```
 
+3. Run `dapploy -h` to see the options:
+
+```
+Usage: dapploy [options] [command]
+
+Options:
+
+  -V, --version                                 output the version number
+  -t, --projectDir <dir>                        Truffle Project Directory
+  -n, --network [network]                       Deploy to network (default: development)
+  -c, --config <config>                         Config file (default: .dapploy)
+  -o, --contractOutput <dir>                    Contract Output Directory
+  -x, --excludeContracts [Contract1,Contract2]  Exclude contracts from the web3 interface (files are still copied)
+  -a, --includeContracts [Contract1,Contract2]  Include contracts from the web3 interface (files are still copied)
+  -l, --clean                                   Clean contracts before migrating
+  -r, --remoteOnly                              Only copy contracts remote
+  -p, --pinToIpfs                               Pin contracts to IPFS for remote access
+  -k, --bucketName                              Do remote copy of ABI to aws bucket (make sure to setup ~/.aws)
+  -y, --copyOnly                                Only do folder copy and S3 copy
+  -i, --init                                    Add default config file to current directory
+  -h, --help                                    output usage information
+
+Commands:
+
+  init [options] [dir]                          Configure a new truffle project from scratch
+  dapper [options]                              View your smart contracts using dapper
+
+```
+
 # Pt II. This Time, It's Personal
 
 ### Now, it's time to create an Ethereum Account (AKA "wallet") to deploy smart contracts!
