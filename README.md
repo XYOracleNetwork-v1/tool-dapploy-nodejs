@@ -76,72 +76,127 @@ Commands:
 
 ```
 
+4. Add dapploy alias to run from any project in your bash_profile:
+```
+echo "alias dapploy=\"/<path_to_project>/tool-dapploy-nodejs/dapploy\""| cat >> .bash_profile
+```
+
 # Pt II. This Time, It's Personal
 
-### Now, it's time to create an Ethereum Account (AKA "wallet") to deploy smart contracts!
+### Feature #1: `dapploy init` - create a new smart contract project!
 
-You will need an Ethereum Account with some ETH to deploy contracts to the Ethereum Network.
-
-You can use metamask, mycrypto.io, Ganache, Geth, Parity, etc.
-
-Let's go through a few of these now!
-
-### Setup Option #1: Local Setup (Ganache + Metamask)
-
----
-
-1. [Download and install Ganache from their site](https://truffleframework.com/ganache)
-
-- [Install MetaMask from their site](https://metamask.io/)
-
-- K, back to Ganache. Open it up.
-- Click the Gear Icon thingy ( ⚙️ ) to open `Preferences...`.
-  v Make sure that port is set to 8545.
-- Click "Save and Restart" in the top-right of Ganache
-- Click the MetaMask fox icon in your chrome browser and complete all the first-timer steps if you're a MetaMask virgin.
-- Sign into Metamask and change Network on Metamask to localhost 8545
-- Now back to Ganache!
-- In your Ganache UI, you'll see a list of ~10 addresses. Click the key icon (🔑) next to one of 'em. And then COPY the "Private Key"
-- Head over to the `deployer.conf` file and open it up.
-- Make sure that the `network` is set to the following: `network=development`.
-- Run dapp deployer, skipping aws:
-
+1. Create a new project using dapploy:
 ```
-  ./dapploy
+dapploy init my-first-coin
+cd my-first-coin
 ```
 
-- Run the react client project to play with your deployed Dapp!
+2. Make sure Ganache is downloaded, installed and open: [Download and install Ganache from their site](https://truffleframework.com/ganache)
+- Click the Gear Icon thingy ( ⚙️ ) to open `Preferences...`
+  Make sure that port is set to 8545. 
 
+3. Dapploy from root directory 
+- if you have alias setup for dapploy, just run
+```
+  dapploy
+```
+
+- otherwise run
+```
+  </path/to/dapploy/project>/dapploy
+```
+
+Congrats, you just built your first ERC-20 Token, FungibleToken! Head on over to [Dapper](https://github.com/XYOracleNetwork/tool-dapper-react) to play with it in a web-ui
+
+
+4. Checkout some dapploy samples to get another Dapp built with dapploy that uses IPFS and Dapploy's web3 adaptor.
 ```
 cd samples/sample-datavault-react && yarn start
 ```
 
-### [Setup Option #2: Ropsten Setup (Geth)](https://github.com/XYOracleNetwork/tool-dapploy-nodejs/wiki/Local-Ropsten-Config)
-
-### [Setup Option #3: Kovan setup (Parity)](<https://github.com/XYOracleNetwork/tool-dapploy-nodejs/wiki/Kovan-setup-(Parity)>)
-
-# Some Dapploy Features
-
-- Create a smart contract project from a built in template. The template will install a new dapp into your current working directory configured with a brand new ERC20 Token ready to go!
-  Simply run : `./dapploy init`
-
-- You can configure the `network` in `deployer.conf` to any of the following:
-  ropsten, kovan, development, mainnet
-
-- Make sure you can compile and deploy the sample projects, then set the `projectDir`, `contractOutput`, and `web3ModuleOutput` to your projects
-
-- Want your dApp to support multiple browsers? Configure Portis in Dapp deployer setup, by first adding your Dapp on [portis.io](https://portis.io) and adding an infura key if needed.
-
-- Have a centralized storage server? Copy your ABI to Amazon S3 for your backend to dynamically link in like we do with [Ether Cache](https://github.com/XYOracleNetwork/ether-cache). Include your AWS S3 `bucketName`, add your access key and add your AWS credentials with approved access to S3 by creating credentials file:
-  `~/.aws/credentials` with format:
-
+# Want to make your ABI public? dapploy to IPFS!
 ```
-[default]
-aws_access_key_id = AKIAIFYQ4UEUUJ6GDH6A
-aws_secret_access_key = FAKEasdfas=aqewrasdfa/sdfasdfasdfasdfFAKE
+dapploy -p
+
+ $ Contracts stored to IPFS QmZ2Ezv4nsQ5tqGoHz4pUxa9GW88TWKMSzdxdMfxsHerWT
+ $ View contracts at https://ipfs.xyo.network/ipfs/QmZ2Ezv4nsQ5tqGoHz4pUxa9GW88TWKMSzdxdMfxsHerWT
 ```
 
-[Detailed AWS credential instructions here](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.html)
+# Are you Dapploying to public testnet, or mainnet?
+
+1. [Sign up for Infura](https://infura.io/)
+
+2. [Install MetaMask from their site](https://metamask.io/)
+- Sign into Metamask and change Network on Metamask to kovan/ropsten/mainnet
+
+3.  Add your metamask wallet and infura data to `env.template` file:
+```
+WALLET=// wallet used to deploy contracts
+INFURA_API_KEY=// API key you get from infura
+MNENOMIC=// 12 word pass key from derived from your wallet private key
+```
+
+4.  Move `env.template` to `.env` (this file is already in your .gitignore)
+```
+mv env.template .env
+```
+
+5.  Using kovan, run
+```
+dapploy -n kovan
+```
+Ropsten:
+```
+dapploy -n ropsten
+```
+
+*NOTE* You don't need to specify `-n network` if you change `.dapploy` configuration file in your project from `network=development` to `network=kovan` etc.
+```
+vi .dapploy
+```
+
+If you are feeling adventurous run a local testnet node:
+
+### [Ropsten testnet node setup (Geth)](https://github.com/XYOracleNetwork/tool-dapploy-nodejs/wiki/Local-Ropsten-Config)
+
+### [Kovan testnet node setup (Parity)](<https://github.com/XYOracleNetwork/tool-dapploy-nodejs/wiki/Kovan-setup-(Parity)>)
+
+
+# Want your dApp to support multiple browsers? 
+1.  Setup account with [portis.io](https://portis.io) 
+
+2.  Add Portis and Infura key to .dapploy
+```
+vi .dapploy
+```
+Uncomment:
+```
+# [Portis]
+# portisApiKey=<API_KEY>
+# infuraApiKey=<INFURA_API_KEY>
+```
+
+# Want to use S3 to host your ABI? 
+1.  Confugure your AWS credentials in terminal by creating credentials file. [S3 credential instructions here](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.html):
+```
+  vi ~/.aws/credentials
+  [default]
+  aws_access_key_id = AKIAIFYQ4UEUUJ6GDH6A
+  aws_secret_access_key = FAKEasdfas=aqewrasdfa/sdfasdfasdfasdfFAKE
+```
+
+2. Configure dapploy
+```
+vi .dapploy
+```
+Uncomment:
+```
+#[AWS]
+#bucketName=layerone.smart-contracts
+#remotePath=ABI
+```
+
+
 
 ## Street Cred
 
