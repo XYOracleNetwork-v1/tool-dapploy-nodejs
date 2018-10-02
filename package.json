@@ -1,4 +1,14 @@
 {
+  "name": "tool-dapploy-nodejs",
+  "version": "0.0.1",
+  "description": "Dapploy is a swiss army knife CLI for dApps, create, build and dapploy your Smart Contracts!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XYOracleNetwork/tool-dapploy-nodejs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/XYOracleNetwork/tool-dapploy-nodejs/issues"
+  },
   "dependencies": {
     "aws-sdk": "^2.316.0",
     "commander": "^2.16.0",
@@ -6,7 +16,7 @@
     "ganache-cli": "^6.1.7",
     "ipfs-api": "^24.0.2",
     "shelljs": "^0.8.2",
-    "tool-dapper-react": "^0.1.0",
+    "tool-dapper-react": "^0.2.1",
     "truffle": "^4.1.13",
     "untildify": "^3.0.3",
     "web3": "^1.0.0-beta.35"
@@ -22,5 +32,11 @@
     "eslint-plugin-promise": "^4.0.0",
     "eslint-plugin-react": "^7.11.1",
     "eslint-plugin-standard": "^4.0.0"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "bin": {
+    "dapploy": "./dapploy"
   }
 }

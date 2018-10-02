@@ -40,7 +40,6 @@ const configParsing = (program) => {
     }
 
     if (config.sections().includes(`Portis`)) {
-      program.addPortis = true
       parseParams(program, `Portis`, [`portisApiKey`, `infuraApiKey`])
     }
   } else {

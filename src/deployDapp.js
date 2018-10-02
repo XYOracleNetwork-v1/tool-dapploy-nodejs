@@ -68,8 +68,6 @@ const dapploy = (program) => {
         console.log(` # Skipping Migration`)
         return Promise.resolve(undefined)
       }
-      console.log(` # Migration called`)
-
       return migrateTruffle(program)
     })
     .then((contracts) => {

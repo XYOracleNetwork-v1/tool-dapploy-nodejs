@@ -1,7 +1,7 @@
 const shell = require(`shelljs`)
 const path = require(`path`)
 
-const templateFile = `${__dirname}/web3template.js`
+const templateFile = `${__dirname}/../templates/template-web3.js`
 
 const tempFile = `/tmp/temp999` // Copy the template to working file for us to modify
 const fs = require(`fs`)
@@ -80,16 +80,12 @@ const exportConfig = (program, contracts) => {
   console.log(`Copying`, templateFile, `to`, tempFile)
   shell.cp(templateFile, tempFile)
 
-  if (program.addPortis) {
-    shell.sed(
-      `-i`,
-      `PORTIS_DECLARATION`,
-      `import { PortisProvider } from 'portis'`,
-      tempFile
-    )
-  } else {
-    shell.sed(`-i`, `PORTIS_DECLARATION`, ``, tempFile)
-  }
+  shell.sed(
+    `-i`,
+    `PORTIS_DECLARATION`,
+    `import { PortisProvider } from 'portis'`,
+    tempFile
+  )
   shell.sed(`-i`, `PORTIS_PROVIDER`, portisConfigString(program), tempFile)
   shell.sed(
     `-i`,

@@ -2,12 +2,11 @@ pragma solidity ^0.4.24;
 
 import "openzeppelin-solidity/contracts/token/ERC20/MintableToken.sol";
 
-
 /**
- * @title Basic token
+ * @title Basic ERC20 Adapter
  * @dev Basic version of StandardToken, with no allowances.
  */
-contract FungibleToken is MintableToken {
+contract ERC20Adapter is MintableToken {
     string public name;
     string public symbol;
     uint8 public decimals;
