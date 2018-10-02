@@ -94,10 +94,10 @@ echo "alias dapploy=\"/<path_to_project>/tool-dapploy-nodejs/dapploy\""| cat >> 
 
 ### Feature #1: `dapploy init` - create a new smart contract project!
 
-1. Create a new project using dapploy:
+1. Create a new ERC20 project using dapploy:
 
 ```
-dapploy init my-first-coin
+dapploy init my-first-coin -s ERC20
 cd my-first-coin
 ```
 
@@ -117,15 +117,17 @@ cd my-first-coin
 - otherwise run
 
 ```
-  </path/to/dapploy/project>/dapploy
+  </path/to>/dapploy
 ```
 
-Congrats, you just built your first ERC-20 Token, FungibleToken! Head on over to [Dapper](https://github.com/XYOracleNetwork/tool-dapper-react) to play with it in a web-ui
+Congrats, you just built your first ERC-20 Token! Head on over to [Dapper](https://github.com/XYOracleNetwork/tool-dapper-react) to play with it in a web-ui
 
 4. Checkout some dapploy samples to get another Dapp built with dapploy that uses IPFS and Dapploy's web3 adaptor.
 
 ```
-cd samples/sample-datavault-react && yarn start
+cd samples/sample-datavault-solidity && dapploy
+
+cd ../sample-datavault-react && yarn start
 ```
 
 # Want to make your ABI public? dapploy to IPFS!
@@ -137,7 +139,7 @@ dapploy -p
  $ View contracts at https://ipfs.xyo.network/ipfs/QmZ2Ezv4nsQ5tqGoHz4pUxa9GW88TWKMSzdxdMfxsHerWT
 ```
 
-# Are you Dapploying to public testnet, or mainnet?
+# Would you like to Dapploy to public testnet or mainnet?
 
 1. [Sign up for Infura](https://infura.io/)
 
