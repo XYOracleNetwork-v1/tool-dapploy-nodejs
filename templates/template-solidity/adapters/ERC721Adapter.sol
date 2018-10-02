@@ -34,7 +34,6 @@ contract ERC721Adapter is ERC721Token {
         uint _tokenId
     ) 
         public 
-        onlyOwner 
     {
         _mint(_beneficiary, _tokenId);
     }

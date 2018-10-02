@@ -37,19 +37,22 @@ We've gone through the hoops of deploying dApps on the Ethereum Network and have
 
 # Pt. I. Let's Get Crack-a-Lackin'
 
-1. We use [Truffle](https://truffleframework.com) to deploy our smart contracts to any Ethereum blockchain.
-
-**NOTE:** When you run the Dapp Deployer, your truffle project will need to be configured seperately. A good example you can use is in the provided sample Truffle project `samples/sample-datavault-solidity` and open `truffle.js` config file.
-
-2. Remember to 'YARN ALL THE THINGS' from the main project dir. Run this command:
+1. Install from source to get access to the sample projects. Remember, 'YARN ALL THE THINGS' from the main project dir by running this:
 
 ```
 yarn && cd samples/sample-datavault-react/ && yarn && cd ../sample-datavault-solidity && yarn && cd ../..
 ```
 
+2. _OR_ globally install Dapploy using:
+
+```
+npm install -g tool-dapploy-nodejs
+```
+
 3. Run `dapploy -h` to see the options:
 
 ```
+ $> dapploy -h
 Usage: dapploy [options] [command]
 
 Options:
@@ -69,14 +72,20 @@ Options:
   -i, --init                                    Add default config file to current directory
   -h, --help                                    output usage information
 
-Commands:
+  $> dapploy init -h
+Usage: init [options] [dir]
 
-  init [options] [dir]                          Configure a new truffle project from scratch
-  dapper [options]                              View your smart contracts using dapper
+Configure a new truffle project from scratch
 
+Options:
+
+  -g, --configOnly                  Create dapploy config file in current directory
+  -s, --specifyContract [contract]  Which type of project to create. Supporting: [ERC20, ERC721] (default: ERC20)
+  -h, --help                        output usage information
 ```
 
-4. Add dapploy alias to run from any project in your bash_profile:
+4. If you did not add dapploy globally with '-g', Add dapploy alias to run from any project in your bash_profile:
+
 ```
 echo "alias dapploy=\"/<path_to_project>/tool-dapploy-nodejs/dapploy\""| cat >> .bash_profile
 ```
@@ -86,35 +95,41 @@ echo "alias dapploy=\"/<path_to_project>/tool-dapploy-nodejs/dapploy\""| cat >> 
 ### Feature #1: `dapploy init` - create a new smart contract project!
 
 1. Create a new project using dapploy:
+
 ```
 dapploy init my-first-coin
 cd my-first-coin
 ```
 
 2. Make sure Ganache is downloaded, installed and open: [Download and install Ganache from their site](https://truffleframework.com/ganache)
-- Click the Gear Icon thingy ( ⚙️ ) to open `Preferences...`
-  Make sure that port is set to 8545. 
 
-3. Dapploy from root directory 
+- Click the Gear Icon thingy ( ⚙️ ) to open `Preferences...`
+  Make sure that port is set to 8545.
+
+3. Dapploy from root directory
+
 - if you have alias setup for dapploy, just run
+
 ```
   dapploy
 ```
 
 - otherwise run
+
 ```
   </path/to/dapploy/project>/dapploy
 ```
 
 Congrats, you just built your first ERC-20 Token, FungibleToken! Head on over to [Dapper](https://github.com/XYOracleNetwork/tool-dapper-react) to play with it in a web-ui
 
-
 4. Checkout some dapploy samples to get another Dapp built with dapploy that uses IPFS and Dapploy's web3 adaptor.
+
 ```
 cd samples/sample-datavault-react && yarn start
 ```
 
 # Want to make your ABI public? dapploy to IPFS!
+
 ```
 dapploy -p
 
@@ -127,9 +142,11 @@ dapploy -p
 1. [Sign up for Infura](https://infura.io/)
 
 2. [Install MetaMask from their site](https://metamask.io/)
+
 - Sign into Metamask and change Network on Metamask to kovan/ropsten/mainnet
 
 3.  Add your metamask wallet and infura data to `env.template` file:
+
 ```
 WALLET=// wallet used to deploy contracts
 INFURA_API_KEY=// API key you get from infura
@@ -137,20 +154,25 @@ MNENOMIC=// 12 word pass key from derived from your wallet private key
 ```
 
 4.  Move `env.template` to `.env` (this file is already in your .gitignore)
+
 ```
 mv env.template .env
 ```
 
 5.  Using kovan, run
+
 ```
 dapploy -n kovan
 ```
+
 Ropsten:
+
 ```
 dapploy -n ropsten
 ```
 
-*NOTE* You don't need to specify `-n network` if you change `.dapploy` configuration file in your project from `network=development` to `network=kovan` etc.
+_NOTE_ You don't need to specify `-n network` if you change `.dapploy` configuration file in your project from `network=development` to `network=kovan` etc.
+
 ```
 vi .dapploy
 ```
@@ -161,23 +183,28 @@ If you are feeling adventurous run a local testnet node:
 
 ### [Kovan testnet node setup (Parity)](<https://github.com/XYOracleNetwork/tool-dapploy-nodejs/wiki/Kovan-setup-(Parity)>)
 
+# Want your dApp to support multiple browsers?
 
-# Want your dApp to support multiple browsers? 
-1.  Setup account with [portis.io](https://portis.io) 
+1.  Setup account with [portis.io](https://portis.io)
 
 2.  Add Portis and Infura key to .dapploy
+
 ```
 vi .dapploy
 ```
+
 Uncomment:
+
 ```
 # [Portis]
 # portisApiKey=<API_KEY>
 # infuraApiKey=<INFURA_API_KEY>
 ```
 
-# Want to use S3 to host your ABI? 
+# Want to use S3 to host your ABI?
+
 1.  Confugure your AWS credentials in terminal by creating credentials file. [S3 credential instructions here](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.html):
+
 ```
   vi ~/.aws/credentials
   [default]
@@ -186,17 +213,18 @@ Uncomment:
 ```
 
 2. Configure dapploy
+
 ```
 vi .dapploy
 ```
+
 Uncomment:
+
 ```
 #[AWS]
 #bucketName=layerone.smart-contracts
 #remotePath=ABI
 ```
-
-
 
 ## Street Cred
 

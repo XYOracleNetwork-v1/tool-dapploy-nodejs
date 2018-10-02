@@ -8,7 +8,6 @@
 */
 const program = require(`commander`)
 const { dapploy } = require(`./src/deployDapp`)
-const { runDapper } = require(`./src/runDapper`)
 const { parseConfig, initConfig } = require(`./src/configParser`)
 const { buildAndDeployTemplate } = require(`./src/deployTemplate`)
 const defaultConfig = `.dapploy`
@@ -44,19 +43,6 @@ program.command(`init [dir]`)
     }
   })
 
-program
-  .command(`dapper`)
-  .description(`View your smart contracts using dapper`)
-  .option(`-b, --build`, `Build and Migrate ABI before starting`)
-  .option(`-d, --distribute`, `Create dapper distribution in ./dist`)
-  .action((option) => {
-    program.dapper = true
-    if (option.build) {
-      execute.push(p => runDapper(p))
-    } else {
-      execute = [p => runDapper(p)]
-    }
-  })
 
 program.parse(process.argv)
 
