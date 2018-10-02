@@ -2,7 +2,7 @@
   <img alt="Dapploy" src="http://xyo.network.s3.amazonaws.com/img/dapploy-logo.jpg" width="300">
 </h1>
 <h3 align="center">
-  "Simplify Dapp Deployment"
+  "The Swiss Army Knife for dApp Deployment!"
 </h3>
 
 <p align="center">

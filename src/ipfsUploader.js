@@ -30,6 +30,11 @@ const addToIPFS = data => new Promise((resolve, reject) => ipfs.add(data, { recu
     res.forEach((fileObj) => {
       if (fileObj.path === folder) {
         console.log(` $ Contracts stored to IPFS`, fileObj.hash)
+        console.log(
+          ` $ View contracts at https://ipfs.xyo.network/ipfs/${
+            fileObj.hash
+          }`
+        )
         resolve(fileObj.hash)
       }
     })
