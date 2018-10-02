@@ -15,7 +15,7 @@ const updateMigration = (distPath, whichContract) => {
     }
   }
   const requireString = `artifacts.require(\`${whichContract}Adapter.sol\`)`
-  console.log(`Updating Migration file:`, migrationFile)
+  console.log(` $ Updating Migration file:`, migrationFile)
   shell.sed(`-i`, `CONTRACT_PARAMS`, parameters, migrationFile)
   shell.sed(`-i`, `CONTRACT_REQUIRE`, requireString, migrationFile)
 }
@@ -45,18 +45,17 @@ const getTemplateContract = (program) => {
       } using default. The following contracts are supported: ${supported} `
     )
   }
-  console.log(`Initializing project with ${whichContract} `)
+  console.log(` $ Initializing project with ${whichContract} `)
 
   return whichContract
 }
 
 const buildAndDeployTemplate = (program) => {
-  console.log(`HUH`, program.specifyContract)
   const distPath = program.initPath || `./`
   const whichContract = getTemplateContract(program)
   return deployTemplate(distPath, whichContract).then(() => {
     updateMigration(distPath, whichContract)
-    console.log(`$ Building template`)
+    console.log(` $ Building template`)
     return execPromise(`cd ${distPath} && yarn`)
   })
 }

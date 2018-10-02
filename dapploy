@@ -32,7 +32,7 @@ let execute = [p => dapploy(p)]
 program.command(`init [dir]`)
   .description(`Configure a new truffle project from scratch`)
   .option(`-g, --configOnly`, `Create dapploy config file in current directory`)
-  .option(`-s, --specifyContract <contract>`, `Which type of project to create (default ERC20) Options: [ERC20, ERC721]`)
+  .option(`-s, --specifyContract [contract]`, `Which type of project to create. Supporting: [ERC20, ERC721]`, `ERC20`)
   .action((dir, cmd) => {
     // console.log("HERE", program, cmd)
     program.initPath = dir || `./`

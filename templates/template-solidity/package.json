@@ -7,6 +7,8 @@
     "babel-polyfill": "^6.26.0",
     "dotenv": "^6.0.0",
     "openzeppelin-solidity": "^1.12.0",
-    "truffle-hdwallet-provider": "^0.0.6"
+    "truffle-hdwallet-provider": "^0.0.6",
+    "portis": "^1.2.5",
+    "web3": "^1.0.0-beta.35"
   }
 }

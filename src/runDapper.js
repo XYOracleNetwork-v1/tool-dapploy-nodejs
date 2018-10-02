@@ -6,9 +6,7 @@ const path = require(`path`)
 */
 const runDapper = (program) => {
   const cwd = `${__dirname}/../node_modules/tool-dapper-react/`
-  const abiPath = path.join(program.projectDir, `build/contracts`)
-  const relativeAbiPath = path.relative(cwd, abiPath)
-  const command = `yarn start ${relativeAbiPath}`
+  const command = `yarn start`
   console.log(` $ Running dapper with command: ${command}`)
 
   return execPromise(command, { cwd })
@@ -17,10 +15,7 @@ const runDapper = (program) => {
 
 // TODO do we need to run server seperately?
 const runDapperServer = (program, dapperPath) => {
-  const abiDir = `${program.projectDir}/build/contracts`
-  console.log(` $ Running Dapper Server for ABI build `, abiDir)
-
-  const command = `yarn server ${abiDir}`
+  const command = `yarn start`
 
   return execPromise(command, { cwd: dapperPath })
 }
