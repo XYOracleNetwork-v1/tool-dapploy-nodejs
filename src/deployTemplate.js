@@ -1,6 +1,6 @@
 const { execPromise } = require(`./execWrapper`)
 const shell = require(`shelljs`)
-const supported = [`ERC20`, `ERC721`]
+const supported = [`ERC20`, `ERC721`, `RefundEscrow`]
 
 const updateMigration = (distPath, whichContract) => {
   const migrationFile = `${distPath}/migrations/2_deploy_contracts.js`
@@ -10,8 +10,17 @@ const updateMigration = (distPath, whichContract) => {
       parameters = `[\`Fun Token\`, \`FT\`]`
       break
     }
+    case `RefundEscrow`: {
+      parameters = `[contractOwner]`
+      break
+    }
+    case `CappedCrowdsale`: {
+      // TODO add support for multiple contract instantiations
+      parameters = `[[1000],[10000, contractOwner, contract0]]`
+      break
+    }
     default: {
-      parameters = `[\`Fun Token\`, \`FT\`, 18]`
+      parameters = `[\`Fun Token\`, \`FT\`, 18, 100000000]`
     }
   }
   const requireString = `artifacts.require(\`${whichContract}Adapter.sol\`)`
@@ -23,7 +32,7 @@ const updateMigration = (distPath, whichContract) => {
 const deployTemplate = (distPath, whichContract) => {
   const templatePath = `${__dirname}/../templates/template-solidity/`
   console.log(` $ Creating truffle project in ${distPath} from ${templatePath}`)
-  console.log(`Copying ${templatePath} to ${distPath}`)
+  console.log(` $ Copying ${templatePath} to ${distPath}`)
 
   // Copy to temp folder before moving to destination in case src and dest are the same
   // Is there a cleaner way?
@@ -59,4 +68,4 @@ const buildAndDeployTemplate = (program) => {
     return execPromise(`cd ${distPath} && yarn`)
   })
 }
-module.exports = { buildAndDeployTemplate }
+module.exports = { supported, buildAndDeployTemplate }
