@@ -1,7 +1,6 @@
 const Contract = CONTRACT_REQUIRE
 
-const contractParams = CONTRACT_PARAMS
-
-module.exports = function (deployer, _, [owner1]) {
-  return deployer.deploy(Contract, ...contractParams, { from: owner1 })
+module.exports = function (deployer, _, [contractOwner]) {
+  const contractParams = CONTRACT_PARAMS
+  return deployer.deploy(Contract, ...contractParams, { from: contractOwner })
 }

@@ -9,13 +9,12 @@
 const program = require(`commander`)
 const { dapploy } = require(`./src/deployDapp`)
 const { parseConfig, initConfig } = require(`./src/configParser`)
-const { buildAndDeployTemplate } = require(`./src/deployTemplate`)
+const { buildAndDeployTemplate, supported } = require(`./src/deployTemplate`)
 const defaultConfig = `.dapploy`
-const defaultNetwork = `development`
 program
   .version(`0.1.0`)
   .option(`-t, --projectDir <dir>`, `Truffle Project Directory`)
-  .option(`-n, --network [network]`, `Deploy to network`, defaultNetwork)
+  .option(`-n, --network <network>`, `Deploy to network`)
   .option(`-c, --config <config>`, `Config file`, defaultConfig)
   .option(`-o, --contractOutput <dir>`, `Contract Output Directory`)
   .option(`-x, --excludeContracts [Contract1,Contract2]`, `Exclude contracts from the web3 interface (files are still copied)`)
@@ -31,7 +30,7 @@ let execute = [p => dapploy(p)]
 program.command(`init [dir]`)
   .description(`Configure a new truffle project from scratch`)
   .option(`-g, --configOnly`, `Create dapploy config file in current directory`)
-  .option(`-s, --specifyContract [contract]`, `Which type of project to create. Supporting: [ERC20, ERC721]`, `ERC20`)
+  .option(`-s, --specifyContract [contract]`, `Which type of project to create.\n\t\t\t\t\tSupporting: ${supported}`, `ERC20`)
   .action((dir, cmd) => {
     // console.log("HERE", program, cmd)
     program.initPath = dir || `./`
