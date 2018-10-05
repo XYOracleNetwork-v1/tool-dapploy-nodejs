@@ -27,7 +27,7 @@ const configParsing = (program) => {
     }
 
     if (config.sections().includes(`Web3`)) {
-      parseParams(program, `Web3`, [`web3ModuleOutput`])
+      parseParams(program, `Web3`, [`web3ClientPath`, `web3ServerPath`])
       const excludeStr = config.get(`Web3`, `excludeContracts`)
       if (excludeStr) {
         program.excludeContracts = excludeStr.split(`,`)
@@ -78,7 +78,8 @@ const initConfig = (program) => {
 
   // With String Interpolation, %(key_name)s
   config.addSection(`Web3`)
-  config.set(`Web3`, `web3ModuleOutput`, `./src`)
+  config.set(`Web3`, `web3ClientPath`, `./src`)
+  config.set(`Web3`, `web3ServerPath`, `./src`)
   config.set(`Web3`, `excludeContracts`, `Migrations`)
 
   config.write(configFile)

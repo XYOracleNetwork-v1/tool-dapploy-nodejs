@@ -1,5 +1,5 @@
 require(`babel-register`)({
-  ignore: /node_modules\/(?!openzeppelin-solidity)/,
+  ignore: /node_modules\/(?!openzeppelin-solidity)/
 })
 require(`babel-polyfill`)
 const HDWalletProvider = require(`truffle-hdwallet-provider`)
@@ -17,44 +17,41 @@ module.exports = {
     development: {
       network_id: `*`, // Match any network id
       host: `localhost`,
-      port: 8545,
+      port: 8545
     },
     kovan: {
       network_id: 42,
       from: wallet,
-      provider: () =>
-        new HDWalletProvider(
-          mnemonic,
-          `https://kovan.infura.io/v3/${infuraKey}`,
-        ),
+      provider: () => new HDWalletProvider(
+        mnemonic,
+        `https://kovan.infura.io/v3/${infuraKey}`
+      ),
       gas: 6986331,
-      gasPrice: 2000000000,
+      gasPrice: 2500000000
     },
     ropsten: {
       network_id: 3,
-      provider: () =>
-        new HDWalletProvider(
-          mnemonic,
-          `https://ropsten.infura.io/${infuraKey}`,
-        ),
+      provider: () => new HDWalletProvider(
+        mnemonic,
+        `https://ropsten.infura.io/${infuraKey}`
+      ),
       gas: 6986331,
-      gasPrice: 2000000000,
+      gasPrice: 2500000000
     },
     mainnet: {
       network_id: `1`,
-      provider: () =>
-        new HDWalletProvider(
-          mnemonic,
-          `https://mainnet.infura.io/${infuraKey}`,
-        ),
+      provider: () => new HDWalletProvider(
+        mnemonic,
+        `https://mainnet.infura.io/${infuraKey}`
+      ),
       gas: 4500000,
-      gasPrice: 2000000000,
-    },
+      gasPrice: 2500000000
+    }
   },
   solc: {
     optimizer: {
       enabled: true,
-      runs: 500,
-    },
-  },
+      runs: 500
+    }
+  }
 }

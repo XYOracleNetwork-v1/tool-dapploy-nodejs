@@ -1,6 +1,6 @@
 {
   "name": "tool-dapploy-nodejs",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Dapploy is a handy CLI tool for dApps. Create, build and dapploy your Smart Contracts!",
   "repository": {
     "type": "git",
@@ -20,7 +20,7 @@
     "web3": "^1.0.0-beta.35"
   },
   "devDependencies": {
-    "ganache-cli": "^6.1.7",
+    "babel-eslint": "^10.0.1",
     "eslint": "^5.4.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-standard": "^12.0.0",
@@ -30,7 +30,8 @@
     "eslint-plugin-node": "^7.0.1",
     "eslint-plugin-promise": "^4.0.0",
     "eslint-plugin-react": "^7.11.1",
-    "eslint-plugin-standard": "^4.0.0"
+    "eslint-plugin-standard": "^4.0.0",
+    "ganache-cli": "^6.1.7"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

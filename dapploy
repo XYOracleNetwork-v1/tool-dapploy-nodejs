@@ -12,7 +12,7 @@ const { parseConfig, initConfig } = require(`./src/configParser`)
 const { buildAndDeployTemplate, supported } = require(`./src/deployTemplate`)
 const defaultConfig = `.dapploy`
 program
-  .version(`0.1.0`)
+  .version(`0.0.3`)
   .option(`-t, --projectDir <dir>`, `Truffle Project Directory`)
   .option(`-n, --network <network>`, `Deploy to network`)
   .option(`-c, --config <config>`, `Config file`, defaultConfig)
@@ -41,7 +41,6 @@ program.command(`init [dir]`)
       execute = [p => buildAndDeployTemplate(p)]
     }
   })
-
 
 program.parse(process.argv)
 

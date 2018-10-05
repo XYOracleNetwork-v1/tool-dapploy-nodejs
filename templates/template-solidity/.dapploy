@@ -10,10 +10,11 @@ contractOutput=./src/ABI
 # bucketName=layerone.smart-contracts
 # remotePath=ABI
 
-# Where to place generated web3 interface adaptor on web3 client, 
+# Where to place generated web3 interface adapter on web3 client, 
 # add any exclusions to keep from config
 [Web3]
-web3ModuleOutput=./src/web3Adaptor.js
+web3ClientPath=./src/web3Adapter-client.js
+web3ServerPath=./src/web3Adapter-server.js
 excludeContracts=Migrations
 
 # Include Portis section if you want Portis support in your web3 client

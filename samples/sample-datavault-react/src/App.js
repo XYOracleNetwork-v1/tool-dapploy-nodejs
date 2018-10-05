@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './App.css'
-import { web3, DataVault, injectWeb3, validContract } from './web3Adaptor'
+import { web3, DataVault, injectWeb3, validContract } from './web3Adapter-client'
 import ipfs from './ipfs'
 import { Button, Grid, Form } from 'react-bootstrap'
 import { Div, Input } from 'glamorous'
