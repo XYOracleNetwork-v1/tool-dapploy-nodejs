@@ -5,11 +5,15 @@ require(`babel-polyfill`)
 const HDWalletProvider = require(`truffle-hdwallet-provider`)
 require(`dotenv`).config() // Store environment-specific variable from '.env' to process.env
 
-// NOTE: If retreiving mnemonic from Metamask - use 1st wallet in profile list.
+// NOTE: If retreiving mnemonic from Metamask - use 1st wallet in profile list,
+// or add index param in HDWalletProvider
 
 const wallet = process.env.WALLET
 const mnemonic = process.env.MNENOMIC
 const infuraKey = process.env.INFURA_API_KEY
+if (!infuraKey || !wallet || !mnemonic) {
+  console.log(`No .env file found, so you cannot deploy to remote network!`)
+}
 
 module.exports = {
   migrations_directory: `./migrations`,

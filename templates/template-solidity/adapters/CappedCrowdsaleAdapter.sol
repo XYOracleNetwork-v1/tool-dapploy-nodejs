@@ -7,9 +7,14 @@ import "openzeppelin-solidity/contracts/crowdsale/validation/CappedCrowdsale.sol
  * @dev Basic implementation of Capped Crowdsale 
  */
 contract CappedCrowdsaleAdapter is CappedCrowdsale {
-    constructor(uint _cap, uint256 _rate, address _wallet, ERC20 _token)
-      CappedCrowdsale(_cap) 
-      Crowdsale(_rate, _wallet, _token)
+    constructor (
+      uint cap, 
+      uint256 rate, 
+      address wallet, 
+      ERC20 token
+    )
+      CappedCrowdsale(cap) 
+      Crowdsale(rate, wallet, token)
     public {
     }
 }
