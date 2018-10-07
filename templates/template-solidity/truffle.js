@@ -23,6 +23,25 @@ module.exports = {
       host: `localhost`,
       port: 8545
     },
+    ropsten: {
+      network_id: 3,
+      provider: () => new HDWalletProvider(
+        mnemonic,
+        `https://ropsten.infura.io/${infuraKey}`
+      ),
+      gas: 6986331,
+      gasPrice: 2500000000
+    },
+    rinkeby: {
+      network_id: 4,
+      from: wallet,
+      provider: () => new HDWalletProvider(
+        mnemonic,
+        `https://rinkeby.infura.io/v3/${infuraKey}`
+      ),
+      gas: 6986331,
+      gasPrice: 2500000000
+    },
     kovan: {
       network_id: 42,
       from: wallet,
@@ -33,17 +52,8 @@ module.exports = {
       gas: 6986331,
       gasPrice: 2500000000
     },
-    ropsten: {
-      network_id: 3,
-      provider: () => new HDWalletProvider(
-        mnemonic,
-        `https://ropsten.infura.io/${infuraKey}`
-      ),
-      gas: 6986331,
-      gasPrice: 2500000000
-    },
     mainnet: {
-      network_id: `1`,
+      network_id: 1,
       provider: () => new HDWalletProvider(
         mnemonic,
         `https://mainnet.infura.io/${infuraKey}`
