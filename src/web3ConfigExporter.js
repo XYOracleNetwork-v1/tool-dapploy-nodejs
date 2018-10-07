@@ -48,7 +48,6 @@ const contractInstantiationString = (program, contracts, type) => {
   const { projectDir } = program
   const web3AdapterPath =
     type === `client` ? program.web3ClientPath : program.web3ServerPath
-
   if (!contractOutput) {
     contractOutput = `${projectDir}/build/contracts`
   }
@@ -97,23 +96,16 @@ const exportClientConfig = (program, contracts) => {
   shell.sed(
     `-i`,
     `CONTRACT_INSTANTIATION`,
-    contractInstantiationString(program, contracts),
+    contractInstantiationString(program, contracts, `client`),
     tempFile
   )
-  const outPath = path.dirname(program.web3ClientPath)
-  shell.mkdir(`-p`, outPath)
-  if (!fs.existsSync(outPath)) {
-    return Promise.reject(new Error(`Cannot create web3 adapter at ${outPath}`))
-  }
-  console.log(` $ Moving`, tempFile, `to`, program.web3ClientPath)
-  shell.mv(tempFile, program.web3ClientPath)
-  return Promise.resolve(true)
+  return moveTemplateTo(tempFile, program.web3ClientPath)
 }
 
 const copyTemplate = (type) => {
   const templateFile = `${__dirname}/../templates/template-web3-${type}.js`
   const tempFile = getTempFile(type)
-  console.log(`Copying`, templateFile, `to`, tempFile)
+  // console.log(`Copying`, templateFile, `to`, tempFile)
   shell.cp(templateFile, tempFile)
 }
 
@@ -130,16 +122,21 @@ const exportServerConfig = (program, contracts) => {
   shell.sed(
     `-i`,
     `CONTRACT_INSTANTIATION`,
-    contractInstantiationString(program, contracts),
+    contractInstantiationString(program, contracts, `server`),
     tempFile
   )
-  const outPath = path.dirname(program.web3ServerPath)
+
+  return moveTemplateTo(tempFile, program.web3ServerPath)
+}
+
+const moveTemplateTo = (tempFile, web3Path) => {
+  const outPath = path.dirname(web3Path)
   shell.mkdir(`-p`, outPath)
   if (!fs.existsSync(outPath)) {
     return Promise.reject(new Error(`Cannot create web3 adapter at ${outPath}`))
   }
-  console.log(` $ Moving`, tempFile, `to`, program.web3ServerPath)
-  shell.mv(tempFile, program.web3ServerPath)
+  console.log(` $ Moving template to`, web3Path)
+  shell.mv(tempFile, web3Path)
   return Promise.resolve(true)
 }
 
