@@ -55,7 +55,7 @@ contract DataVault is ERC721Token {
         }
         require (ownerOf(vaultId) == msg.sender, "Sender must own Vault");
         _setTokenURI(vaultId, data);
-        emit DataStored(_vault, vaultId, msg.sender);
+        emit DataStored(vault, vaultId, msg.sender);
     }
 
     /* 
