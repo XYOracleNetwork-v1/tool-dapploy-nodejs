@@ -1,5 +1,5 @@
 src/ABI/*.json
-src/web3Adaptor.js
+src/web3Adapter-client.js
 
 # Logs
 logs

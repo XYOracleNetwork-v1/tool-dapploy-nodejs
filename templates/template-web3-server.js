@@ -3,15 +3,17 @@
   Do not make changes to this file, they get overwritten each Dapploy :)
 */
 /* eslint-disable */
-import Web3 from "web3"
+var HDWalletProvider = require('truffle-hdwallet-provider')
+require(`dotenv`).config() // Store environment-specific variable from '.env' to process.env
 
-PORTIS_DECLARATION
+const mnemonic = process.env.MNENOMIC
+const infuraKey = process.env.INFURA_API_KEY
 
 export const getWeb3 = () => {
-  if (typeof window.web3 !== "undefined") {
-    return new Web3(window.web3.currentProvider)
-  }
-  PORTIS_PROVIDER
+  return new HDWalletProvider(
+    mnemonic,
+    `https://kovan.infura.io/v3/${infuraKey}`,
+  )
 }
 
 const contractObject = name =>
@@ -29,21 +31,21 @@ export const contractAddress = name => {
 
 export const validateContracts = async => {
   return Promise.all(
-    SmartContracts.map(contract => validContract(contract.name))
+    SmartContracts.map(contract => validContract(contract.name)),
   ).then(results => {
     return results.reduce((result, next) => result && next)
   })
 }
 
 export const validContract = async name => {
-  console.log("Validating Contract", name)
+  console.log('Validating Contract', name)
   const address = contractAddress(name)
   return new Promise((resolve, reject) => {
     web3.eth
       .getCode(address)
       .then(
         code =>
-          code === "0x0" || code === "0x" ? resolve(false) : resolve(true)
+          code === '0x0' || code === '0x' ? resolve(false) : resolve(true),
       )
       .catch(err => reject(err))
   })
@@ -76,7 +78,7 @@ export function injectWeb3() {
     Promise.all([refreshUser(), refreshContracts(web3)])
 
   // Will refresh local store when new user is chosen:
-  web3.currentProvider.publicConfigStore.on("update", refreshDapp)
+  web3.currentProvider.publicConfigStore.on('update', refreshDapp)
 
-  return refreshContracts(web3).then(refreshUser)
+  return refreshDapp()
 }

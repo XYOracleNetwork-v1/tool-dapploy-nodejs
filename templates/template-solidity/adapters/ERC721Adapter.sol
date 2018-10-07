@@ -14,10 +14,10 @@ contract ERC721Adapter is ERC721Token {
     */
     constructor
     (
-        string _name,
-        string _symbol
+        string name,
+        string symbol
     ) 
-        ERC721Token(_name, _symbol) 
+        ERC721Token(name, symbol) 
         public 
     {
       // TODO Customize your 721 construction
@@ -25,16 +25,16 @@ contract ERC721Adapter is ERC721Token {
 
     /* 
       Let's at least allow some minting of tokens!
-      @param _beneficiary - who should receive it
-      @param _tokenId - the id of the 721 token
+      @param beneficiary - who should receive it
+      @param tokenId - the id of the 721 token
     */
     function mint
     (
-        address _beneficiary,
-        uint _tokenId
+        address beneficiary,
+        uint tokenId
     ) 
         public 
     {
-        _mint(_beneficiary, _tokenId);
+        _mint(beneficiary, tokenId);
     }
 }

@@ -1,9 +1,7 @@
 const shell = require(`shelljs`)
 const path = require(`path`)
 
-const templateFile = `${__dirname}/../templates/template-web3.js`
-
-const tempFile = `/tmp/temp999` // Copy the template to working file for us to modify
+const getTempFile = type => `./temp999-${type}` // Copy the template to working file for us to modify
 const fs = require(`fs`)
 
 const portisConfigString = ({ portisApiKey, network, infuraApiKey }) => {
@@ -45,16 +43,19 @@ const contractDeclarationString = (contracts) => {
   return returnString
 }
 
-const contractInstantiationString = (params, contracts) => {
-  let { contractOutput } = params
-  const { web3ModuleOutput } = params
+const contractInstantiationString = (program, contracts, type) => {
+  let { contractOutput } = program
+  const { projectDir } = program
+  const web3AdapterPath =
+    type === `client` ? program.web3ClientPath : program.web3ServerPath
   if (!contractOutput) {
-    contractOutput = `/add/abi/path/to/config`
+    contractOutput = `${projectDir}/build/contracts`
   }
   const relativePath = path.relative(
-    path.dirname(web3ModuleOutput),
+    path.dirname(web3AdapterPath),
     contractOutput
   )
+
   let returnString = `\n`
 
   contracts.forEach((contract) => {
@@ -76,10 +77,9 @@ const contractInstantiationString = (params, contracts) => {
   return returnString
 }
 
-const exportConfig = (program, contracts) => {
-  console.log(`Copying`, templateFile, `to`, tempFile)
-  shell.cp(templateFile, tempFile)
-
+const exportClientConfig = (program, contracts) => {
+  const tempFile = getTempFile(`client`)
+  copyTemplate(`client`)
   shell.sed(
     `-i`,
     `PORTIS_DECLARATION`,
@@ -96,17 +96,48 @@ const exportConfig = (program, contracts) => {
   shell.sed(
     `-i`,
     `CONTRACT_INSTANTIATION`,
-    contractInstantiationString(program, contracts),
+    contractInstantiationString(program, contracts, `client`),
     tempFile
   )
-  const outPath = path.dirname(program.web3ModuleOutput)
+  return moveTemplateTo(tempFile, program.web3ClientPath)
+}
+
+const copyTemplate = (type) => {
+  const templateFile = `${__dirname}/../templates/template-web3-${type}.js`
+  const tempFile = getTempFile(type)
+  // console.log(`Copying`, templateFile, `to`, tempFile)
+  shell.cp(templateFile, tempFile)
+}
+
+const exportServerConfig = (program, contracts) => {
+  const tempFile = getTempFile(`server`)
+  copyTemplate(`server`)
+
+  shell.sed(
+    `-i`,
+    `CONTRACT_DECLARATIONS`,
+    contractDeclarationString(contracts),
+    tempFile
+  )
+  shell.sed(
+    `-i`,
+    `CONTRACT_INSTANTIATION`,
+    contractInstantiationString(program, contracts, `server`),
+    tempFile
+  )
+
+  return moveTemplateTo(tempFile, program.web3ServerPath)
+}
+
+const moveTemplateTo = (tempFile, web3Path) => {
+  const outPath = path.dirname(web3Path)
   shell.mkdir(`-p`, outPath)
   if (!fs.existsSync(outPath)) {
-    return Promise.reject(new Error(`Cannot create web3 adaptor at ${outPath}`))
+    return Promise.reject(new Error(`Cannot create web3 adapter at ${outPath}`))
   }
-  console.log(` $ Moving`, tempFile, `to`, program.web3ModuleOutput)
-  shell.mv(tempFile, program.web3ModuleOutput)
+  console.log(` $ Moving template to`, web3Path)
+  shell.mv(tempFile, web3Path)
   return Promise.resolve(true)
 }
 
-module.exports = { exportConfig }
+module.exports = { exportClientConfig, exportServerConfig }

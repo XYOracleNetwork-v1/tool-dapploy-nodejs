@@ -16,7 +16,7 @@ const migrateTruffle = ({
 
   if (!projectDir || !network) {
     throw new Error(
-      `Missing projectDir or network, add to configuration file or pass in param`
+      `Missing projectDir or network, are you missing a .dapploy file?`
     )
   }
   const command = `${__dirname}/../node_modules/.bin/truffle migrate --network ${network} --reset`

@@ -2,7 +2,10 @@ const path = require(`path`) // from node.js
 const { uploadRemote } = require(`./awsFolderUploader`)
 const { migrateTruffle } = require(`./truffleMigrator`)
 const { execPromise } = require(`./execWrapper`)
-const { exportConfig } = require(`./web3ConfigExporter`)
+const {
+  exportClientConfig,
+  exportServerConfig
+} = require(`./web3ConfigExporter`)
 const { uploadIPFS } = require(`./ipfsUploader`)
 const tempContractsOutput = `/tmp/tempContractsOutputFolder`
 /* Copies the contracts in the specified project to a local project (react client, etc)
@@ -40,15 +43,20 @@ const cleanIfNeeded = (program) => {
     console.log(` $ Cleaning build folder at ${program.projectDir}`)
     return execPromise(clean, { cwd: program.projectDir })
   }
-  console.log(` $ Skipping cleaning (use -clean for clean migration)`)
+  console.log(` $ Skipping cleaning (use -l for clean migration)`)
 
   return Promise.resolve()
 }
 
 const createWeb3Module = (program, contracts) => {
-  if (program.web3ModuleOutput) {
-    console.log(` $ Exporting Web3 module to ${program.web3ModuleOutput}`)
-    exportConfig(program, contracts)
+  console.log(`HERE`, program.web3ClientPath, program.web3ServerPath)
+  if (program.web3ClientPath) {
+    console.log(` $ Exporting Web3 Client module to ${program.web3ClientPath}`)
+    exportClientConfig(program, contracts)
+  }
+  if (program.web3ServerPath) {
+    console.log(` $ Exporting Web3 Server module to ${program.web3ServerPath}`)
+    exportServerConfig(program, contracts)
   }
 }
 

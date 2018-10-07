@@ -8,8 +8,10 @@ import "openzeppelin-solidity/contracts/payment/RefundEscrow.sol";
  */
 contract RefundEscrowAdapter is RefundEscrow {
 
-    constructor(address _escrowAccount)
-      RefundEscrow(_escrowAccount) 
+    constructor ( 
+      address escrowAccount
+    )
+      RefundEscrow(escrowAccount) 
     public {
     }
 }
