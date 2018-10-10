@@ -27,6 +27,8 @@
 
 ---
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/XYOracleNetwork/tool-dapploy-nodejs.svg)](https://greenkeeper.io/)
+
 Finally, you can deploy dApps in less than 5 seconds flat WITHOUT even lifting a finger... Guaranteed!
 
 OK, you may have to lift a finger.
