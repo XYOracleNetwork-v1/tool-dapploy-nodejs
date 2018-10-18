@@ -1,6 +1,6 @@
 const path = require(`path`) // from node.js
 const { uploadRemote } = require(`./awsFolderUploader`)
-const { migrateTruffle } = require(`./truffleMigrator`)
+const { migrateTruffle, contractDataOnNetwork } = require(`./truffleMigrator`)
 const { execPromise } = require(`./execWrapper`)
 const {
   exportClientConfig,
@@ -49,7 +49,6 @@ const cleanIfNeeded = (program) => {
 }
 
 const createWeb3Module = (program, contracts) => {
-  console.log(`HERE`, program.web3ClientPath, program.web3ServerPath)
   if (program.web3ClientPath) {
     console.log(` $ Exporting Web3 Client module to ${program.web3ClientPath}`)
     exportClientConfig(program, contracts)
@@ -57,6 +56,9 @@ const createWeb3Module = (program, contracts) => {
   if (program.web3ServerPath) {
     console.log(` $ Exporting Web3 Server module to ${program.web3ServerPath}`)
     exportServerConfig(program, contracts)
+  }
+  if (program.web3Adapters) {
+    process.exit(0)
   }
 }
 
@@ -75,6 +77,9 @@ const dapploy = (program) => {
       if (program.copyOnly) {
         console.log(` # Skipping Migration`)
         return Promise.resolve(undefined)
+      }
+      if (program.web3Adapters) {
+        return contractDataOnNetwork(program.contractOutput, program.network)
       }
       return migrateTruffle(program)
     })

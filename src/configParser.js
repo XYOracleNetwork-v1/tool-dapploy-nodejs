@@ -76,10 +76,9 @@ const initConfig = (program) => {
   config.set(`Truffle`, `network`, `development`)
   config.set(`Truffle`, `contractOutput`, `./src/ABI`)
 
-  // With String Interpolation, %(key_name)s
   config.addSection(`Web3`)
-  config.set(`Web3`, `web3ClientPath`, `./src`)
-  config.set(`Web3`, `web3ServerPath`, `./src`)
+  config.set(`Web3`, `web3ClientPath`, `./src/web3Adapter-client.js`)
+  config.set(`Web3`, `web3ServerPath`, `./src/web3Adapter-server.js`)
   config.set(`Web3`, `excludeContracts`, `Migrations`)
 
   config.write(configFile)
