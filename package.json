@@ -1,6 +1,6 @@
 {
   "name": "@xyo-network/tool-dapploy-nodejs",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Dapploy is a handy CLI tool for dApps. Create, build and dapploy your Smart Contracts!",
   "repository": {
     "type": "git",
@@ -13,7 +13,7 @@
     "aws-sdk": "^2.316.0",
     "commander": "^2.16.0",
     "configparser": "^0.2.6",
-    "ipfs-api": "^24.0.2",
+    "ipfs-api": "^25.0.0",
     "shelljs": "^0.8.2",
     "truffle": "^4.1.13",
     "untildify": "^3.0.3",
