@@ -1,18 +1,18 @@
 pragma solidity ^0.4.24;
 
-import "openzeppelin-solidity/contracts/token/ERC721/ERC721Token.sol";
+import "openzeppelin-solidity/contracts/token/ERC721/ERC721MetadataMintable.sol";
 
 /*
     A transferrable Data storage vault that lets you store, transfer, 
     and access information associated to a 32 character string
 */
-contract DataVault is ERC721Token {
+contract DataVault is ERC721MetadataMintable {
     /*
         Constructs a vault to store files 
     */
     constructor() 
         public 
-        ERC721Token("Data Vault Local", "DV")
+        ERC721Metadata("Data Vault Local", "DV")
     {
     }
 
