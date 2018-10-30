@@ -44,7 +44,7 @@ jobs:
             sleep 5
             node_modules/.bin/truffle test 
             cd ../..
-            dapploy -c .circleci/circle_dapploy.conf 
+            ./dapploy -c .circleci/circle_dapploy.conf 
 
       - save_cache:
           paths:
