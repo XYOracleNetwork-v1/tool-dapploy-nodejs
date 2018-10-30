@@ -94,7 +94,7 @@ class App extends Component {
         results.map((vault, index) => {
           console.log('Fetching Vault:', vault)
           return DataVault.methods
-            .getVaultContentsId(vault)
+            .tokenURI(vault)
             .call()
             .then(metadata => {
               try {

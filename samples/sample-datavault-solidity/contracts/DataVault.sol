@@ -50,7 +50,7 @@ contract DataVault is ERC721MetadataMintable {
         public
     {
         uint vaultId = encodeShortString(vault);
-        if (!exists(vaultId)) {
+        if (!_exists(vaultId)) {
             _mint(msg.sender, vaultId);
         }
         require (ownerOf(vaultId) == msg.sender, "Sender must own Vault");
@@ -58,29 +58,4 @@ contract DataVault is ERC721MetadataMintable {
         emit DataStored(vault, vaultId, msg.sender);
     }
 
-    /* 
-        Returns vault contents
-        @param vault The vault to inspect
-    */
-    function getVaultContents(
-        string vault
-    )
-        public
-        view
-        returns (string)
-    {
-        uint vaultId = encodeShortString(vault);
-        return tokenURIs[vaultId];
-    }
-
-    /* 
-        Returns vault contents
-        @param vaultId The id of the vault to inspect
-    */
-    function getVaultContentsId(
-        uint vaultId
-    )
-    public view returns (string) {
-        return tokenURIs[vaultId];
-    }
 }
