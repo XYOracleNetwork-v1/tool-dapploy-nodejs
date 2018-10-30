@@ -20,7 +20,6 @@ contract(`DataVault`, ([contractCreator, dataOwner]) => {
     storeEvent.args.owner.should.be.equal(dataOwner)
 
     const transferEvent = logs.find(e => e.event === `Transfer`)
-    console.log(`VAULT ID: `, transferEvent.args)
 
     transferEvent.args.to.should.be.equal(dataOwner)
     transferEvent.args.tokenId.should.be.bignumber.equal(new BigNumber(storeEvent.args.vaultId))

@@ -23,6 +23,10 @@ jobs:
             - v1-dependencies-
 
       - run:
+          name: 'Build global project'
+          command: |
+            sudo npm install -g tool-dapploy-nodejs --unsafe-perm=true
+
           name: 'Yarn project and samples'
           command: |
             yarn
