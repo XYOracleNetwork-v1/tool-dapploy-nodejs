@@ -46,7 +46,9 @@ yarn && cd samples/sample-datavault-react/ && yarn && cd ../sample-datavault-sol
 2. _OR_ globally install Dapploy using:
 
 ```
-npm install -g tool-dapploy-nodejs
+sudo yarn global add tool-dapploy-nodejs
+OR
+sudo npm install -g tool-dapploy-nodejs --unsafe-perm=true --allow-root
 ```
 
 3. Run `dapploy -h` to see the options:

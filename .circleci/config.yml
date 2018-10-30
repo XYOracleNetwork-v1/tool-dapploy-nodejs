@@ -23,6 +23,10 @@ jobs:
             - v1-dependencies-
 
       - run:
+          name: 'Build global project'
+          command: |
+            sudo npm install -g tool-dapploy-nodejs --unsafe-perm=true
+
           name: 'Yarn project and samples'
           command: |
             yarn
@@ -40,7 +44,7 @@ jobs:
             sleep 5
             node_modules/.bin/truffle test 
             cd ../..
-            ./dapploy -c .circleci/circle_dapploy.conf 
+            dapploy -c .circleci/circle_dapploy.conf 
 
       - save_cache:
           paths:
