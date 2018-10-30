@@ -1,6 +1,3 @@
-import assertRevert from 'openzeppelin-solidity/test/helpers/assertRevert'
-import { advanceBlock } from 'openzeppelin-solidity/test/helpers/advanceToBlock'
-import EVMRevert from 'openzeppelin-solidity/test/helpers/EVMRevert'
 
 const DataVault = artifacts.require(`DataVault.sol`)
 const BigNumber = web3.BigNumber
@@ -23,9 +20,10 @@ contract(`DataVault`, ([contractCreator, dataOwner]) => {
     storeEvent.args.owner.should.be.equal(dataOwner)
 
     const transferEvent = logs.find(e => e.event === `Transfer`)
-    transferEvent.args._to.should.be.equal(dataOwner)
-    console.log(`VAULT ID: `, storeEvent.args.vaultId.toString())
-    transferEvent.args._tokenId.should.be.bignumber.equal(new BigNumber(storeEvent.args.vaultId))
+    console.log(`VAULT ID: `, transferEvent.args)
+
+    transferEvent.args.to.should.be.equal(dataOwner)
+    transferEvent.args.tokenId.should.be.bignumber.equal(new BigNumber(storeEvent.args.vaultId))
   })
 
   it(`should be able to convert string to uint`, async function _ () {
