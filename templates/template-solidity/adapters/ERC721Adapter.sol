@@ -1,13 +1,13 @@
 pragma solidity ^0.4.24;
 
-import "openzeppelin-solidity/contracts/token/ERC721/ERC721Token.sol";
+import "openzeppelin-solidity/contracts/token/ERC721/ERC721Metadata.sol";
 
 
 /**
  * @title A 721 Token Contract - A non-fungible token contract
  * @dev Basic version of ERC721Token.
  */
-contract ERC721Adapter is ERC721Token {
+contract ERC721Adapter is ERC721Metadata {
 
     /* 
       Construct a ERC721 with a name and symbol
@@ -17,7 +17,7 @@ contract ERC721Adapter is ERC721Token {
         string name,
         string symbol
     ) 
-        ERC721Token(name, symbol) 
+        ERC721Metadata(name, symbol)
         public 
     {
       // TODO Customize your 721 construction
