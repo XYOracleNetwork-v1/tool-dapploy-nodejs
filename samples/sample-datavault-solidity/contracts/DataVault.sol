@@ -1,18 +1,18 @@
 pragma solidity ^0.4.24;
 
-import "openzeppelin-solidity/contracts/token/ERC721/ERC721Token.sol";
+import "openzeppelin-solidity/contracts/token/ERC721/ERC721MetadataMintable.sol";
 
 /*
     A transferrable Data storage vault that lets you store, transfer, 
     and access information associated to a 32 character string
 */
-contract DataVault is ERC721Token {
+contract DataVault is ERC721MetadataMintable {
     /*
         Constructs a vault to store files 
     */
     constructor() 
         public 
-        ERC721Token("Data Vault Local", "DV")
+        ERC721Metadata("Data Vault Local", "DV")
     {
     }
 
@@ -50,7 +50,7 @@ contract DataVault is ERC721Token {
         public
     {
         uint vaultId = encodeShortString(vault);
-        if (!exists(vaultId)) {
+        if (!_exists(vaultId)) {
             _mint(msg.sender, vaultId);
         }
         require (ownerOf(vaultId) == msg.sender, "Sender must own Vault");
@@ -58,29 +58,4 @@ contract DataVault is ERC721Token {
         emit DataStored(vault, vaultId, msg.sender);
     }
 
-    /* 
-        Returns vault contents
-        @param vault The vault to inspect
-    */
-    function getVaultContents(
-        string vault
-    )
-        public
-        view
-        returns (string)
-    {
-        uint vaultId = encodeShortString(vault);
-        return tokenURIs[vaultId];
-    }
-
-    /* 
-        Returns vault contents
-        @param vaultId The id of the vault to inspect
-    */
-    function getVaultContentsId(
-        uint vaultId
-    )
-    public view returns (string) {
-        return tokenURIs[vaultId];
-    }
 }
