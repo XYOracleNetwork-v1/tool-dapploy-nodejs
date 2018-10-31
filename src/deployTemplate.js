@@ -1,6 +1,7 @@
 const { execPromise } = require(`./execWrapper`)
 const shell = require(`shelljs`)
 const supported = [`ERC20`, `ERC721`, `RefundEscrow`]
+const fs = require(`fs`)
 
 const updateMigration = (distPath, whichContract) => {
   const migrationFile = `${distPath}/migrations/2_deploy_contracts.js`
@@ -59,13 +60,31 @@ const getTemplateContract = (program) => {
   return whichContract
 }
 
+const checkDistributionPath = (distPath) => {
+  const packagePath = `${distPath}/package.json`
+  console.log(`checking path`, packagePath)
+  if (fs.existsSync(packagePath)) {
+    throw new Error(
+      `Existing project found ${packagePath}, init in empty folder.`
+    )
+  }
+  return Promise.resolve(true)
+}
+
 const buildAndDeployTemplate = (program) => {
   const distPath = program.initPath || `./`
   const whichContract = getTemplateContract(program)
-  return deployTemplate(distPath, whichContract).then(() => {
-    updateMigration(distPath, whichContract)
-    console.log(` $ Building template`)
-    return execPromise(`cd ${distPath} && yarn`)
-  })
+  return checkDistributionPath(distPath)
+    .then(
+      () => deployTemplate(distPath, whichContract)
+    )
+    .then(
+      () => {
+        updateMigration(distPath, whichContract)
+        console.log(` $ Building template`)
+        return execPromise(`cd ${distPath} && yarn`)
+      }
+    )
 }
+
 module.exports = { supported, buildAndDeployTemplate }
