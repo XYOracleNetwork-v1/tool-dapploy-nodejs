@@ -50,35 +50,55 @@ const clearBucket = async (bucketName, remotePath, awsS3Client) => {
     Bucket: bucketName,
     Prefix: `${remotePath}`
   }
+  // console.log(` $ Clearing bucket ${JSON.stringify(params)}`)
+
   const listedObjects = await awsS3Client.listObjectsV2(params).promise()
+  // console.log(` $ Objects in bucket ${JSON.stringify(listedObjects)}`)
+
   const deleteParams = {
     Bucket: bucketName,
     Delete: { Objects: [] }
   }
-  listedObjects.Contents.forEach(({ Key }) => {
-    deleteParams.Delete.Objects.push({ Key })
-  })
-  await awsS3Client.deleteObjects(deleteParams).promise()
+  if (listedObjects.Contents.length > 0) {
+    listedObjects.Contents.forEach(({ Key }) => {
+      deleteParams.Delete.Objects.push({ Key })
+    })
+    await awsS3Client.deleteObjects(deleteParams).promise()
+  }
 
   if (listedObjects.Contents.IsTruncated) await clearBucket(bucketName, remotePath)
 }
 
 const uploadRemote = async (program) => {
-  const bucketName = program.bucketName
-  return abiFilePaths(program).then(async (files) => {
-    const rPath = program.remotePath ? `${program.remotePath}/` : ``
+  const bucketName = program.bucketName.substring(
+    0,
+    program.bucketName.indexOf(`/`)
+  )
+  let bucketPath = program.bucketName.substring(
+    program.bucketName.indexOf(`/`) + 1,
+    program.bucketName.length
+  )
+  if (bucketPath && !bucketPath.endsWith(`/`)) {
+    bucketPath = `${bucketPath}/`
+  }
 
-    const remotePath = `${rPath}${program.network}`
-    console.log(` $ Copying contracts to remote AWS bucket ${bucketName}`)
+  if (bucketName) {
+    return abiFilePaths(program).then(async (files) => {
+      const rPath = program.remotePath ? `${program.remotePath}/` : bucketPath
 
-    const awsS3Client = new AWS.S3({
-      signatureVersion: `v4`
+      const remotePath = `${rPath}${program.network}`
+      console.log(` $ Copying contracts to remote AWS bucket ${bucketName}`)
+
+      const awsS3Client = new AWS.S3({
+        signatureVersion: `v4`
+      })
+
+      // const client = s3.createClient()
+      await clearBucket(bucketName, remotePath, awsS3Client)
+      return uploadFiles(bucketName, remotePath, awsS3Client, files)
     })
-
-    // const client = s3.createClient()
-    await clearBucket(bucketName, remotePath, awsS3Client)
-    return uploadFiles(bucketName, remotePath, awsS3Client, files)
-  })
+  }
+  return true
 }
 
 module.exports = { uploadRemote }
