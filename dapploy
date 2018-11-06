@@ -11,8 +11,10 @@ const { dapploy } = require(`./src/deployDapp`)
 const { parseConfig, initConfig } = require(`./src/configParser`)
 const { buildAndDeployTemplate, supported } = require(`./src/deployTemplate`)
 const defaultConfig = `.dapploy`
+const version = require(`./package.json`).version
+
 program
-  .version(`0.1.1`)
+  .version(version)
   .option(`-t, --projectDir <dir>`, `Truffle Project Directory`)
   .option(`-n, --network <network>`, `Deploy to network`)
   .option(`-c, --config <config>`, `Config file`, defaultConfig)
@@ -22,7 +24,7 @@ program
   .option(`-l, --clean`, `Clean contracts before migrating`)
   .option(`-r, --remoteOnly`, `Only copy contracts remote`)
   .option(`-p, --pinToIpfs`, `Pin contracts to IPFS for remote access`)
-  .option(`-k, --bucketName`, `Do remote copy of ABI to aws bucket (make sure to setup ~/.aws)`)
+  .option(`-k, --bucketName <bucketName>`, `Do remote copy of ABI to aws bucket (make sure to setup ~/.aws)`)
   .option(`-y, --copyOnly`, `Only do folder copy and S3 copy`)
   .option(`-w, --web3Adapters`, `Create web3 Adapters from contracts dir`)
   .option(`-i, --init`, `Add default config file to current directory`)

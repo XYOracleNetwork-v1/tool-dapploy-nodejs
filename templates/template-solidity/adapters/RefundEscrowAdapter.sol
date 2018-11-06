@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-import "openzeppelin-solidity/contracts/payment/RefundEscrow.sol";
+import "openzeppelin-solidity/contracts/payment/escrow/RefundEscrow.sol";
 
 /**
  * @title Basic Refund Escrow Contract Adapter
