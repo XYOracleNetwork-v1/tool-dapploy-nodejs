@@ -11,8 +11,10 @@ const { dapploy } = require(`./src/deployDapp`)
 const { parseConfig, initConfig } = require(`./src/configParser`)
 const { buildAndDeployTemplate, supported } = require(`./src/deployTemplate`)
 const defaultConfig = `.dapploy`
+const version = require(`./package.json`).version
+
 program
-  .version(`0.1.1`)
+  .version(version)
   .option(`-t, --projectDir <dir>`, `Truffle Project Directory`)
   .option(`-n, --network <network>`, `Deploy to network`)
   .option(`-c, --config <config>`, `Config file`, defaultConfig)
