@@ -234,5 +234,4 @@ Uncomment:
 
 ## Street Cred
 
-Made with ❤️
-by [XYO](https://xyo.network)
+<p align="center">Made with  ❤️  by [<b>XY - The Persistent Company</b>] (https://xy.company)</p>
