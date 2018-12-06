@@ -5,7 +5,7 @@
   "dependencies": {
     "big-integer": "^1.6.34",
     "glamor": "^2.20.40",
-    "glamorous": "^4.13.1",
+    "glamorous": "^5.0.0",
     "ipfs-api": "^24.0.2",
     "portis": "^1.2.5",
     "react": "^16.4.1",
