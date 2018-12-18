@@ -16,7 +16,7 @@
     "configparser": "^0.2.6",
     "ipfs-api": "^26.1.2",
     "shelljs": "^0.8.2",
-    "truffle": "^4.1.13",
+    "truffle": "^5.0.0",
     "untildify": "^3.0.3",
     "web3": "^1.0.0-beta.35"
   },
