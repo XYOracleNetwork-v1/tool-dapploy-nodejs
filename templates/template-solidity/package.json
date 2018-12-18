@@ -14,7 +14,7 @@
     "openzeppelin-solidity": "^2.0.0",
     "portis": "^1.2.5",
     "truffle": "^4.1.14",
-    "truffle-hdwallet-provider": "^0.0.6",
+    "truffle-hdwallet-provider": "^1.0.0",
     "web3": "^1.0.0-beta.35"
   },
   "scripts": {
