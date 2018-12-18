@@ -13,7 +13,7 @@
     "ganache-cli": "^6.1.8",
     "openzeppelin-solidity": "^2.0.0",
     "portis": "^1.2.5",
-    "truffle": "^4.1.14",
+    "truffle": "^5.0.0",
     "truffle-hdwallet-provider": "^0.0.6",
     "web3": "^1.0.0-beta.35"
   },
