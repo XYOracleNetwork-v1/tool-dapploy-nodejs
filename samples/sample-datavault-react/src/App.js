@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import './App.css'
-import { web3, DataVault, injectWeb3, validContract } from './web3Adapter-client'
-import ipfs from './ipfs'
 import { Button, Grid, Form } from 'react-bootstrap'
 import { Div, Input } from 'glamorous'
+import {
+  web3, DataVault, injectWeb3, validContract
+} from './web3Adapter-client'
+import ipfs from './ipfs'
 import { Seperator } from './atoms/Seperator'
 import { VaultView } from './molecules/VaultView'
 import { TransactionReceipt } from './molecules/TransactionReceipt'
@@ -13,58 +15,56 @@ const ChangeNetworkDiv = ({ validNetwork }) => {
     return null
   }
   return (
-    <Div css={{ backgroundColor: 'red' }}>
+    <Div css={{ backgroundColor: `red` }}>
       Invalid Network, Change To Network with contracts deployed
     </Div>
   )
 }
 
 class App extends Component {
-  componentWillMount() {
+  componentWillMount () {
     injectWeb3().then(() => {
       this.refreshIPFS()
-      return validContract('DataVault').then(validNetwork =>
-        this.setState({ validNetwork }),
-      )
+      return validContract(`DataVault`).then(validNetwork => this.setState({ validNetwork }))
     })
 
-    console.log('Mounted')
+    console.log(`Mounted`)
   }
 
   state = {
     validNetwork: true,
     ipfsHash: null,
-    buffer: '',
-    ethAddress: '',
-    blockNumber: '',
-    transactionHash: '',
-    gasUsed: '',
-    txReceipt: '',
+    buffer: ``,
+    ethAddress: ``,
+    blockNumber: ``,
+    transactionHash: ``,
+    gasUsed: ``,
+    txReceipt: ``,
     vaults: [],
-    vaultName: 'Satoshe',
+    vaultName: `Satoshe`,
     tokenCount: 0,
-    gasPrice: 0,
+    gasPrice: 0
   }
 
-  captureFile = event => {
+  captureFile = (event) => {
     event.stopPropagation()
     event.preventDefault()
     const file = event.target.files[0]
     if (file) {
-      let reader = new window.FileReader()
+      const reader = new window.FileReader()
       reader.readAsArrayBuffer(file)
       reader.onloadend = () => this.convertToBuffer(reader)
     }
   }
 
-  convertToBuffer = async reader => {
-    //file is converted to a buffer for upload to IPFS
+  convertToBuffer = async (reader) => {
+    // file is converted to a buffer for upload to IPFS
     const buffer = await Buffer.from(reader.result)
-    //set this buffer -using es6 syntax
+    // set this buffer -using es6 syntax
     this.setState({ buffer })
   }
 
-  getMyBalance = async beneficiary => {
+  getMyBalance = async (beneficiary) => {
     const tokenCount = await DataVault.methods.balanceOf(beneficiary).call()
     const tokens = Number(tokenCount)
     this.setState({ tokenCount: tokens })
@@ -72,49 +72,49 @@ class App extends Component {
   }
 
   refreshIPFS = async () => {
-    console.log('DV', DataVault)
+    console.log(`DV`, DataVault)
     try {
       const accounts = await web3.eth.getAccounts()
       const owner = accounts[0]
       if (!owner) {
-        console.log('No Accounts!')
+        console.log(`No Accounts!`)
         return
       }
 
       const tokenCount = await this.getMyBalance(owner)
-      console.log('Received token count: ', tokenCount)
+      console.log(`Received token count: `, tokenCount)
       const results = await Promise.all(
         Array(tokenCount)
           .fill()
-          .map((x, i) =>
-            DataVault.methods.tokenOfOwnerByIndex(owner, i).call(),
-          ),
+          .map((x, i) => DataVault.methods.tokenOfOwnerByIndex(owner, i).call())
       )
       const hashes = await Promise.all(
         results.map((vault, index) => {
-          console.log('Fetching Vault:', vault)
+          console.log(`Fetching Vault:`, vault)
           return DataVault.methods
             .tokenURI(vault)
             .call()
-            .then(metadata => {
+            .then((metadata) => {
               try {
-                let { d, e = false } = JSON.parse(metadata)
-                return { key: index, encrypted: e, vault: vault, ipfsHash: d }
+                const { d, e = false } = JSON.parse(metadata)
+                return {
+                  key: index, encrypted: e, vault, ipfsHash: d
+                }
               } catch (err) {
                 console.log(
-                  'Invalid Metadata, assuming ipfs: ',
+                  `Invalid Metadata, assuming ipfs: `,
                   vault,
-                  metadata,
+                  metadata
                 )
                 return {
                   key: index,
                   encrypted: false,
-                  vault: vault,
-                  ipfsHash: metadata,
+                  vault,
+                  ipfsHash: metadata
                 }
               }
             })
-        }),
+        })
       )
 
       this.setState({ vaults: hashes })
@@ -123,57 +123,56 @@ class App extends Component {
     }
   }
 
-  onSubmit = async event => {
+  onSubmit = async (event) => {
     event.preventDefault()
-    //bring in user's account address
+    // bring in user's account address
     const accounts = await web3.eth.getAccounts()
     const currOwner = accounts[0]
     if (!currOwner) {
       return
     }
 
-    //save document to IPFS,return its hash#, and set hash# to state
-    //https://github.com/ipfs/interface-ipfs-core/blob/master/SPEC/FILES.md#add
+    // save document to IPFS,return its hash#, and set hash# to state
+    // https://github.com/ipfs/interface-ipfs-core/blob/master/SPEC/FILES.md#add
     await ipfs.add(this.state.buffer, (err, ipfsHash) => {
       console.log(err, ipfsHash)
       if (!err) {
         // Protocol for token metadata
         const metadata = {
           d: ipfsHash[0].hash,
-          e: false,
+          e: false
         }
 
         DataVault.methods
           .storeInVault(this.state.vaultName, JSON.stringify(metadata))
           .send({ from: currOwner })
-          .then(receipt => {
-            let { transactionHash, blockNumber, gasUsed } = receipt
-            console.log(' Got Receipt!', receipt)
+          .then((receipt) => {
+            const { transactionHash, blockNumber, gasUsed } = receipt
+            console.log(` Got Receipt!`, receipt)
             this.setState({
               transactionHash,
               ipfsHash: ipfsHash[0].hash,
               txReceipt: receipt,
-              blockNumber: blockNumber,
-              gasUsed: gasUsed,
-              ethAddress: receipt.ethAddress,
+              blockNumber,
+              gasUsed,
+              ethAddress: receipt.ethAddress
             })
           })
-          .catch(err => {
-            console.log('ERROR when saving: ', err)
+          .catch((err) => {
+            console.log(`ERROR when saving: `, err)
           })
       }
     })
   }
 
-  handleChangeName = e =>
-    this.setState({
-      vaultName: e.target.value,
-    })
+  handleChangeName = e => this.setState({
+    vaultName: e.target.value
+  })
 
-  render() {
+  render () {
     return (
-      <div className="App">
-        <header className="App-header">
+      <div className='App'>
+        <header className='App-header'>
           <h1>Dapp Deployer Example - Tokenize a file on the blockchain</h1>
         </header>
 
@@ -183,36 +182,42 @@ class App extends Component {
           <ChangeNetworkDiv validNetwork={this.state.validNetwork} />
 
           <Form onSubmit={this.onSubmit}>
-            <input type="file" onChange={this.captureFile} />
+            <input type='file' onChange={this.captureFile} />
             Token Name:
             <Input
               maxLength={32}
-              placeholder="Satoshe"
+              placeholder='Satoshe'
               onChange={this.handleChangeName}
-              type="vaultName"
+              type='vaultName'
               value={this.state.vaultName}
               css={{
                 paddingLeft: 10,
                 marginLeft: 10,
                 marginRight: 10,
                 border: 0,
-                boxShadow: '0 0 5px 0 rgba(0, 0, 0, 0.39)',
+                boxShadow: `0 0 5px 0 rgba(0, 0, 0, 0.39)`
               }}
             />
-            <Button bsStyle="primary" type="submit">
+            <Button bsStyle='primary' type='submit'>
               Mint Token
             </Button>
           </Form>
           <hr />
-          <h3> My File Tokens ({this.state.tokenCount}) </h3>
+          <h3>
+            {` `}
+My File Tokens (
+            {this.state.tokenCount}
+)
+            {` `}
+          </h3>
 
           <Button onClick={this.refreshIPFS}> Refresh IPFS Tokens </Button>
           <Div
             css={{
-              display: 'flex',
-              flexDirection: 'column',
+              display: `flex`,
+              flexDirection: `column`,
               paddingBottom: 30,
-              paddingLeft: 30,
+              paddingLeft: 30
             }}
           >
             <VaultView vaults={this.state.vaults} />
@@ -222,6 +227,6 @@ class App extends Component {
         </Grid>
       </div>
     )
-  } //render
-} //App
+  } // render
+} // App
 export default App
