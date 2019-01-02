@@ -1,0 +1,13 @@
+  <html>
+
+  <head>
+    <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"> 
+      </script> 
+    <script type=”text/javascript”>
+      var Web3=require(‘web3’);
+      var web3=new Web3(window.web3.currentProvider); const address=‘0x345ca3e014aaf5dca488057592ee47305d9b3e10’;
+      const abi=[ //omitted for brevity ]; var contract=web3.eth.contract(abi); var auction=contract.at(address);
+      auction.number.call(function(e, r) { console.log(r); });
+    </script> </head> <body>
+  </body>
+  </html>
