@@ -11,7 +11,7 @@
     "url": "https://github.com/XYOracleNetwork/tool-dapploy-nodejs/issues"
   },
   "dependencies": {
-    "aws-sdk": "^2.382.0",
+    "aws-sdk": "^2.396.0",
     "commander": "^2.16.0",
     "configparser": "^0.2.6",
     "ipfs-api": "^26.1.2",
