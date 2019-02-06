@@ -8,7 +8,7 @@
     "glamorous": "^4.13.1",
     "ipfs-api": "^24.0.2",
     "portis": "^1.2.5",
-    "react": "^16.4.1",
+    "react": "^16.8.0",
     "react-bootstrap": "^0.32.1",
     "react-dom": "^16.4.1",
     "react-scripts": "2.1.1",
