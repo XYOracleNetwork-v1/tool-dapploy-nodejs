@@ -1,4 +1,4 @@
-pragma solidity ^0.4.25;
+pragma solidity ^0.5.0;
 
 import "openzeppelin-solidity/contracts/token/ERC721/ERC721Metadata.sol";
 
@@ -14,8 +14,8 @@ contract ERC721Adapter is ERC721Metadata {
     */
     constructor
     (
-        string name,
-        string symbol
+    string memory name, 
+    string memory symbol
     ) 
         ERC721Metadata(name, symbol)
         public 

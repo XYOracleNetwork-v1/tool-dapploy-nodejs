@@ -1,4 +1,4 @@
-pragma solidity ^0.4.25;
+pragma solidity ^0.5.0;
 
 import "openzeppelin-solidity/contracts/math/SafeMath.sol";
 import "openzeppelin-solidity/contracts/cryptography/ECDSA.sol";
@@ -21,7 +21,7 @@ contract PaymentChannel {
     // EVENTS
     //============================================================================
 
-    event ChannelOpened(address sender, address recipient, uint expiration, uint256 deposit);
+    event ChannelOpened(address indexed sender, address indexed recipient, uint expiration, uint256 deposit);
     event ChannelClosed(uint256 senderBalance, uint256 recipientBalance);
 
     // Creator of channel
@@ -57,7 +57,7 @@ contract PaymentChannel {
     * @param _balance uint256 The balance agreed to by the sender in their signed message
     * @param _signedMessage bytes The signed hash of the balance by the sender
     */
-    function closeChannel(uint256 _balance, bytes _signedMessage) public {
+    function closeChannel(uint256 _balance, bytes memory _signedMessage) public {
         // only recipient can call closeChannel
         require(msg.sender == recipient);
         require(isValidSignature(_balance, _signedMessage));
@@ -115,7 +115,7 @@ contract PaymentChannel {
     * @param _balance uint256 The balance agreed to by the sender in their signed message
     * @param _signedMessage bytes The signed hash of the balance by the sender
     */
-    function isValidSignature(uint256 _balance, bytes _signedMessage)
+    function isValidSignature(uint256 _balance, bytes memory _signedMessage)
         internal
         view
         returns (bool)

@@ -1,4 +1,4 @@
-pragma solidity ^0.4.25;
+pragma solidity ^0.5.0;
 
 import "openzeppelin-solidity/contracts/token/ERC20/ERC20Mintable.sol";
 
@@ -12,8 +12,8 @@ contract ERC20Adapter is ERC20Mintable {
   uint public _decimals;
 
   constructor (
-    string name, 
-    string symbol, 
+    string memory name, 
+    string memory symbol, 
     uint decimals, 
     uint supply
   )
