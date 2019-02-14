@@ -1,6 +1,6 @@
 {
   "name": "@xyo-network/tool-dapploy-nodejs",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "license": "MIT",
   "description": "Dapploy is a handy CLI tool for dApps. Create, build and dapploy your Smart Contracts!",
   "repository": {
@@ -11,28 +11,28 @@
     "url": "https://github.com/XYOracleNetwork/tool-dapploy-nodejs/issues"
   },
   "dependencies": {
-    "aws-sdk": "^2.382.0",
+    "aws-sdk": "^2.402.0",
     "commander": "^2.16.0",
     "configparser": "^0.2.6",
     "ipfs-api": "^26.1.2",
     "shelljs": "^0.8.3",
-    "truffle": "^5.0.0",
+    "truffle": "^5.0.4",
     "untildify": "^3.0.3",
-    "web3": "^1.0.0-beta.37"
+    "web3": "^1.0.0-beta.46"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
-    "eslint": "^5.11.1",
+    "eslint": "^5.13.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-standard": "^12.0.0",
     "eslint-config-standard-react": "^7.0.2",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-jsx-a11y": "^6.1.1",
-    "eslint-plugin-node": "^8.0.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-node": "^8.0.1",
     "eslint-plugin-promise": "^4.0.0",
-    "eslint-plugin-react": "^7.12.1",
+    "eslint-plugin-react": "^7.12.4",
     "eslint-plugin-standard": "^4.0.0",
-    "ganache-cli": "^6.2.5"
+    "ganache-cli": "^6.3.0"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
