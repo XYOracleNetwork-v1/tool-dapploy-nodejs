@@ -11,10 +11,10 @@
     "babel-preset-stage-3": "^6.24.1",
     "dotenv": "^6.2.0",
     "ganache-cli": "^6.2.5",
-    "openzeppelin-solidity": "^2.1.0-rc.2",
+    "openzeppelin-solidity": "^2.1.1",
     "portis": "^1.3.2",
-    "truffle": "^5.0.0",
-    "truffle-hdwallet-provider": "^1.0.1",
+    "truffle": "^5.0.1",
+    "truffle-hdwallet-provider": "^1.0.2",
     "web3": "^1.0.0-beta.37"
   },
   "scripts": {
