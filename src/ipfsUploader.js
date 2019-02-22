@@ -3,11 +3,12 @@ const IPFS = require(`ipfs-api`)
 const fs = require(`fs`)
 const path = require(`path`)
 
-const ipfs = new IPFS({
-  host: `ipfs.xyo.network`,
+const ipfsParams = {
+  host: `ipfs.layerone.co`,
   port: 5002,
   protocol: `https`
-})
+}
+const ipfs = new IPFS(ipfsParams)
 
 const folder = `contracts`
 
@@ -31,7 +32,7 @@ const addToIPFS = data => new Promise((resolve, reject) => ipfs.add(data, { recu
       if (fileObj.path === folder) {
         console.log(` $ Contracts stored to IPFS`, fileObj.hash)
         console.log(
-          ` $ View contracts at https://ipfs.xyo.network/ipfs/${
+          ` $ View contracts at https://${ipfsParams.host}/ipfs/${
             fileObj.hash
           }`
         )
