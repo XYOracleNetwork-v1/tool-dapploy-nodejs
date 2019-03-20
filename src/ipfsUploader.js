@@ -1,10 +1,10 @@
 const abiFilePaths = require(`./fileReader`).abiFilePaths
-const IPFS = require(`ipfs-api`)
+const IPFS = require(`ipfs-http-client`)
 const fs = require(`fs`)
 const path = require(`path`)
 
 const ipfsParams = {
-  host: `ipfs.layerone.co`,
+  host: `ipfs.xyo.network`,
   port: 5002,
   protocol: `https`
 }
@@ -23,42 +23,30 @@ const pinToIPFS = hash => new Promise((resolve, reject) => {
   })
 })
 
-const addToIPFS = data => new Promise((resolve, reject) => ipfs.add(data, { recursive: true }, (err, res) => {
+const addToIPFS = data => new Promise((resolve, reject) => ipfs.add(data, { wrapWithDirectory: false }, (err, res) => {
   if (err) {
     console.log(`Got IPFS error:`, err)
     reject(err)
   } else {
     res.forEach((fileObj) => {
-      if (fileObj.path === folder) {
-        console.log(` $ Contracts stored to IPFS`, fileObj.hash)
-        console.log(
-          ` $ View contracts at https://${ipfsParams.host}/ipfs/${
-            fileObj.hash
-          }`
-        )
-        resolve(fileObj.hash)
+      if (!fileObj.path.includes(`Mock`)) {
+        console.log(`${fileObj.path}: ${fileObj.hash}`)
       }
     })
-    reject(
-      new Error(
-        `No folder returned saving the IPFS file, this shouldn't happen`
-      )
-    )
   }
 }))
 
 const uploadIPFS = program => abiFilePaths(program)
   .then((files) => {
-    const data = []
+    const promises = []
     files.forEach((filePath) => {
       const content = fs.readFileSync(filePath)
-      const ipfsPath = `${folder}/${path.basename(filePath)}`
-      data.push({ path: ipfsPath, content })
+      // const ipfsPath = `/${folder}/${path.basename(filePath)}`
+      promises.push(addToIPFS({ path: path.basename(filePath), content }))
     })
-    return data
+
+    return Promise.all(promises)
   })
-  .then(addToIPFS)
-  .then(pinToIPFS)
   .catch((err) => {
     console.log(err)
   })

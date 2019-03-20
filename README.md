@@ -70,7 +70,8 @@ Options:
   -a, --includeContracts [Contract1,Contract2]  Include contracts from the web3 interface (files are still copied)
   -l, --clean                                   Clean contracts before migrating
   -r, --remoteOnly                              Only copy contracts remote
-  -p, --pinToIpfs                               Pin contracts to IPFS for remote access
+  -p, --pinToIpfs                               Pin contracts to IPFS for remote 
+  -P, --postSaveToIpfs                          Save contracts to IPFS for remoteaccess after migrating
   -k, --bucketName                              Do remote copy of ABI to aws bucket (make sure to setup ~/.aws)
   -y, --copyOnly                                Only do folder copy and S3 copy
   -i, --init                                    Add default config file to current directory

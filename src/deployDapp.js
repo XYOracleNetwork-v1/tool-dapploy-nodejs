@@ -62,7 +62,7 @@ const createWeb3Module = (program, contracts) => {
   }
 }
 
-const dapploy = (program) => {
+const dapploy = async (program) => {
   console.log(`Running dapploy`)
 
   if (program.remoteOnly) {
@@ -89,11 +89,15 @@ const dapploy = (program) => {
       }
       return copyContractsLocal(program)
     })
-    .then(() => {
+    .then(async () => {
       if (program.bucketName) {
-        return uploadRemote(program)
+        console.log(` # Uploading to AWS bucket`)
+        await uploadRemote(program)
       }
-      console.log(` # Skipping AWS bucket upload`)
+      if (program.postSaveToIpfs) {
+        console.log(` # Upoading to IPFS`)
+        await uploadIPFS(program)
+      }
       return Promise.resolve(undefined)
     })
 }
