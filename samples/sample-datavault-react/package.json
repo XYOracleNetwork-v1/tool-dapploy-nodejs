@@ -10,7 +10,7 @@
     "portis": "^1.2.5",
     "react": "^16.8.6",
     "react-bootstrap": "^0.32.1",
-    "react-dom": "^16.4.1",
+    "react-dom": "^16.8.6",
     "react-scripts": "2.1.1",
     "web3": "^1.0.0-beta.35"
   },
