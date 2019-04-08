@@ -127,13 +127,6 @@ cd my-first-coin
 
 Congrats, you just built your first ERC-20 Token! Head on over to [Dapper](https://github.com/XYOracleNetwork/tool-dapper-react) to play with it in a web-ui
 
-4. Checkout some dapploy samples to get another Dapp built with dapploy that uses IPFS and Dapploy's web3 adapter.
-
-```
-cd samples/sample-datavault-solidity && dapploy
-
-cd ../sample-datavault-react && yarn start
-```
 
 # Want to make your ABI public? dapploy to IPFS!
 
