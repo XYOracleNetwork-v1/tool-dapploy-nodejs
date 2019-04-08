@@ -2,11 +2,6 @@ language: node_js
 node_js:
   - "10"
 
-before_install:
-  - cd templates/template-solidity
-  - yarn global add tool-dapploy-nodejs
-  - cd ../..
-
 script:
   - ./dapploy init test
   - cd test
