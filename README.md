@@ -1,33 +1,27 @@
-<h1 align="center">
+<h1 align="left">
   <img alt="Dapploy" src="http://xyo.network.s3.amazonaws.com/img/dapploy-logo.jpg" width="300">
 </h1>
-<h3 align="center">
+<h3 align="left">
   "The Swiss Army Knife for dApp Deployment!"
 </h3>
 
-<p align="center">
-  <a href="https://circleci.com/gh/XYOracleNetwork/tool-dappdeployer-nodejs">
-    <img alt="Circle Status" src="https://circleci.com/gh/XYOracleNetwork/tool-dapploy-nodejs.svg?style=shield&circle-token=17875bb2726cc569f5426d27748d6386f2401f5b">
-  </a>
-  <a href="https://gitter.im/XYOracleNetwork/Dev">
-    <img alt="Gitter Chat" src="https://img.shields.io/gitter/room/XYOracleNetwork/Stardust.svg">
-  </a>
-  <a href="http://commitizen.github.io/cz-cli/">
-    <img alt="Commitizen friendly" src="https://img.shields.io/badge/web3-friendly-brightgreen.svg">
-    </a>
-    <a href="https://david-dm.org/xyoraclenetwork/tool-dapploy-nodejs" title="dependencies status"><img src="https://david-dm.org/xyoraclenetwork/tool-dapploy-nodejs/status.svg"/></a>
-  <a href="https://david-dm.org/xyoraclenetwork/tool-dapploy-nodejs?type=dev" title="devDependencies status"><img src="https://david-dm.org/xyoraclenetwork/tool-dapploy-nodejs/dev-status.svg"/></a>
-  <a href="https://bettercodehub.com/results/XYOracleNetwork/tool-dapploy-nodejs" title="Better Code"><img src="https://bettercodehub.com/edge/badge/XYOracleNetwork/tool-dapploy-nodejs?branch=master"/></a>
-</p>
+[logo]: https://cdn.xy.company/img/brand/XY_Logo_GitHub.png
 
-<p align="center">
-  Made with ❤️
-  <br/>by [XYO](https://xyo.network)
-</p>
+[![logo]](https://xy.company)
 
 ---
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/XYOracleNetwork/tool-dapploy-nodejs.svg)](https://greenkeeper.io/)
+
+[![David Badge](https://david-dm.org/xyoraclenetwork/tool-dapploy-nodejs/status.svg)](https://david-dm.org/xyoraclenetwork/tool-dapploy-nodejs) [![David Badge](https://david-dm.org/xyoraclenetwork/tool-dapploy-nodejs/dev-status.svg)](https://david-dm.org/xyoraclenetwork/tool-dapploy-nodejs) [![BCH compliance](https://bettercodehub.com/edge/badge/XYOracleNetwork/tool-dapploy-nodejs?branch=master)](https://bettercodehub.com/results/XYOracleNetwork/tool-dapploy-nodejs)
+
+[![Build Status](https://travis-ci.com/XYOracleNetwork/tool-dapploy-nodejs.svg?branch=develop)](https://travis-ci.com/XYOracleNetwork/tool-dapploy-nodejs)
+
+<p align="left">
+  <a href="https://gitter.im/XYOracleNetwork/Dev">
+    <img alt="Gitter Chat" src="https://img.shields.io/gitter/room/XYOracleNetwork/Stardust.svg">
+  </a>
+</p>
 
 Finally, you can deploy dApps in less than 5 seconds flat WITHOUT even lifting a finger... Guaranteed!
 
