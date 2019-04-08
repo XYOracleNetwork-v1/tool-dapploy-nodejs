@@ -30,7 +30,7 @@ const updateMigration = (distPath, whichContract) => {
   shell.sed(`-i`, `CONTRACT_REQUIRE`, requireString, migrationFile)
 }
 
-const deployTemplate = (distPath, whichContract) => {
+const deployTemplate = async (distPath, whichContract) => {
   const templatePath = `${__dirname}/../templates/template-solidity/`
   console.log(` $ Creating truffle project in ${distPath} from ${templatePath}`)
   console.log(` $ Copying ${templatePath} to ${distPath}`)
@@ -38,10 +38,12 @@ const deployTemplate = (distPath, whichContract) => {
   // Copy to temp folder before moving to destination in case src and dest are the same
   // Is there a cleaner way?
   // cp -rfpiU... all just throw errors when src == dest, and paths strings
-  const cp = `mkdir -p ${distPath} && \
-  cp -rp ${templatePath} ${distPath} && \
-  cp ${distPath}/adapters/${whichContract}Adapter.sol ${distPath}/contracts/`
-  return execPromise(cp)
+
+  await execPromise(`mkdir -p ${distPath}`)
+  await execPromise(`cp -rp ${templatePath}/* ${distPath}`)
+  return execPromise(
+    `cp ${distPath}/adapters/${whichContract}Adapter.sol ${distPath}/contracts/`
+  )
 }
 
 const getTemplateContract = (program) => {
@@ -75,16 +77,12 @@ const buildAndDeployTemplate = (program) => {
   const distPath = program.initPath || `./`
   const whichContract = getTemplateContract(program)
   return checkDistributionPath(distPath)
-    .then(
-      () => deployTemplate(distPath, whichContract)
-    )
-    .then(
-      () => {
-        updateMigration(distPath, whichContract)
-        console.log(` $ Building template`)
-        return execPromise(`cd ${distPath} && yarn`)
-      }
-    )
+    .then(() => deployTemplate(distPath, whichContract))
+    .then(() => {
+      updateMigration(distPath, whichContract)
+      console.log(` $ Building template`)
+      return execPromise(`cd ${distPath} && yarn`)
+    })
 }
 
 module.exports = { supported, buildAndDeployTemplate }
