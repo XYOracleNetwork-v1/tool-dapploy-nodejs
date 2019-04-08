@@ -11,7 +11,7 @@ const tempContractsOutput = `/tmp/tempContractsOutputFolder`
 /* Copies the contracts in the specified project to a local project (react client, etc)
 
 */
-const copyContractsLocal = (program) => {
+const copyContractsLocal = async (program) => {
   if (!program.contractOutput) {
     console.log(
       ` $ Skipping local copy add contractOutput param if you want to copy the ABI locally`
@@ -29,12 +29,12 @@ const copyContractsLocal = (program) => {
   // Copy to temp folder before moving to destination in case src and dest are the same
   // Is there a cleaner way?
   // cp -rfpiU... all just throw errors when src == dest, and paths strings
-  const cp = `mkdir -p ${tempContractsOutput} && 
-  mkdir -p ${program.contractOutput} && \
-  cp -p ${fromPath} ${tempContractsOutput} && \
-  mv ${tempContractsOutput}/* ${program.contractOutput} && \
-  rm -rf ${tempContractsOutput}`
-  return execPromise(cp)
+
+  await execPromise(`mkdir -p ${tempContractsOutput}`)
+  await execPromise(`mkdir -p ${program.contractOutput}`)
+  await execPromise(`cp -p ${fromPath} ${tempContractsOutput}`)
+  await execPromise(`mv ${tempContractsOutput}/* ${program.contractOutput}`)
+  return execPromise(`rm -rf ${tempContractsOutput}`)
 }
 
 const cleanIfNeeded = (program) => {
