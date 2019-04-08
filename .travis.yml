@@ -1,28 +1,16 @@
-version: 2
+language: node_js
+node_js:
+  - "10"
 jobs:
   build:
-    docker:
-      - image: circleci/node:8
-
-    working_directory: ~/dapploy
-
     steps:
-      - checkout
-
       - run:
           name: 'Checking Versions'
           command: |
             node --version
             npm --version
 
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-
-      - run:
+      - install:
           name: 'Build global project'
           command: |
             sudo npm install -g tool-dapploy-nodejs --unsafe-perm=true
@@ -44,13 +32,5 @@ jobs:
             sleep 5
             node_modules/.bin/truffle test 
             cd ../..
-            ./dapploy -c .circleci/circle_dapploy.conf 
+            ./dapploy -c .travisci/travis_dapploy.conf 
 
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
-
-      # TODO run some more tests
-      - store_test_results:
-          path: reports
