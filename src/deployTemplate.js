@@ -40,8 +40,8 @@ const deployTemplate = async (distPath, whichContract) => {
   // cp -rfpiU... all just throw errors when src == dest, and paths strings
 
   await execPromise(`mkdir -p ${distPath}`)
-  await execPromise(`cp -rp ${templatePath}/* ${distPath}`)
-  await execPromise(`cp -rp ${templatePath}/.* ${distPath}`)
+  await execPromise(`cp -r ${templatePath}/* ${distPath}`)
+  await execPromise(`cp -r ${templatePath}/.* ${distPath}`)
   return execPromise(
     `cp ${distPath}/adapters/${whichContract}Adapter.sol ${distPath}/contracts/`
   )

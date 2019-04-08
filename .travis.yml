@@ -7,5 +7,5 @@ script:
   - cd test
   - node_modules/.bin/ganache-cli > /dev/null &
   - sleep 5
-  - ../dapploy 
+  - ../dapploy -c .dapploy
 
