@@ -1,36 +1,19 @@
 language: node_js
 node_js:
   - "10"
-jobs:
-  build:
-    steps:
-      - run:
-          name: 'Checking Versions'
-          command: |
-            node --version
-            npm --version
 
-      - install:
-          name: 'Build global project'
-          command: |
-            sudo npm install -g tool-dapploy-nodejs --unsafe-perm=true
+before_install:
+  - cd samples/sample-datavault-solidity
+  - yarn
+  - cd ../sample-datavault-react/
+  - yarn
+  - cd ../..
 
-          name: 'Yarn project and samples'
-          command: |
-            yarn
-            cd samples/sample-datavault-solidity
-            yarn
-            cd ../sample-datavault-react/
-            yarn
-            cd ../..
-
-      - run:
-          name: 'Run ganache-cli, test truffle, test dapploy'
-          command: |
-            cd samples/sample-datavault-solidity
-            node_modules/.bin/ganache-cli > /dev/null &
-            sleep 5
-            node_modules/.bin/truffle test 
-            cd ../..
-            ./dapploy -c .travisci/travis_dapploy.conf 
+script:
+  - cd samples/sample-datavault-solidity
+  - node_modules/.bin/ganache-cli > /dev/null &
+  - sleep 5
+  - node_modules/.bin/truffle test 
+  - cd ../..
+  - ./dapploy -c .travisci/travis_dapploy.conf 
 
