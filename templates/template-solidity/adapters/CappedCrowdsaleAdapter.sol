@@ -1,6 +1,6 @@
-pragma solidity ^0.5.0;
+pragma solidity >=0.5.0 <0.6.0;
 
-import "openzeppelin-solidity/contracts/crowdsale/validation/CappedCrowdsale.sol";
+import "./crowdsale/validation/CappedCrowdsale.sol";
 
 /**
  * @title Capped Crowdsale contract adapter
