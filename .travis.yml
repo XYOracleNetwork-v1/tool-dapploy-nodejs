@@ -3,14 +3,13 @@ node_js:
   - "10"
 
 before_install:
-  - cd samples/sample-datavault-solidity
-  - yarn
-  - cd ../sample-datavault-react/
+  - cd templates/template-solidity
   - yarn
   - cd ../..
 
 script:
-  - cd samples/sample-datavault-solidity
+  - ./dapploy init test
+  - cd templates/template-solidity
   - node_modules/.bin/ganache-cli > /dev/null &
   - sleep 5
   - node_modules/.bin/truffle test 
