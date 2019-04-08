@@ -1,0 +1,24 @@
+{
+  "name": "template-solidity",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "babel-preset-stage-3": "^6.24.1",
+    "dotenv": "^7.0.0",
+    "ganache-cli": "^6.4.2",
+    "openzeppelin-solidity": "^2.2.0",
+    "portis": "^1.3.4",
+    "truffle": "^5.0.11",
+    "truffle-hdwallet-provider": "^1.0.6",
+    "web3": "^1.0.0-beta.52"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-server": "babel src --out-dir .compiled --source-maps --watch"
+  }
+}

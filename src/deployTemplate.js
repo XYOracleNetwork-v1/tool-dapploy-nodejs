@@ -41,6 +41,7 @@ const deployTemplate = async (distPath, whichContract) => {
 
   await execPromise(`mkdir -p ${distPath}`)
   await execPromise(`cp -rp ${templatePath}/* ${distPath}`)
+  await execPromise(`cp -rp ${templatePath}/.* ${distPath}`)
   return execPromise(
     `cp ${distPath}/adapters/${whichContract}Adapter.sol ${distPath}/contracts/`
   )
