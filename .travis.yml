@@ -5,6 +5,7 @@ node_js:
 script:
   - ./dapploy init test
   - cd test
+  - yarn
   - node_modules/.bin/ganache-cli > /dev/null &
   - sleep 5
   - ../dapploy -c .dapploy
