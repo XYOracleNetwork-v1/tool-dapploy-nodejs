@@ -4,15 +4,13 @@ node_js:
 
 before_install:
   - cd templates/template-solidity
-  - yarn
+  - yarn global add tool-dapploy-nodejs
   - cd ../..
 
 script:
   - ./dapploy init test
-  - cd templates/template-solidity
+  - cd test
   - node_modules/.bin/ganache-cli > /dev/null &
   - sleep 5
-  - node_modules/.bin/truffle test 
-  - cd ../..
-  - ./dapploy -c .travisci/travis_dapploy.conf 
+  - ../dapploy 
 
