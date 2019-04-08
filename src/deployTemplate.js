@@ -31,7 +31,7 @@ const updateMigration = (distPath, whichContract) => {
 }
 
 const deployTemplate = async (distPath, whichContract) => {
-  const templatePath = `${__dirname}/../templates/template-solidity/`
+  const templatePath = `${__dirname}/../templates/template-solidity`
   console.log(` $ Creating truffle project in ${distPath} from ${templatePath}`)
   console.log(` $ Copying ${templatePath} to ${distPath}`)
 
