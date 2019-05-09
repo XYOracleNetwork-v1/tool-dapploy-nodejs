@@ -10,12 +10,9 @@
 [![logo]](https://xy.company)
 
 ---
+[![Build Status](https://travis-ci.com/XYOracleNetwork/tool-dapploy-nodejs.svg?branch=develop)](https://travis-ci.com/XYOracleNetwork/tool-dapploy-nodejs) [![Maintainability](https://api.codeclimate.com/v1/badges/f3dd4f4d35e1bd9eeabc/maintainability)](https://codeclimate.com/github/XYOracleNetwork/tool-dapploy-nodejs/maintainability) [![DepShield Badge](https://depshield.sonatype.org/badges/XYOracleNetwork/tool-dapploy-nodejs/depshield.svg)](https://depshield.github.io) [![David Badge](https://david-dm.org/xyoraclenetwork/tool-dapploy-nodejs/status.svg)](https://david-dm.org/xyoraclenetwork/tool-dapploy-nodejs)
+[![David Badge](https://david-dm.org/xyoraclenetwork/tool-dapploy-nodejs/status.svg)](https://david-dm.org/xyoraclenetwork/tool-dapploy-nodejs) [![David Badge](https://david-dm.org/xyoraclenetwork/tool-dapploy-nodejs/dev-status.svg)](https://david-dm.org/xyoraclenetwork/tool-dapploy-nodejs) [![BCH compliance](https://bettercodehub.com/edge/badge/XYOracleNetwork/tool-dapploy-nodejs?branch=master)](https://bettercodehub.com/results/XYOracleNetwork/tool-dapploy-nodejs) [![Sonarcloud Status](https://sonarcloud.io/api/project_badges/measure?project=XYOracleNetwork_sdk-core-nodejs&metric=alert_status)](https://sonarcloud.io/dashboard?id=XYOracleNetwork_sdk-core-nodejs) 
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/XYOracleNetwork/tool-dapploy-nodejs.svg)](https://greenkeeper.io/)
-
-[![David Badge](https://david-dm.org/xyoraclenetwork/tool-dapploy-nodejs/status.svg)](https://david-dm.org/xyoraclenetwork/tool-dapploy-nodejs) [![David Badge](https://david-dm.org/xyoraclenetwork/tool-dapploy-nodejs/dev-status.svg)](https://david-dm.org/xyoraclenetwork/tool-dapploy-nodejs) [![BCH compliance](https://bettercodehub.com/edge/badge/XYOracleNetwork/tool-dapploy-nodejs?branch=master)](https://bettercodehub.com/results/XYOracleNetwork/tool-dapploy-nodejs)
-
-[![Build Status](https://travis-ci.com/XYOracleNetwork/tool-dapploy-nodejs.svg?branch=develop)](https://travis-ci.com/XYOracleNetwork/tool-dapploy-nodejs)
 
 <p align="left">
   <a href="https://gitter.im/XYOracleNetwork/Dev">

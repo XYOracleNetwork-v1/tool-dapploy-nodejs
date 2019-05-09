@@ -1,11 +1,14 @@
 language: node_js
 node_js:
   - "10"
-
+addons:
+  sonarcloud:
+    organization: xyo-network
 script:
   - ./dapploy init test
   - cd test
   - yarn
+  - sonar-scanner
   - node_modules/.bin/ganache-cli > /dev/null &
   - sleep 5
   - ../dapploy -c .dapploy
