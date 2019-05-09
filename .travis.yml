@@ -4,6 +4,8 @@ node_js:
 addons:
   sonarcloud:
     organization: xyo-network
+    token:
+      secure: ${SONAR_TOKEN}
 script:
   - ./dapploy init test
   - cd test
