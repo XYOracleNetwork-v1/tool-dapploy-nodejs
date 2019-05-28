@@ -158,11 +158,11 @@ _NOTE_ You don't need to specify `-n network` if you change `.dapploy` configura
 
 If you are feeling adventurous run a local testnet node:
 
-### [Ropsten testnet node setup (Geth)](https://github.com/XYOracleNetwork/tool-dapploy-nodejs/wiki/Local-Ropsten-Config)
+[Ropsten testnet node setup (Geth)](https://github.com/XYOracleNetwork/tool-dapploy-nodejs/wiki/Local-Ropsten-Config)
 
-### [Kovan testnet node setup (Parity)](https://github.com/XYOracleNetwork/tool-dapploy-nodejs/wiki/Kovan-setup-(Parity))
+[Kovan testnet node setup (Parity)](https://github.com/XYOracleNetwork/tool-dapploy-nodejs/wiki/Kovan-setup-(Parity))
 
-# Want your dApp to support multiple browsers?
+### Multiple Browser Support
 
 1.  Setup account with [portis.io](https://portis.io)
 
