@@ -1,27 +1,30 @@
-<h1 align="left">
-  <img alt="Dapploy" src="http://xyo.network.s3.amazonaws.com/img/dapploy-logo.jpg" width="300">
-</h1>
-<h3 align="left">
-  "The Swiss Army Knife for dApp Deployment!"
-</h3>
-
 [logo]: https://cdn.xy.company/img/brand/XY_Logo_GitHub.png
 
 [![logo]](https://xy.company)
 
 ---
-[![Build Status](https://travis-ci.com/XYOracleNetwork/tool-dapploy-nodejs.svg?branch=develop)](https://travis-ci.com/XYOracleNetwork/tool-dapploy-nodejs) [![Maintainability](https://api.codeclimate.com/v1/badges/f3dd4f4d35e1bd9eeabc/maintainability)](https://codeclimate.com/github/XYOracleNetwork/tool-dapploy-nodejs/maintainability) [![DepShield Badge](https://depshield.sonatype.org/badges/XYOracleNetwork/tool-dapploy-nodejs/depshield.svg)](https://depshield.github.io) [![David Badge](https://david-dm.org/xyoraclenetwork/tool-dapploy-nodejs/status.svg)](https://david-dm.org/xyoraclenetwork/tool-dapploy-nodejs)
-[![David Badge](https://david-dm.org/xyoraclenetwork/tool-dapploy-nodejs/status.svg)](https://david-dm.org/xyoraclenetwork/tool-dapploy-nodejs) [![David Badge](https://david-dm.org/xyoraclenetwork/tool-dapploy-nodejs/dev-status.svg)](https://david-dm.org/xyoraclenetwork/tool-dapploy-nodejs) [![BCH compliance](https://bettercodehub.com/edge/badge/XYOracleNetwork/tool-dapploy-nodejs?branch=master)](https://bettercodehub.com/results/XYOracleNetwork/tool-dapploy-nodejs) [![Sonarcloud Status](https://sonarcloud.io/api/project_badges/measure?project=XYOracleNetwork_sdk-core-nodejs&metric=alert_status)](https://sonarcloud.io/dashboard?id=XYOracleNetwork_sdk-core-nodejs) 
+# dApploy 
 
-[![Known Vulnerabilities](https://snyk.io/test/github/XYOracleNetwork/tool-dapploy-nodejs/badge.svg)](https://snyk.io/test/github/XYOracleNetwork/tool-dapploy-nodejs)
+[![Build Status](https://travis-ci.com/XYOracleNetwork/tool-dapploy-nodejs.svg?branch=develop)](https://travis-ci.com/XYOracleNetwork/tool-dapploy-nodejs) [![Maintainability](https://api.codeclimate.com/v1/badges/f3dd4f4d35e1bd9eeabc/maintainability)](https://codeclimate.com/github/XYOracleNetwork/tool-dapploy-nodejs/maintainability) [![DepShield Badge](https://depshield.sonatype.org/badges/XYOracleNetwork/tool-dapploy-nodejs/depshield.svg)](https://depshield.github.io) [![BCH compliance](https://bettercodehub.com/edge/badge/XYOracleNetwork/tool-dapploy-nodejs?branch=master)](https://bettercodehub.com/results/XYOracleNetwork/tool-dapploy-nodejs) [![Sonarcloud Status](https://sonarcloud.io/api/project_badges/measure?project=XYOracleNetwork_sdk-core-nodejs&metric=alert_status)](https://sonarcloud.io/dashboard?id=XYOracleNetwork_sdk-core-nodejs) [![Known Vulnerabilities](https://snyk.io/test/github/XYOracleNetwork/tool-dapploy-nodejs/badge.svg)](https://snyk.io/test/github/XYOracleNetwork/tool-dapploy-nodejs)
 
+[![Chat](https://img.shields.io/gitter/room/XYOracleNetwork/Stardust.svg
+)](https://gitter.im/XYOracleNetwork/Dev
+)
 
-<p align="left">
-  <a href="https://gitter.im/XYOracleNetwork/Dev">
-    <img alt="Gitter Chat" src="https://img.shields.io/gitter/room/XYOracleNetwork/Stardust.svg">
-  </a>
-</p>
+## Table of Contents
 
+- [Title](#dapploy)
+- [Getting Started](#getting-started)
+- [Install](#install)
+- [Usage](#usage)
+- [Creating a smart contract](#creating-a-smart-contract)
+- [dApploy an ABI to IPFS](#dapploy-an-abi-to-ipfs)
+- [dApploy to public testnet or mainnet](#dapploy-to-public-testnet-or-mainnet)
+- [Use S3 to host your ABI](#use-s3-to-host-your-abi)
+- [License](#license)
+- [Credits](#credits)
+
+## Getting Started
 Finally, you can deploy dApps in less than 5 seconds flat WITHOUT even lifting a finger... Guaranteed!
 
 OK, you may have to lift a finger.
@@ -30,7 +33,7 @@ But here's the deal.
 
 We've gone through the hoops of deploying dApps on the Ethereum Network and have nuked out all of the annoying parts to make dapployment a breeze.
 
-# Pt. I. Let's Get Crack-a-Lackin'
+### Install
 
 1. Install from source to get access to the sample projects. Remember, 'YARN ALL THE THINGS' from the main project dir by running this:
 
@@ -45,6 +48,8 @@ sudo yarn global add tool-dapploy-nodejs
 OR
 sudo npm install -g tool-dapploy-nodejs --unsafe-perm=true --allow-root
 ```
+
+### Usage
 
 3. Run `dapploy -h` to see the options:
 
@@ -88,9 +93,9 @@ Options:
 echo "alias dapploy=\"/<path_to_project>/tool-dapploy-nodejs/dapploy\""| cat >> .bash_profile
 ```
 
-# Pt II. This Time, It's Personal
+### Creating a smart contract
 
-### Feature #1: `dapploy init` - create a new smart contract project!
+`dapploy init` - create a new smart contract project
 
 1. Create a new ERC20 project using dapploy:
 
@@ -121,7 +126,7 @@ cd my-first-coin
 Congrats, you just built your first ERC-20 Token! Head on over to [Dapper](https://github.com/XYOracleNetwork/tool-dapper-react) to play with it in a web-ui
 
 
-# Want to make your ABI public? dapploy to IPFS!
+### dApploy an ABI to IPFS
 
 ```
 dapploy -p
@@ -130,7 +135,7 @@ dapploy -p
  $ View contracts at https://ipfs.xyo.network/ipfs/QmZ2Ezv4nsQ5tqGoHz4pUxa9GW88TWKMSzdxdMfxsHerWT
 ```
 
-# Would you like to Dapploy to public testnet or mainnet?
+### dApploy to public testnet or mainnet
 
 1. [Sign up for Infura](https://infura.io/)
 
@@ -194,7 +199,7 @@ Uncomment:
 # infuraApiKey=<INFURA_API_KEY>
 ```
 
-# Want to use S3 to host your ABI?
+### Use S3 to host your ABI
 
 1.  Confugure your AWS credentials in terminal by creating credentials file. [S3 credential instructions here](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.html):
 
@@ -219,6 +224,11 @@ Uncomment:
 #remotePath=ABI
 ```
 
-## Street Cred
+## License
 
-<p align="center">Made with  ❤️  by [<b>XY - The Persistent Company</b>] (https://xy.company)</p>
+See the [LICENSE.md](LICENSE) file for license details.
+
+## Credits
+
+Made with 🔥and ❄️ by [XY - The Persistent Company](https://www.xy.company)
+
