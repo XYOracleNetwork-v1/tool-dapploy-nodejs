@@ -11,14 +11,14 @@
     "url": "https://github.com/XYOracleNetwork/tool-dapploy-nodejs/issues"
   },
   "dependencies": {
-    "aws-sdk": "^2.437.0",
+    "aws-sdk": "^2.451.0",
     "commander": "^2.20.0",
-    "configparser": "^0.2.6",
-    "ipfs-http-client": "^30.1.1",
+    "configparser": "^0.3.6",
+    "ipfs-http-client": "^30.1.4",
     "shelljs": "^0.8.3",
-    "truffle": "^5.0.11",
-    "untildify": "^3.0.3",
-    "web3": "^1.0.0-beta.52"
+    "truffle": "^5.0.15",
+    "untildify": "^4.0.0",
+    "web3": "^1.0.0-beta.54"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
@@ -26,13 +26,13 @@
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-standard": "^12.0.0",
     "eslint-config-standard-react": "^7.0.2",
-    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-import": "^2.17.2",
     "eslint-plugin-jsx-a11y": "^6.2.1",
-    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-node": "^9.0.1",
     "eslint-plugin-promise": "^4.1.1",
-    "eslint-plugin-react": "^7.12.4",
+    "eslint-plugin-react": "^7.13.0",
     "eslint-plugin-standard": "^4.0.0",
-    "ganache-cli": "^6.4.2"
+    "ganache-cli": "^6.4.3"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
