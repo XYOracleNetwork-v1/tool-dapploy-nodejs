@@ -16,10 +16,14 @@
     "portis": "^1.3.4",
     "truffle": "^5.0.11",
     "truffle-hdwallet-provider": "^1.0.6",
-    "web3": "^1.0.0-beta.52"
+    "web3": "^1.0.0-beta.52",
+    "snyk": "^1.189.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build-server": "babel src --out-dir .compiled --source-maps --watch"
-  }
+    "build-server": "babel src --out-dir .compiled --source-maps --watch",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
+  },
+  "snyk": true
 }
