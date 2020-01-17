@@ -14,9 +14,9 @@ jobs:
       with:
         node-version: '10.x'
     - name: start test
-      run: |
-        ./dapploy init test
-        cd test
+      run: ./dapploy init test
+    - name: change to test 
+      run: cd test
     - name: install
       run: yarn install
     - name: move node modules
