@@ -6,7 +6,7 @@ addons:
     organization: xyo-network
 script:
   - sonar-scanner
-  - ./dapploy init test
+  - ./dapploy
   - cd test
   - yarn
   - node_modules/.bin/ganache-cli > /dev/null &
