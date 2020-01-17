@@ -24,4 +24,4 @@ jobs:
     - name: move node modules
       run: node_modules/.bin/ganache-cli > /dev/null & sleep 5
     - name: dapploy
-      run: ../dapploy -c .dapploy
+      run: ./dapploy -c .dapploy
