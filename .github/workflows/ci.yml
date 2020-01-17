@@ -22,8 +22,6 @@ jobs:
     - name: second install
       run: yarn install
     - name: move node modules
-      run: node_modules/.bin/ganache-cli > /dev/null
+      run: node_modules/.bin/ganache-cli > /dev/null & sleep 5
     - name: dapploy
-      run: |
-        sleep 5
-        ../dapploy -c .dapploy
+      run: ../dapploy -c .dapploy
