@@ -19,6 +19,8 @@ jobs:
       run: ./dapploy init test
     - name: change to test 
       run: cd test
+    - name: second install
+      run: yarn install
     - name: move node modules
       run: node_modules/.bin/ganache-cli > /dev/null
     - name: dapploy
