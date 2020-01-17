@@ -18,6 +18,6 @@ jobs:
         ./dapploy init test
         cd test
         yarn install
-        node_modules/.bin/ganache-cli > /dev/null &
+        node_modules/.bin/ganache-cli > /dev/null
         sleep 5
         ../dapploy -c .dapploy
