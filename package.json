@@ -2,7 +2,7 @@
   "name": "@xyo-network/tool-dapploy-nodejs",
   "version": "0.1.7",
   "license": "MIT",
-  "description": "Dapploy is a handy CLI tool for dApps. Create, build and dapploy your Smart Contracts!",
+  "description": "Dapploy is a handy CLI tool for dApps. Create, build, and dapploy your Smart Contracts!",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/XYOracleNetwork/tool-dapploy-nodejs.git"
