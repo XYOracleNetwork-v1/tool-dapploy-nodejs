@@ -13,12 +13,12 @@ jobs:
     - uses: actions/setup-node@v1
       with:
         node-version: '10.x'
+    - name: install
+      run: yarn install
     - name: start test
       run: ./dapploy init test
     - name: change to test 
       run: cd test
-    - name: install
-      run: yarn install
     - name: move node modules
       run: node_modules/.bin/ganache-cli > /dev/null
     - name: dapploy
