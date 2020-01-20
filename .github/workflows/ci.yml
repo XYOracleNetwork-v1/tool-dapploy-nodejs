@@ -15,6 +15,7 @@ jobs:
         node-version: '10.x'
     - uses: sonarsource/sonarcloud-github-action@master
       env: 
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_1 }}
     - name: build
       run: |
