@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push: 
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '10.x'
+    - uses: sonarsource/sonarcloud-github-action@master
+      env: 
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_1 }}
+    - name: build
+      run: |
+          yarn install
+          ./dapploy init test
+          cd test
+          yarn install
+          node_modules/.bin/ganache-cli > /dev/null & sleep 5
+          ../dapploy -c .dapploy
